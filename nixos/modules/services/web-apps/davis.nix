@@ -53,11 +53,16 @@ in {
       '';
     };
 
-    hostname = lib.mkOption {
-      type = lib.types.str;
-      example = "dav.example.com";
+    hostname = mkOption {
+      type = types.str;
+      default = "${user}.${config.networking.fqdnOrHostName}";
+      defaultText = literalExpression ''
+        "${user}.''${config.${options.networking.fqdnOrHostName}}"
+      '';
+      example = "davis.yourdomain.org";
       description = lib.mdDoc ''
-        The hostname to serve davis on.
+        URL of the host, without https prefix. You may want to change it if you
+        run Davis on a different URL than davis.yourdomain.
       '';
     };
 
@@ -66,7 +71,7 @@ in {
         recursiveUpdate
         (import ../web-servers/nginx/vhost-options.nix {inherit config lib;}) {}
       );
-      default = {};
+      default = null;
       example = ''
         {
           serverAliases = [
@@ -141,14 +146,8 @@ in {
     #   cfg.configDir
     # ];
 
-    services.nginx = {
-      enable = mkDefault true;
-      recommendedTlsSettings = true;
-      recommendedOptimisation = true;
-      recommendedGzipSettings = true;
-      recommendedBrotliSettings = true;
-      recommendedProxySettings = true;
-      virtualHosts.${cfg.hostname} = mkMerge [
+    services.nginx.virtualHosts = mkIf (cfg.nginx != null) {
+      "${cfg.hostname}" = mkMerge [
         cfg.nginx
         {
           serverName = cfg.hostname;
