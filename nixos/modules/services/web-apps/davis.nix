@@ -8,9 +8,10 @@ with lib; let
   cfg = config.services.davis;
   webserver = config.services.nginx;
 
-  pkg = cfg.package.override {
-    inherit (cfg) dataDir configDir;
-  };
+  #pkg = cfg.package.override {
+  #  inherit (cfg) dataDir configDir;
+  #};
+  pkgs = cfg.package;
 
   user = "davis";
   group = webserver.group;
@@ -30,12 +31,13 @@ in {
       type = types.str;
     };
 
-    package = mkOption {
-      type = types.package;
-      default = pkgs.davis;
-      defaultText = literalExpression "pkgs.davis";
-      description = lib.mdDoc "Which davis package to use.";
-    };
+    package = mkPackageOption pkgs "davis" {};
+    #package = mkOption {
+    #  type = types.package;
+    #  default = pkgs.davis;
+    #  defaultText = literalExpression "pkgs.davis";
+    #  description = lib.mdDoc "Which davis package to use.";
+    #};
 
     configDir = mkOption {
       type = types.path;
@@ -150,7 +152,7 @@ in {
       "${cfg.hostname}" = mkMerge [
         cfg.nginx
         {
-          serverName = cfg.hostname;
+          # overriding this doesn't make sense as it will break davis
           root = mkForce "${pkg}/html/";
           extraConfig = ''
             charset utf-8;
@@ -161,34 +163,39 @@ in {
                 try_files $uri $uri/ /index.php$is_args$args;
               '';
             };
-            "~* ^/.well-known/(caldav|carddav)$" = {
-              extraConfig = ''
-                return 302 $http_x_forwarded_proto://$host/dav/;
-              '';
-            };
-            "~ ^(.+\.php)(.*)$" = {
-              extraConfig = ''
-                try_files                $fastcgi_script_name =404;
-                include                  ${config.services.nginx.package}/conf/fastcgi_params;
-                include                  ${config.services.nginx.package}/conf/fastcgi.conf;
-                fastcgi_index            index.php;
-                fastcgi_pass             unix:${config.services.phpfpm.pools.davis.socket};
-                fastcgi_param            SCRIPT_FILENAME  $document_root$fastcgi_script_name;
-                fastcgi_param            PATH_INFO        $fastcgi_path_info;
-                fastcgi_split_path_info  ^(.+\.php)(.*)$;
-                fastcgi_param            X-Forwarded-Proto $http_x_forwarded_proto;
-                fastcgi_param            X-Forwarded-Port $http_x_forwarded_port;
-              '';
-            };
-            "~ /(\\.ht)" = {
-              extraConfig = ''
-                deny all;
-                return 404;
-              '';
-            };
+            #"~* ^/.well-known/(caldav|carddav)$" = {
+            #  extraConfig = ''
+            #    return 302 $http_x_forwarded_proto://$host/dav/;
+            #  '';
+            #};
+            #"~ ^(.+\.php)(.*)$" = {
+            #  extraConfig = ''
+            #    try_files                $fastcgi_script_name =404;
+            #    include                  ${config.services.nginx.package}/conf/fastcgi_params;
+            #    include                  ${config.services.nginx.package}/conf/fastcgi.conf;
+            #    fastcgi_index            index.php;
+            #    fastcgi_pass             unix:${config.services.phpfpm.pools.davis.socket};
+            #    fastcgi_param            SCRIPT_FILENAME  $document_root$fastcgi_script_name;
+            #    fastcgi_param            PATH_INFO        $fastcgi_path_info;
+            #    fastcgi_split_path_info  ^(.+\.php)(.*)$;
+            #    fastcgi_param            X-Forwarded-Proto $http_x_forwarded_proto;
+            #    fastcgi_param            X-Forwarded-Port $http_x_forwarded_port;
+            #  '';
+            #};
+            #"~ /(\\.ht)" = {
+            #  extraConfig = ''
+            #    deny all;
+            #    return 404;
+            #  '';
+            #};
           };
         }
       ];
     };
   };
+
+  #meta = {
+  #doc = ./davis.md;
+  #maintainers = with lib.maintainers; [ ramblurr ];
+  #};
 }
