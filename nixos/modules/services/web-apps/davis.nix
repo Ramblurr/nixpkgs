@@ -154,9 +154,6 @@ in {
           serverName = cfg.hostname;
           root = mkForce "${pkg}/html/";
           extraConfig = ''
-            index index.php;
-            rewrite ^/.well-known/caldav /dav.php redirect;
-            rewrite ^/.well-known/carddav /dav.php redirect;
             charset utf-8;
           '';
           locations = {
