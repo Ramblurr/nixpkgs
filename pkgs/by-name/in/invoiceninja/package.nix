@@ -13,16 +13,16 @@ let
   #   when updating make sure to update both (if necessary)
   invoiceninja-ui = buildNpmPackage rec {
     pname = "invoiceninja-ui";
-    version = "02.04.2024.1";
+    version = "14.10.2024.1";
 
     src = fetchFromGitHub {
       owner = "invoiceninja";
       repo = "ui";
       rev = version;
-      hash = "sha256-RjdQJ2QpFh0QzS1WiyjEOi/yl+BUwGqk/UA9lELWz5k=";
+      hash = "sha256-ctMUaqfLrSqvjMDxVhmpeUj1KQmWpWJUyORF6PFejuw=";
     };
 
-    npmDepsHash = "sha256-SW5QbOT0jJrxx81GKI6/kCN+IxGDSnzWQpw7h5B5Mm0=";
+    npmDepsHash = "sha256-BQyIxjmc8wwhJaJVNVpBm2uuFZNt0fhI1d8Tz5ltrR8=";
 
     dontNpmBuild = true;
 
@@ -53,20 +53,21 @@ in
 
 php82.buildComposerProject (finalAttrs: {
   pname = "invoiceninja";
-  version = "5.8.39";
+  version = "5.10.43";
 
   src = fetchFromGitHub {
     owner = "invoiceninja";
     repo = "invoiceninja";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-kt1dFfXPV/OKrRFGZ3LzMcAavxjZ1qeJLdifDtJnWr8=";
+    hash = "sha256-qthREiDkFcuHyarlnUVIaOF9sFzRL+4sXPVzenxKzkY=";
   };
 
-  vendorHash = "sha256-wI5W6ZrUTEi2BPvMWuDq1MS6WfZJg6bvYYkYE0IwauQ=";
+  vendorHash = "sha256-YDxP453xOWRKdHpMe59EhuycsrWYVmKYGrUxtxKVq3M=";
 
-  # the composer.json is valid but has a few warnings that are not critical for our package
+  # the composer.json is valid but has a few warnings
+  # but they are not critical for our package, and upstream declined
+  # to fix them.
   # - invalid spdx license (elastic20)
-  # - "webpatser/laravel-countries" is pointing to a commit-ref
   composerStrictValidation = false;
 
   patches = [
@@ -76,6 +77,7 @@ php82.buildComposerProject (finalAttrs: {
   ];
 
   postInstall = ''
+    set -x
     mv "$out/share/php/${finalAttrs.pname}"/* $out
     mv "$out/share/php/${finalAttrs.pname}"/.env.example $out
     mv $out/bootstrap $out/bootstrap-static
