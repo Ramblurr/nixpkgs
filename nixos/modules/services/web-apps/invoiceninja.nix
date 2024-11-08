@@ -46,7 +46,7 @@ let
   };
   configFile = pkgs.writeText "invoiceninja-env" (lib.generators.toKeyValue { } cfg.environment);
   invoiceninja-manage = pkgs.writeShellScriptBin "invoiceninja-manage" ''
-    cd ${invoiceninja}
+    cd ${invoiceninja}/share/invoiceninja
     sudo=exec
     if [[ "$USER" != ${user} ]]; then
       sudo='exec /run/wrappers/bin/sudo -u ${user}'
@@ -453,16 +453,16 @@ in
 
         # Link the static storage (package provided) to the runtime storage
         mkdir -p ${cfg.dataDir}/storage ${cfg.dataDir}/storage-public
-        rsync -aq --no-perms ${invoiceninja}/storage-static/ ${cfg.dataDir}/storage
+        rsync -aq --no-perms ${invoiceninja}/share/invoiceninja/storage-static/ ${cfg.dataDir}/storage
         chmod -R +w ${cfg.dataDir}/storage ${cfg.dataDir}/storage-public
         chmod g+x ${cfg.dataDir}/storage ${cfg.dataDir}/storage/app ${cfg.dataDir}/storage-public
 
 
         # Link the app.php in the runtime folder.
-        ln -sf ${invoiceninja}/bootstrap-static/app.php ${cfg.runtimeDir}/bootstrap/app.php
+        ln -sf ${invoiceninja}/share/invoiceninja/bootstrap-static/app.php ${cfg.runtimeDir}/bootstrap/app.php
 
         # Link resources in the runtime folder - invoiceninja writes to it at runtime
-        rsync -aq --no-perms ${invoiceninja}/resources-static/ ${cfg.runtimeDir}/resources
+        rsync -aq --no-perms ${invoiceninja}/share/invoiceninja/resources-static/ ${cfg.runtimeDir}/resources
         chmod -R +w ${cfg.runtimeDir}/resources
 
         echo "Running invoiceninja setup tasks"
@@ -504,7 +504,7 @@ in
       virtualHosts."${cfg.domain}" = lib.mkMerge [
         cfg.nginx
         {
-          root = lib.mkForce "${invoiceninja}/public/";
+          root = lib.mkForce "${invoiceninja}/share/invoiceninja/public/";
           locations."/".tryFiles = "$uri $uri/ /index.php?$query_string";
           locations."/favicon.ico".extraConfig = ''
             access_log off; log_not_found off;
