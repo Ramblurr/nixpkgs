@@ -277,7 +277,7 @@ in
         APP_ENV = lib.mkDefault "production";
         APP_DEBUG = lib.mkDefault false;
         APP_URL = lib.mkDefault "https://${cfg.domain}";
-        LOG_CHANNEL = lib.mkDefault "errorlog";
+        LOG_CHANNEL = lib.mkDefault "stack";
         MAIL_MAILER = lib.mkDefault "log";
         TRUSTED_PROXIES = lib.mkDefault (lib.concatStringsSep "," cfg.trustedProxies);
         PHANTOMJS_PDF_GENERATION = lib.mkDefault false;
