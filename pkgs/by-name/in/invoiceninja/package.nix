@@ -1,110 +1,60 @@
-{
+{ stdenv,
   lib,
-  fetchFromGitHub,
-  buildNpmPackage,
-  php82,
+  fetchurl,
   dataDir ? "/var/lib/invoiceninja",
-  runtimeDir ? "/run/invoiceninja",
+  runtimeDir ? "/run/invoiceninja"
 }:
 
-let
-  # NOTE to maintainers:
-  #   this package contains two deriviations invoiceninja (the main one) and invoiceninja-ui (an inner one)
-  #   when updating make sure to update both (if necessary)
-  invoiceninja-ui = buildNpmPackage rec {
-    pname = "invoiceninja-ui";
-    version = "14.10.2024.1";
-
-    src = fetchFromGitHub {
-      owner = "invoiceninja";
-      repo = "ui";
-      rev = version;
-      hash = "sha256-ctMUaqfLrSqvjMDxVhmpeUj1KQmWpWJUyORF6PFejuw=";
-    };
-
-    npmDepsHash = "sha256-BQyIxjmc8wwhJaJVNVpBm2uuFZNt0fhI1d8Tz5ltrR8=";
-
-    dontNpmBuild = true;
-
-    # This mimics upstream's own release process https://github.com/invoiceninja/ui/blob/main/.github/workflows/release.yml
-    postBuild = ''
-      cp .env.example .env
-      npm run build
-    '';
-
-    installPhase = ''
-      runHook preInstall
-
-      mkdir -p $out/
-      cp -r dist/* $out/
-
-      runHook postInstall
-    '';
-
-    meta = {
-      changelog = "https://github.com/invoiceninja/ui/releases/tag/${version}";
-      homepage = "https://github.com/invoiceninja/ui";
-      description = "Invoice Ninja: Web admin portal built with React";
-      license = lib.licenses.elastic20;
-      maintainers = with lib.maintainers; [ ramblurr ];
-    };
-  };
-in
-
-php82.buildComposerProject (finalAttrs: {
+stdenv.mkDerivation (finalAttrs: {
   pname = "invoiceninja";
   version = "5.10.43";
 
-  src = fetchFromGitHub {
-    owner = "invoiceninja";
-    repo = "invoiceninja";
-    rev = "v${finalAttrs.version}";
-    hash = "sha256-qthREiDkFcuHyarlnUVIaOF9sFzRL+4sXPVzenxKzkY=";
+  src = fetchurl {
+    url = "https://github.com/invoiceninja/invoiceninja/releases/download/v${finalAttrs.version}/invoiceninja.tar";
+    hash = "sha256-nFO9nZOy3gFP+gm2JpGqwMWhMQ2gaLrJCmXUj8RVp6c=";
   };
 
-  vendorHash = "sha256-YDxP453xOWRKdHpMe59EhuycsrWYVmKYGrUxtxKVq3M=";
+  sourceRoot = ".";
 
-  # the composer.json is valid but has a few warnings
-  # but they are not critical for our package, and upstream declined
-  # to fix them.
-  # - invalid spdx license (elastic20)
-  composerStrictValidation = false;
-
+  patchFlags = [ "-p0" ];
   patches = [
-    # support connection to mysql and redis with unix domain sockets
+    # support connection redis with unix domain sockets
     # upstream has not yet accepted this patch
-    ./invoiceninja.patch
+    ./invoiceninja-redis.patch
   ];
 
-  postInstall = ''
-    set -x
-    mv "$out/share/php/${finalAttrs.pname}"/* $out
-    mv "$out/share/php/${finalAttrs.pname}"/.env.example $out
-    mv $out/bootstrap $out/bootstrap-static
-    mv $out/storage $out/storage-static
-    mv $out/resources $out/resources-static
-    ln -s ${dataDir}/.env $out/.env
-    ln -s ${dataDir}/storage $out/
-    rm -rf $out/public/storage
-    ln -s ${dataDir}/storage-public $out/public/storage
-    ln -s ${runtimeDir}/bootstrap $out/bootstrap
-    ln -s ${runtimeDir}/resources $out/resources
+  installPhase = ''
+    runHook preInstall
 
-    # Install the UI
-    mkdir -p $out/public/react/v${finalAttrs.version}/
-    cp -r ${invoiceninja-ui}/react/* $out/public/react/v${finalAttrs.version}/
-    cp -r ${invoiceninja-ui}/react/* $out/public/react/
-    set -eo pipefail # error out when upstream totally changes things
-    tinymce_version=$(basename $(ls -d ${invoiceninja-ui}/tinymce_* | sort -V | tail -n1))
+    mkdir -p $out/share/invoiceninja
+    cp -r . $out/share/invoiceninja
 
-    mkdir -p $out/public/$tinymce_version
-    cp -r ${invoiceninja-ui}/$tinymce_version/* $out/public/$tinymce_version/
-    echo ${invoiceninja-ui.version} > $out/UI_VERSION
-    rm -rf "$out/share"
-    chmod +x $out/artisan
+    pushd $out/share/invoiceninja
+    chmod +x artisan
+    mv bootstrap bootstrap-static
+    mv storage storage-static
+    mv resources resources-static
+    ln -s ${dataDir}/.env $out/share/invoiceninja
+    ln -s ${dataDir}/storage $out/share/invoiceninja
+    ln -s ${dataDir}/storage-public $out/share/invoiceninja/public/storage
+    ln -s ${runtimeDir}/bootstrap $out/share/invoiceninja/bootstrap
+    ln -s ${runtimeDir}/resources $out/share/invoiceninja/resources
+    popd
+
+    # Create standard directory structure
+    #mkdir -p $out/bin
+
+    # Create wrapper script
+    #cat > $out/bin/invoiceninja <<EOF
+    ##!$ {stdenv.shell}
+    #exec $ {php}/bin/php $out/share/invoiceninja/artisan "\$@"
+    #EOF
+    #chmod +x $out/bin/invoiceninja
+
+    runHook postInstall
   '';
 
-  meta = {
+   meta = {
     changelog = "https://github.com/invoiceninja/invoiceninja/releases/tag/v${finalAttrs.version}";
     homepage = "https://github.com/invoiceninja/invoiceninja";
     description = "Free invoicing software for small businesses";
@@ -112,3 +62,4 @@ php82.buildComposerProject (finalAttrs: {
     maintainers = with lib.maintainers; [ ramblurr ];
   };
 })
+
