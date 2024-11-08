@@ -12,7 +12,7 @@ let
 
   extraPrograms = [
     # these are used for invoice PDF generation
-    pkgs.chromium
+    pkgs.ungoogled-chromium
     pkgs.freefont_ttf
     pkgs.xorg.fontisasmisc
     pkgs.dejavu_fonts
@@ -282,7 +282,7 @@ in
         TRUSTED_PROXIES = lib.mkDefault (lib.concatStringsSep "," cfg.trustedProxies);
         PHANTOMJS_PDF_GENERATION = lib.mkDefault false;
         SNAPPDF_SKIP_DOWNLOAD = lib.mkDefault true;
-        SNAPPDF_CHROMIUM_PATH = lib.mkDefault (lib.getExe pkgs.chromium);
+        SNAPPDF_CHROMIUM_PATH = lib.mkDefault (lib.getExe pkgs.ungoogled-chromium);
         PDF_GENERATOR = lib.mkDefault "snappdf";
         SENTRY_LARAVEL_DSN = lib.mkDefault ""; # prevent phoning home
         LOCAL_DOWNLOAD = lib.mkDefault true;
