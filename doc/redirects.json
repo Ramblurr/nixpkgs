@@ -8,6 +8,12 @@
   "ex-build-helpers-extendMkDerivation": [
     "index.html#ex-build-helpers-extendMkDerivation"
   ],
+  "module-services-invoiceninja": [
+    "index.html#module-services-invoiceninja#module-services-invoiceninja"
+  ],
+  "module-services-invoiceninja-basic-usage": [
+    "index.html#module-services-invoiceninja-basic-usage#module-services-invoiceninja-basic-usage"
+  ],
   "neovim": [
     "index.html#neovim"
   ],
