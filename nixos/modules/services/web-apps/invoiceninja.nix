@@ -67,28 +67,28 @@ let
       cfg.dataDir
       cfg.runtimeDir
     ];
-    CapabilityBoundingSet = "~CAP_SYS_ADMIN";
-    DeviceAllow = "";
-    LockPersonality = true;
-    NoNewPrivileges = true;
-    PrivateDevices = true;
+    #CapabilityBoundingSet = "~CAP_SYS_ADMIN";
+    #DeviceAllow = "";
+    #LockPersonality = true;
+    #NoNewPrivileges = true;
+    #PrivateDevices = true;
     PrivateTmp = true;
     PrivateUsers = true;
     ProcSubset = "pid";
     ProtectClock = true;
-    ProtectControlGroups = true;
-    ProtectHome = true;
-    ProtectHostname = true;
-    ProtectKernelLogs = true;
-    ProtectKernelModules = true;
-    ProtectKernelTunables = true;
-    ProtectProc = "invisible";
+    #ProtectControlGroups = true;
+    #ProtectHome = true;
+    #ProtectHostname = true;
+    #ProtectKernelLogs = true;
+    #ProtectKernelModules = true;
+    #ProtectKernelTunables = true;
+    #ProtectProc = "invisible";
     #ProtectSystem = "strict";
-    RemoveIPC = true;
-    RestrictNamespaces = true;
-    RestrictRealtime = true;
-    RestrictSUIDSGID = true;
-    SystemCallArchitectures = "native";
+    #RemoveIPC = true;
+    #RestrictNamespaces = true;
+    #RestrictRealtime = true;
+    #RestrictSUIDSGID = true;
+    #SystemCallArchitectures = "native";
     #SystemCallFilter = [
     #  "@system-service"
     #  "~@resources"
