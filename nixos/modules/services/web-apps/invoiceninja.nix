@@ -83,17 +83,17 @@ let
     ProtectKernelModules = true;
     ProtectKernelTunables = true;
     ProtectProc = "invisible";
-    ProtectSystem = "strict";
+    #ProtectSystem = "strict";
     RemoveIPC = true;
     RestrictNamespaces = true;
     RestrictRealtime = true;
     RestrictSUIDSGID = true;
     SystemCallArchitectures = "native";
-    SystemCallFilter = [
-      "@system-service"
-      "~@resources"
-      "~@privileged"
-    ];
+    #SystemCallFilter = [
+    #  "@system-service"
+    #  "~@resources"
+    #  "~@privileged"
+    #];
   };
 in
 {
