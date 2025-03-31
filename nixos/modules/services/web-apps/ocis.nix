@@ -8,9 +8,66 @@
 let
   inherit (lib) types;
   inherit (config.system) stateVersion;
+  inherit (lib.strings) toJSON;
   cfg = config.services.ocis;
   defaultUser = "ocis";
   defaultGroup = defaultUser;
+
+  serviceEnvironment = {
+    PROXY_HTTP_ADDR = "${cfg.address}:${toString cfg.port}";
+    OCIS_URL = cfg.url;
+    OCIS_CONFIG_DIR = if (cfg.configDir == null) then "${cfg.stateDir}/config" else cfg.configDir;
+    OCIS_BASE_DATA_PATH = cfg.stateDir;
+  } // cfg.environment;
+
+  env = lib.concatMapStrings (
+    n:
+    lib.optionalString (
+      serviceEnvironment.${n} != null
+    ) "--property=Environment=${toJSON "${n}=${serviceEnvironment.${n}}"} "
+  ) (lib.attrNames serviceEnvironment);
+
+  ocisShim = pkgs.writeShellScript "ocis-shim" ''
+    if [ -n "$OCIS_CONFIG_DIR" ]; then
+      cd "$OCIS_CONFIG_DIR"
+      if [ "$?" != "0" ]; then
+        >&2 echo "Warning: Failed to change directory to $OCIS_CONFIG_DIR"
+      fi
+    fi
+
+    exec ${cfg.package}/bin/ocis "$@"
+  '';
+  ocisadmWrapper = pkgs.writeShellScriptBin "ocisadm" ''
+    exec systemd-run \
+      --quiet \
+      --pipe \
+      --pty \
+      --wait \
+      --collect \
+      --service-type=exec \
+      ${env} \
+      --property=EnvironmentFile="${cfg.environmentFile}" \
+      --property=User="${cfg.user}" \
+      --property=Group="${cfg.group}" \
+      --property=MemoryDenyWriteExecute=yes \
+      --property=NoNewPrivileges=yes \
+      --property=PrivateTmp=yes \
+      --property=PrivateDevices=yes \
+      --property=ProtectSystem=strict \
+      --property=ProtectHome=yes \
+      --property=ProtectControlGroups=yes \
+      --property=ProtectKernelModules=yes \
+      --property=ProtectKernelTunables=yes \
+      --property=ProtectKernelLogs=yes \
+      --property=RestrictNamespaces=yes \
+      --property=RestrictRealtime=yes \
+      --property=RestrictSUIDSGID=yes \
+      --property=LockPersonality=yes \
+      --property=SystemCallArchitectures=native \
+      --working-directory="${cfg.stateDir}" \
+      -- \
+      ${ocisShim} "$@"
+  '';
 in
 {
   options = {
@@ -186,16 +243,14 @@ in
 
     users.groups = lib.mkIf (cfg.group == defaultGroup) { ${defaultGroup} = { }; };
 
+    environment.systemPackages = [
+      ocisadmWrapper
+    ];
     systemd = {
       services.ocis = {
         description = "ownCloud Infinite Scale Stack";
         wantedBy = [ "multi-user.target" ];
-        environment = {
-          PROXY_HTTP_ADDR = "${cfg.address}:${toString cfg.port}";
-          OCIS_URL = cfg.url;
-          OCIS_CONFIG_DIR = if (cfg.configDir == null) then "${cfg.stateDir}/config" else cfg.configDir;
-          OCIS_BASE_DATA_PATH = cfg.stateDir;
-        } // cfg.environment;
+        environment = serviceEnvironment;
         serviceConfig = {
           Type = "simple";
           ExecStart = "${lib.getExe cfg.package} server";
