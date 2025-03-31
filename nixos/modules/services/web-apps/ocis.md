@@ -105,12 +105,18 @@ data integrity and system stability. Please follow these guidelines:
    nixpkgs will ensure there exists an `ocis-binX` package in sequence for as
    long as possible.
 
-A typical upgrade might start with this config:
+- **Use the `ocisadm` tool**. The NixOS module provides the `ocisadm` tool,
+  which is a wrapper around the normal `ocis` cli tool, but when executed is
+  ran in the same systemd environment as the ocis service, so it is run as the
+  correct user and has access to the full configuration.
+
+For example to upgrade to version 5.0.x to 7.1.x, you must upgrade to 7.0.x in
+between. This would look like:
 
 ```nix
 services.ocis = {
   enable = true;
-  package = pkgs.ocis-bin5; # First upgrade to version 5.x
+  package = pkgs.ocis-bin5; # Starting at version 5.0.x
   # ...other configuration...
 };
 ```
@@ -120,10 +126,15 @@ Then when ready to upgrade and AFTER performing a backup:
 ```nix
 services.ocis = {
   enable = true;
-  package = pkgs.ocis-bin70; # Next upgrade to version 7.0.x
+  package = pkgs.ocis-bin70; # Upgrade to version 7.0.x
   # ...other configuration...
 };
 ```
+
+Then follow the [specific upgrade
+instructions](https://doc.owncloud.com/ocis/next/migration/upgrading_5.0.x_7.0.0.html#update-config-settings).
+When prompted to run `ocis init --diff` you should run `sudo ocisadm init
+--diff` instead.
 
 Then after ensuring 7.0.x upgrades starts properly:
 
@@ -175,5 +186,5 @@ expression like this (in `<nixpkgs/pkgs/by-name/oc/ocis-binX/package.nix>`):
     mainProgram = "ocis";
     knownVulnerabilities = ["oCIS version ${version} is EOL"];
   };
-})
+/* ... */
 ```

@@ -8,6 +8,7 @@ let
   inherit (pkgs.lib)
     listToAttrs
     concatMap
+    optionalString
     nameValuePair
     mkBefore
     getExe
@@ -16,6 +17,7 @@ let
     mkOption
     types
     ;
+
 
   baseModule =
     pkg:
@@ -90,6 +92,9 @@ let
               ocis.wait_until_succeeds("${getExe pkgs.${pkg}} version")
 
           ${test-helpers.init}
+
+          with subtest("ocisadm works"):
+              print(ocis.succeed("ocisadm version"))
 
           with subtest("Upload/Download test"):
               ocis.succeed(
