@@ -237,4 +237,5 @@ in
     danth
     ramblurr
   ];
+  meta.doc = ./ocis.md;
 }
