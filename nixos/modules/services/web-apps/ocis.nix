@@ -7,6 +7,7 @@
 
 let
   inherit (lib) types;
+  inherit (config.system) stateVersion;
   cfg = config.services.ocis;
   defaultUser = "ocis";
   defaultGroup = defaultUser;
@@ -19,7 +20,11 @@ in
       package = lib.mkOption {
         type = types.package;
         description = "Which package to use for the ownCloud Infinite Scale instance.";
-        relatedPackages = [ "ocis-bin5" ];
+        relatedPackages = [
+          "ocis-bin5"
+          "ocis-bin70"
+          "ocis-bin71"
+        ];
       };
 
       configDir = lib.mkOption {
@@ -141,7 +146,35 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    services.ocis.package = lib.mkDefault pkgs.ocis-bin5;
+    warnings =
+      let
+        latest = "7.1";
+        versionToPkgSuffix =
+          version: builtins.replaceStrings [ "." ] [ "" ] (lib.versions.majorMinor version);
+        upgradeWarning = majorMinor: nextMajorMinor: nixos: ''
+          A legacy owncloud Infinite Scale install (from before NixOS ${nixos}) may be installed.
+
+          After ocis-bin${versionToPkgSuffix majorMinor} is installed successfully, you can safely upgrade
+          to ocis-bin${versionToPkgSuffix nextMajorMinor}. The latest version available is ocis-bin${versionToPkgSuffix latest}.
+
+          Please note that oCIS doesn't support upgrades across multiple major nor minor production versions
+          (i.e. an upgrade from 5.0.x is possible to 7.0.y, but not 5.0.x to 7.1.y).
+
+          Please study the upstream documentation before attempting an upgrade:
+
+            https://doc.owncloud.com/ocis/next/migration/upgrading-ocis.html
+
+          The package can be upgraded by explicitly declaring the service-option
+          `services.ocis.package`.
+        '';
+      in
+      (lib.optional (lib.versionOlder (lib.versions.majorMinor cfg.package.version) "7.0") (
+        upgradeWarning "7.0" "7.1" "25.05"
+      ));
+
+    services.ocis.package = lib.mkDefault (
+      if lib.versionOlder stateVersion "25.05" then pkgs.ocis-bin5 else pkgs.ocis-bin71
+    );
 
     users.users.${defaultUser} = lib.mkIf (cfg.user == defaultUser) {
       group = cfg.group;
