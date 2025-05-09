@@ -1,11 +1,11 @@
 {
   lib,
   fetchFromGitHub,
-  php,
+  php83,
   nixosTests,
 }:
 
-php.buildComposerProject2 (finalAttrs: {
+php83.buildComposerProject2 (finalAttrs: {
   pname = "davis";
   version = "5.0.2";
 
