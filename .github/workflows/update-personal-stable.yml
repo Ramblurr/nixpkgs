@@ -13,8 +13,7 @@ permissions:
 
 env:
   # List of PR URLs to apply (one per line)
-  PR_URLS: |
-    https://github.com/NixOS/nixpkgs/pull/502658
+  PR_URLS: ""
 
 jobs:
   update-and-patch:
