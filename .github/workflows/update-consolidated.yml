@@ -1,4 +1,4 @@
-name: Update consolidated from upstream master and personal branches
+name: Update personal-master from upstream master and personal branches
 
 on:
   workflow_dispatch:
@@ -12,7 +12,7 @@ permissions:
   contents: write
 
 env:
-  CONSOLIDATED_BRANCH: consolidated
+  PERSONAL_MASTER_BRANCH: channel/personal-master
   FEATURE_BRANCHES: |
     init/ocis_7-bin
     fix/babashka-deps-tools
@@ -20,7 +20,7 @@ env:
     update/davis
 
 jobs:
-  update-consolidated:
+  update-personal-master:
     runs-on: ubuntu-latest
 
     steps:
@@ -46,10 +46,10 @@ jobs:
           git checkout -B master upstream/master
           git push origin master --force
 
-      - name: Rebuild consolidated branch
+      - name: Rebuild personal-master branch
         run: |
           failed_branches=()
-          git checkout -B "${{ env.CONSOLIDATED_BRANCH }}" master
+          git checkout -B "${{ env.PERSONAL_MASTER_BRANCH }}" master
 
           while IFS= read -r branch; do
             [[ -z "$branch" ]] && continue
@@ -62,14 +62,14 @@ jobs:
               echo "::error::Failed to rebase $branch onto master"
               git rebase --abort || true
               failed_branches+=("$branch")
-              git checkout "${{ env.CONSOLIDATED_BRANCH }}"
+              git checkout "${{ env.PERSONAL_MASTER_BRANCH }}"
               git branch -D "$temp_branch" >/dev/null 2>&1 || true
               continue
             fi
 
-            git checkout "${{ env.CONSOLIDATED_BRANCH }}"
+            git checkout "${{ env.PERSONAL_MASTER_BRANCH }}"
             if ! git rebase "$temp_branch"; then
-              echo "::error::Failed to layer consolidated onto $branch"
+              echo "::error::Failed to layer personal-master onto $branch"
               git rebase --abort || true
               failed_branches+=("$branch")
               git branch -D "$temp_branch" >/dev/null 2>&1 || true
@@ -80,13 +80,13 @@ jobs:
           done <<< '${{ env.FEATURE_BRANCHES }}'
 
           if [ ${#failed_branches[@]} -gt 0 ]; then
-            echo "::error::The following feature branches failed to consolidate:"
+            echo "::error::The following feature branches failed to layer into personal-master:"
             for branch in "${failed_branches[@]}"; do
               echo "::error::  - $branch"
             done
             exit 1
           fi
 
-      - name: Push consolidated branch
+      - name: Push personal-master branch
         run: |
-          git push origin "${{ env.CONSOLIDATED_BRANCH }}" --force
+          git push origin "${{ env.PERSONAL_MASTER_BRANCH }}" --force
