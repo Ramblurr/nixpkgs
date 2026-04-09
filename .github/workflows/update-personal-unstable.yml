@@ -1,4 +1,4 @@
-name: Auto-patch nixos-unstable with PRs
+name: Update personal-unstable from nixos-unstable with PRs
 
 on:
   workflow_dispatch: # Allow manual triggering
@@ -6,7 +6,7 @@ on:
     branches:
       - channel/fork-master
     paths:
-      - .github/workflows/update-personal-stable.yml
+      - .github/workflows/update-personal-unstable.yml
 
 permissions:
   contents: write
@@ -43,7 +43,7 @@ jobs:
           git push origin nixos-unstable --force
       - name: Create and reset target branch
         run: |
-          git checkout -B channel/personal-stable upstream/nixos-unstable
+          git checkout -B channel/personal-unstable upstream/nixos-unstable
       - name: Apply PR patches
         run: |
           failed_prs=()
@@ -74,7 +74,7 @@ jobs:
           fi
       - name: Push patched branch
         run: |
-          git push origin channel/personal-stable --force
+          git push origin channel/personal-unstable --force
       - name: Save Git cache
         if: always()
         uses: actions/cache/save@v5
