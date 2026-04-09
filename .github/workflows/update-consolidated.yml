@@ -24,6 +24,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - uses: actions/cache/restore@v5
+        with:
+          path: .git
+          key: git-cache-${{ github.run_id }}
+          restore-keys: |
+            git-cache-
       - uses: actions/checkout@v6
 
       - name: Configure Git
@@ -90,3 +96,9 @@ jobs:
       - name: Push personal-master branch
         run: |
           git push origin "${{ env.PERSONAL_MASTER_BRANCH }}" --force
+      - name: Save Git cache
+        if: always()
+        uses: actions/cache/save@v5
+        with:
+          path: .git
+          key: git-cache-${{ github.run_id }}
