@@ -1,0 +1,92 @@
+name: Update consolidated from upstream master and personal branches
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - channel/fork-master
+    paths:
+      - .github/workflows/update-consolidated.yml
+
+permissions:
+  contents: write
+
+env:
+  CONSOLIDATED_BRANCH: consolidated
+  FEATURE_BRANCHES: |
+    init/ocis_7-bin
+    fix/babashka-deps-tools
+    update/antora
+    update/davis
+
+jobs:
+  update-consolidated:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Configure Git
+        run: |
+          git config --global user.name "Casey Link"
+          git config --global user.email "14830+Ramblurr@users.noreply.github.com"
+
+      - name: Add upstream remote and fetch branches
+        run: |
+          git remote add upstream https://github.com/NixOS/nixpkgs.git || true
+          git fetch --no-tags upstream master
+          git fetch --no-tags origin master
+          while IFS= read -r branch; do
+            [[ -z "$branch" ]] && continue
+            git fetch --no-tags origin "$branch"
+          done <<< '${{ env.FEATURE_BRANCHES }}'
+
+      - name: Update fork master from upstream master
+        run: |
+          git checkout -B master upstream/master
+          git push origin master --force
+
+      - name: Rebuild consolidated branch
+        run: |
+          failed_branches=()
+          git checkout -B "${{ env.CONSOLIDATED_BRANCH }}" master
+
+          while IFS= read -r branch; do
+            [[ -z "$branch" ]] && continue
+
+            temp_branch="ci-temp-${branch//\//-}"
+            git branch -D "$temp_branch" >/dev/null 2>&1 || true
+            git checkout -B "$temp_branch" "origin/$branch"
+
+            if ! git rebase --onto master "$(git merge-base master "$temp_branch")" "$temp_branch"; then
+              echo "::error::Failed to rebase $branch onto master"
+              git rebase --abort || true
+              failed_branches+=("$branch")
+              git checkout "${{ env.CONSOLIDATED_BRANCH }}"
+              git branch -D "$temp_branch" >/dev/null 2>&1 || true
+              continue
+            fi
+
+            git checkout "${{ env.CONSOLIDATED_BRANCH }}"
+            if ! git rebase "$temp_branch"; then
+              echo "::error::Failed to layer consolidated onto $branch"
+              git rebase --abort || true
+              failed_branches+=("$branch")
+              git branch -D "$temp_branch" >/dev/null 2>&1 || true
+              continue
+            fi
+
+            git branch -D "$temp_branch" >/dev/null 2>&1 || true
+          done <<< '${{ env.FEATURE_BRANCHES }}'
+
+          if [ ${#failed_branches[@]} -gt 0 ]; then
+            echo "::error::The following feature branches failed to consolidate:"
+            for branch in "${failed_branches[@]}"; do
+              echo "::error::  - $branch"
+            done
+            exit 1
+          fi
+
+      - name: Push consolidated branch
+        run: |
+          git push origin "${{ env.CONSOLIDATED_BRANCH }}" --force

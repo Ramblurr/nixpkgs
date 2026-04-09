@@ -1,0 +1,84 @@
+name: Auto-patch nixos-unstable with PRs
+
+on:
+  workflow_dispatch: # Allow manual triggering
+  push:
+    branches:
+      - channel/fork-master
+    paths:
+      - .github/workflows/update-personal-stable.yml
+
+permissions:
+  contents: write
+
+env:
+  # List of PR URLs to apply (one per line)
+  PR_URLS: |
+    https://github.com/NixOS/nixpkgs/pull/502658
+
+jobs:
+  update-and-patch:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/cache/restore@v5
+        with:
+          path: .git
+          key: git-cache-${{ github.run_id }}
+          restore-keys: |
+            git-cache-
+      - uses: actions/checkout@v6
+      - name: Configure Git
+        run: |
+          git config --global user.name "Casey Link"
+          git config --global user.email "14830+Ramblurr@users.noreply.github.com"
+
+      - name: Add upstream remote and fetch
+        run: |
+          git remote add upstream https://github.com/NixOS/nixpkgs.git || true
+          git fetch upstream nixos-unstable
+
+      - name: Update nixos-unstable branch in fork
+        run: |
+          git checkout -B nixos-unstable upstream/nixos-unstable
+          git push origin nixos-unstable --force
+      - name: Create and reset target branch
+        run: |
+          git checkout -B channel/personal-stable upstream/nixos-unstable
+      - name: Apply PR patches
+        run: |
+          failed_prs=()
+
+          if [[ -z '${{ env.PR_URLS }}' ]]; then
+            echo "No pull requests to apply!"
+            exit 0
+          fi
+
+          while IFS= read -r pr_url; do
+            [[ -z "$pr_url" ]] && continue
+
+            if ! curl -fsSL "${pr_url}.patch" | git am; then
+              echo "::error::Failed to apply $pr_url"
+              git am --abort || true
+              failed_prs+=("$pr_url")
+            else
+              echo "Successfully applied $pr_url"
+            fi
+          done <<< '${{ env.PR_URLS }}'
+
+          if [ ${#failed_prs[@]} -gt 0 ]; then
+            echo "::error::The following PRs failed to apply:"
+            for failed_pr in "${failed_prs[@]}"; do
+              echo "::error::  - $failed_pr"
+            done
+            exit 1
+          fi
+      - name: Push patched branch
+        run: |
+          git push origin channel/personal-stable --force
+      - name: Save Git cache
+        if: always()
+        uses: actions/cache/save@v5
+        with:
+          path: .git
+          key: git-cache-${{ github.run_id }}
