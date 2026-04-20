@@ -24,24 +24,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/cache/restore@v5
-        with:
-          path: .git
-          key: git-cache-${{ github.run_id }}
-          restore-keys: |
-            git-cache-
-      - uses: actions/create-github-app-token@f8d387b68d61c58ab83c6c016672934102569859 # v3.0.0
-        id: app-token
-        with:
-          app-id: ${{ vars.NIXPKGS_CI_APP_ID }}
-          private-key: ${{ secrets.NIXPKGS_CI_APP_PRIVATE_KEY }}
-          permission-contents: write
-          permission-workflows: write
-
       - uses: actions/checkout@v6
-        with:
-          token: ${{ steps.app-token.outputs.token }}
-          persist-credentials: true
 
       - name: Configure Git
         run: |
@@ -52,48 +35,52 @@ jobs:
         run: |
           git remote add upstream https://github.com/NixOS/nixpkgs.git || true
           git fetch --no-tags upstream master
-          git fetch --no-tags origin master
+          git fetch --no-tags origin "${{ env.PERSONAL_MASTER_BRANCH }}"
           while IFS= read -r branch; do
             [[ -z "$branch" ]] && continue
             git fetch --no-tags origin "$branch"
           done <<< '${{ env.FEATURE_BRANCHES }}'
 
-      - name: Update fork master from upstream master
+      - name: Rebuild personal-master branch from upstream snapshot
         run: |
-          git checkout -B master upstream/master
-          git push origin master --force
+          # Keep the generated branch usable as a channel, not as a literal history mirror.
+          git checkout -B "${{ env.PERSONAL_MASTER_BRANCH }}" "origin/${{ env.PERSONAL_MASTER_BRANCH }}"
 
-      - name: Rebuild personal-master branch
+          deleted_paths="$(git diff --name-only --diff-filter=D HEAD..upstream/master || true)"
+
+          git checkout upstream/master -- .
+          rm -rf .github/workflows
+
+          while IFS= read -r path; do
+            [[ -z "$path" || "$path" == .github/workflows* ]] && continue
+            git rm -r --ignore-unmatch -- "$path"
+          done <<< "$deleted_paths"
+
+          git add -A
+          if ! git diff --cached --quiet; then
+            git commit -m "channel/personal-master: sync upstream master"
+          fi
+
+      - name: Apply feature branches
         run: |
           failed_branches=()
-          git checkout -B "${{ env.PERSONAL_MASTER_BRANCH }}" master
 
           while IFS= read -r branch; do
             [[ -z "$branch" ]] && continue
 
-            temp_branch="ci-temp-${branch//\//-}"
-            git branch -D "$temp_branch" >/dev/null 2>&1 || true
-            git checkout -B "$temp_branch" "origin/$branch"
+            base="$(git merge-base upstream/master "origin/$branch")"
+            count="$(git rev-list --count "${base}..origin/${branch}")"
 
-            if ! git rebase --onto master "$(git merge-base master "$temp_branch")" "$temp_branch"; then
-              echo "::error::Failed to rebase $branch onto master"
-              git rebase --abort || true
-              failed_branches+=("$branch")
-              git checkout "${{ env.PERSONAL_MASTER_BRANCH }}"
-              git branch -D "$temp_branch" >/dev/null 2>&1 || true
+            if [[ "$count" == "0" ]]; then
               continue
             fi
 
-            git checkout "${{ env.PERSONAL_MASTER_BRANCH }}"
-            if ! git rebase "$temp_branch"; then
-              echo "::error::Failed to layer personal-master onto $branch"
-              git rebase --abort || true
+            if ! git format-patch --stdout "${base}..origin/${branch}" | git am -3 --empty=drop; then
+              echo "::error::Failed to apply $branch"
+              git am --abort || true
+              git reset --hard HEAD
               failed_branches+=("$branch")
-              git branch -D "$temp_branch" >/dev/null 2>&1 || true
-              continue
             fi
-
-            git branch -D "$temp_branch" >/dev/null 2>&1 || true
           done <<< '${{ env.FEATURE_BRANCHES }}'
 
           if [ ${#failed_branches[@]} -gt 0 ]; then
@@ -107,9 +94,3 @@ jobs:
       - name: Push personal-master branch
         run: |
           git push origin "${{ env.PERSONAL_MASTER_BRANCH }}" --force
-      - name: Save Git cache
-        if: always()
-        uses: actions/cache/save@v5
-        with:
-          path: .git
-          key: git-cache-${{ github.run_id }}
