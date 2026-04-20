@@ -12,6 +12,7 @@ permissions:
   contents: write
 
 env:
+  TARGET_BRANCH: channel/personal-unstable
   # List of PR URLs to apply (one per line)
   PR_URLS: ""
 
@@ -20,24 +21,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/cache/restore@v5
-        with:
-          path: .git
-          key: git-cache-${{ github.run_id }}
-          restore-keys: |
-            git-cache-
-      - uses: actions/create-github-app-token@f8d387b68d61c58ab83c6c016672934102569859 # v3.0.0
-        id: app-token
-        with:
-          app-id: ${{ vars.NIXPKGS_CI_APP_ID }}
-          private-key: ${{ secrets.NIXPKGS_CI_APP_PRIVATE_KEY }}
-          permission-contents: write
-          permission-workflows: write
-
       - uses: actions/checkout@v6
-        with:
-          token: ${{ steps.app-token.outputs.token }}
-          persist-credentials: true
       - name: Configure Git
         run: |
           git config --global user.name "Casey Link"
@@ -46,15 +30,29 @@ jobs:
       - name: Add upstream remote and fetch
         run: |
           git remote add upstream https://github.com/NixOS/nixpkgs.git || true
-          git fetch upstream nixos-unstable
+          git fetch --no-tags upstream nixos-unstable
+          git fetch --no-tags origin "${{ env.TARGET_BRANCH }}"
 
-      - name: Update nixos-unstable branch in fork
+      - name: Rebuild target branch from upstream snapshot
         run: |
-          git checkout -B nixos-unstable upstream/nixos-unstable
-          git push origin nixos-unstable --force
-      - name: Create and reset target branch
-        run: |
-          git checkout -B channel/personal-unstable upstream/nixos-unstable
+          # Keep the generated branch usable as a channel, not as a literal history mirror.
+          git checkout -B "${{ env.TARGET_BRANCH }}" "origin/${{ env.TARGET_BRANCH }}"
+
+          deleted_paths="$(git diff --name-only --diff-filter=D HEAD..upstream/nixos-unstable || true)"
+
+          git checkout upstream/nixos-unstable -- .
+          rm -rf .github/workflows
+
+          while IFS= read -r path; do
+            [[ -z "$path" || "$path" == .github/workflows* ]] && continue
+            git rm -r --ignore-unmatch -- "$path"
+          done <<< "$deleted_paths"
+
+          git add -A
+          if ! git diff --cached --quiet; then
+            git commit -m "channel/personal-unstable: sync upstream nixos-unstable"
+          fi
+
       - name: Apply PR patches
         run: |
           failed_prs=()
@@ -67,7 +65,7 @@ jobs:
           while IFS= read -r pr_url; do
             [[ -z "$pr_url" ]] && continue
 
-            if ! curl -fsSL "${pr_url}.patch" | git am; then
+            if ! curl -fsSL "${pr_url}.patch" | git am -3 --empty=drop; then
               echo "::error::Failed to apply $pr_url"
               git am --abort || true
               failed_prs+=("$pr_url")
@@ -85,10 +83,4 @@ jobs:
           fi
       - name: Push patched branch
         run: |
-          git push origin channel/personal-unstable --force
-      - name: Save Git cache
-        if: always()
-        uses: actions/cache/save@v5
-        with:
-          path: .git
-          key: git-cache-${{ github.run_id }}
+          git push origin "${{ env.TARGET_BRANCH }}" --force
