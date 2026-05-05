@@ -99,7 +99,7 @@ let
       -use-external-Flocq \
       -use-external-MenhirLib \
       ${target} \
-    ''; # don't remove the \ above, the command gets appended in override below
+    ''; # do NOT remove the above "\", this must NOT end with a newline (c.f. below)
 
     installTargets = "documentation install";
     installFlags = [ ]; # trust ./configure
@@ -342,6 +342,10 @@ in
 patched_compcert.overrideAttrs (
   o:
   lib.optionalAttrs (coq.version != null && coq.version == "dev") {
-    configurePhase = "${o.configurePhase} -ignore-ocaml-version -ignore-coq-version";
+    configurePhase = ''
+      ${o.configurePhase} \
+        -ignore-ocaml-version \
+        -ignore-coq-version
+    '';
   }
 )

@@ -20,6 +20,9 @@
   "cmake-ctest-variables": [
     "index.html#cmake-ctest-variables"
   ],
+  "compiling-wasm32-wasip1-package": [
+    "index.html#compiling-wasm32-wasip1-package"
+  ],
   "coq-withPackages": [
     "index.html#coq-withPackages"
   ],
@@ -376,6 +379,9 @@
   "sec-build-helper-extendMkDerivation": [
     "index.html#sec-build-helper-extendMkDerivation"
   ],
+  "sec-buildEnv-exceptions": [
+    "index.html#sec-buildEnv-exceptions"
+  ],
   "sec-building-packages-with-llvm": [
     "index.html#sec-building-packages-with-llvm"
   ],
@@ -442,7 +448,13 @@
     "index.html#overriding-the-generator",
     "index.html#javascript-node2nix",
     "index.html#javascript-node2nix-preparation",
-    "index.html#javascript-node2nix-pitfalls"
+    "index.html#javascript-node2nix-pitfalls",
+    "index.html#javascript-yarn2nix-mkYarnPackage",
+    "index.html#javascript-yarn2nix",
+    "index.html#javascript-yarn2nix-preparation",
+    "index.html#javascript-yarn2nix-mkYarnModules",
+    "index.html#javascript-mkYarnPackage-overriding-dependencies",
+    "index.html#javascript-yarn2nix-pitfalls"
   ],
   "sec-nixpkgs-release-26.05-lib": [
     "release-notes.html#sec-nixpkgs-release-26.05-lib"
@@ -767,6 +779,12 @@
   "sec-treefmt-options-reference": [
     "index.html#sec-treefmt-options-reference"
   ],
+  "ssec-buildEnv-collisions": [
+    "index.html#ssec-buildEnv-collisions"
+  ],
+  "ssec-buildEnv-singleFileOutputs": [
+    "index.html#ssec-buildEnv-singleFileOutputs"
+  ],
   "ssec-cosmic-common-issues": [
     "index.html#ssec-cosmic-common-issues"
   ],
@@ -874,6 +892,9 @@
   ],
   "typst-package-scope-and-usage": [
     "index.html#typst-package-scope-and-usage"
+  ],
+  "using-tclrequirescheck": [
+    "index.html#using-tclrequirescheck"
   ],
   "var-go-buildTestBinaries": [
     "index.html#var-go-buildTestBinaries"
@@ -2178,6 +2199,12 @@
   ],
   "chap-special": [
     "index.html#chap-special"
+  ],
+  "sec-buildEnv": [
+    "index.html#sec-buildEnv"
+  ],
+  "sec-buildEnv-arguments": [
+    "index.html#sec-buildEnv-arguments"
   ],
   "sec-fakeNss": [
     "index.html#sec-fakeNss"
@@ -3699,24 +3726,6 @@
   "javascript-yarninstallhook": [
     "index.html#javascript-yarninstallhook"
   ],
-  "javascript-yarn2nix": [
-    "index.html#javascript-yarn2nix"
-  ],
-  "javascript-yarn2nix-preparation": [
-    "index.html#javascript-yarn2nix-preparation"
-  ],
-  "javascript-yarn2nix-mkYarnPackage": [
-    "index.html#javascript-yarn2nix-mkYarnPackage"
-  ],
-  "javascript-yarn2nix-mkYarnModules": [
-    "index.html#javascript-yarn2nix-mkYarnModules"
-  ],
-  "javascript-mkYarnPackage-overriding-dependencies": [
-    "index.html#javascript-mkYarnPackage-overriding-dependencies"
-  ],
-  "javascript-yarn2nix-pitfalls": [
-    "index.html#javascript-yarn2nix-pitfalls"
-  ],
   "javascript-yarnBerry-missing-hashes": [
     "index.html#javascript-yarnBerry-missing-hashes"
   ],
@@ -4049,6 +4058,9 @@
   ],
   "buildpythonpackage-parameters": [
     "index.html#buildpythonpackage-parameters"
+  ],
+  "buildpythonpackage-fixed-point-arguments": [
+    "index.html#buildpythonpackage-fixed-point-arguments"
   ],
   "overriding-python-build-helpers": [
     "index.html#overriding-python-build-helpers"
@@ -4473,6 +4485,9 @@
   "neovim-plugin-required-snippet": [
     "index.html#neovim-plugin-required-snippet",
     "index.html#vim-plugin-required-snippet"
+  ],
+  "neovim-plugin-license-overrides": [
+    "index.html#neovim-plugin-license-overrides"
   ],
   "updating-plugins-in-nixpkgs": [
     "index.html#updating-plugins-in-nixpkgs"

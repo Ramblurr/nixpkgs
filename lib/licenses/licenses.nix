@@ -263,6 +263,11 @@ lib.mapAttrs mkLicense (
       fullName = "Lawrence Berkeley National Labs BSD variant license";
     };
 
+    bsd3Modification = {
+      spdxId = "BSD-3-Clause-Modification";
+      fullName = "BSD 3-Clause Modification";
+    };
+
     bsd3ClauseTso = {
       spdxId = "BSD-3-Clause-Tso";
       fullName = "BSD 3-Clause Tso variant";
@@ -1493,6 +1498,11 @@ lib.mapAttrs mkLicense (
     unicodeTOU = {
       spdxId = "Unicode-TOU";
       fullName = "Unicode Terms of Use";
+    };
+
+    universalFOSSException-10 = {
+      spdxId = "Universal-FOSS-exception-1.0";
+      fullName = "Universal FOSS Exception, Version 1.0";
     };
 
     unlicense = {
