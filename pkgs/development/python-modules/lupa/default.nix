@@ -1,19 +1,27 @@
 {
   lib,
   buildPythonPackage,
-  cython,
-  fetchPypi,
-  setuptools,
-}:
+  fetchFromGitHub,
 
+  # build-system
+  cython,
+  setuptools,
+
+}:
 buildPythonPackage (finalAttrs: {
   pname = "lupa";
-  version = "2.7";
+  version = "2.8";
   pyproject = true;
 
-  src = fetchPypi {
-    inherit (finalAttrs) pname version;
-    hash = "sha256-c6ZM5dyM2Vt1ozDBUT5G4JjUD87tP+pRbAn2WV6t6Ik=";
+  src = fetchFromGitHub {
+    owner = "scoder";
+    repo = "lupa";
+    tag = "lupa-${finalAttrs.version}";
+    # Lua sources are vendored as submodules under third-party/.
+    # They are needed so that setup.py builds properly named backend
+    # modules (e.g. lua51, lua54, luajit21) expected by consumers like fakeredis.
+    fetchSubmodules = true;
+    hash = "sha256-XLBUQ1TrzWWST9RJdMTnpsceldDNzidnL82bixLhSRA=";
   };
 
   build-system = [
@@ -26,7 +34,7 @@ buildPythonPackage (finalAttrs: {
   meta = {
     description = "Lua in Python";
     homepage = "https://github.com/scoder/lupa";
-    changelog = "https://github.com/scoder/lupa/blob/lupa-${finalAttrs.version}/CHANGES.rst";
+    changelog = "https://github.com/scoder/lupa/blob/${finalAttrs.src.tag}/CHANGES.rst";
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ fab ];
   };

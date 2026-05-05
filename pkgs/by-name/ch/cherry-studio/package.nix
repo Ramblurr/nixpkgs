@@ -4,7 +4,7 @@
   fetchFromGitHub,
   fetchPnpmDeps,
   electron_40,
-  nodejs,
+  nodejs-slim,
   pnpm_10_29_2,
   pnpmConfigHook,
   makeWrapper,
@@ -31,13 +31,13 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "cherry-studio";
-  version = "1.9.1";
+  version = "1.9.3";
 
   src = fetchFromGitHub {
     owner = "CherryHQ";
     repo = "cherry-studio";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-gk/sTkBr7PKBGS96bYVUXGpZuoaech4/0npB+NSstTA=";
+    hash = "sha256-vm1yz0iKErkw/l4cGPedVVaoBGLV0h4O7xA56e3IoqM=";
   };
 
   postPatch = ''
@@ -54,12 +54,12 @@ stdenv.mkDerivation (finalAttrs: {
     inherit (finalAttrs) pname version src;
     inherit pnpm;
     fetcherVersion = 3;
-    hash = "sha256-DidMffZQEdYSERZZgDpQ8DqV773iBju89Pa0Z1Gz3I8=";
+    hash = "sha256-cBZymB2eI93ui8rdQzBibdf44lXJC/KGwoz0EyeOk2A=";
   };
 
   nativeBuildInputs = [
-    nodejs
-    (nodejs.python.withPackages (ps: with ps; [ setuptools ]))
+    nodejs-slim
+    (nodejs-slim.python.withPackages (ps: with ps; [ setuptools ]))
     pnpm
     pnpmConfigHook
     makeWrapper
@@ -139,7 +139,7 @@ stdenv.mkDerivation (finalAttrs: {
       else
         "cp -r dist/linux-unpacked/{resources,LICENSE*} $out/opt/cherry-studio"
     }
-    install -Dm644 build/icon.png $out/share/icons/hicolor/1024x1024/apps/cherry-studio.png
+    install -Dm644 build/icon.png $out/share/icons/cherry-studio.png
     makeWrapper ${lib.getExe electron} $out/bin/cherry-studio \
       --inherit-argv0 \
       --add-flags $out/opt/cherry-studio/resources/app.asar \

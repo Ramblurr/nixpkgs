@@ -97,7 +97,7 @@ let
 in
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "zed-editor";
-  version = "0.231.2";
+  version = "1.0.0";
 
   outputs = [
     "out"
@@ -110,10 +110,13 @@ rustPlatform.buildRustPackage (finalAttrs: {
     owner = "zed-industries";
     repo = "zed";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-o64xjJKvGzn4H1nMVVbqx+XFxDwHyFwnO+OoNJB04OI=";
+    hash = "sha256-D5V0pvL3WCwhcC8dnNKTXRdnFq8LMZZ0/GDjw8xf95g=";
   };
 
   postPatch = ''
+    # Disable upstream's rustflags overrides to avoid linker issues
+    rm .cargo/config.toml
+
     # Dynamically link WebRTC instead of static
     substituteInPlace $cargoDepsCopy/*/webrtc-sys-*/build.rs \
       --replace-fail "cargo:rustc-link-lib=static=webrtc" "cargo:rustc-link-lib=dylib=webrtc"
@@ -136,7 +139,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     rm -r $out/git/*/candle-book/
   '';
 
-  cargoHash = "sha256-++2q4zeLBDSW4ooTu7dU77YsuHggeX/sWkvuCb3PF50=";
+  cargoHash = "sha256-xtw7r7VluCEqXWKnxpVk8BPqr+mJV5rB3Eq/PvsKPBk=";
 
   __structuredAttrs = true;
 
@@ -147,7 +150,10 @@ rustPlatform.buildRustPackage (finalAttrs: {
     cargo-about
   ]
   ++ lib.optionals stdenv.hostPlatform.isLinux [ makeBinaryWrapper ]
-  ++ lib.optionals stdenv.hostPlatform.isDarwin [ cargo-bundle ];
+  ++ lib.optionals stdenv.hostPlatform.isDarwin [
+    cargo-bundle
+    rustPlatform.bindgenHook
+  ];
 
   dontUseCmakeConfigure = true;
 
@@ -256,7 +262,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     install -Dm755 $release_target/zed $out/libexec/zed-editor
     install -Dm755 $release_target/cli $out/bin/zeditor
 
-    install -Dm644 $src/crates/zed/resources/app-icon@2x.png $out/share/icons/hicolor/512x512@2x/apps/zed.png
+    install -Dm644 $src/crates/zed/resources/app-icon@2x.png $out/share/icons/hicolor/512x512@2/apps/zed.png
     install -Dm644 $src/crates/zed/resources/app-icon.png $out/share/icons/hicolor/512x512/apps/zed.png
 
     # extracted from https://github.com/zed-industries/zed/blob/v0.141.2/script/bundle-linux (envsubst)
@@ -319,6 +325,8 @@ rustPlatform.buildRustPackage (finalAttrs: {
     maintainers = with lib.maintainers; [
       GaetanLepage
       niklaskorz
+      mjm
+      schembriaiden
     ];
     mainProgram = "zeditor";
     platforms = lib.platforms.linux ++ lib.platforms.darwin;

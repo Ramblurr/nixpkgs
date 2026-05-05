@@ -22,14 +22,14 @@
 
 buildPythonPackage (finalAttrs: {
   pname = "dnsight";
-  version = "1.0.1";
+  version = "1.0.2";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "dnsight";
     repo = "dnsight";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-WoYLAqNTbMVe+kd/cG1MPRSlYMMYPWP8wm96qr3IdY8=";
+    hash = "sha256-TirYLziPa1xRm7D54Unl5oVjsnsv6Gl0LRVUXzd9o/E=";
   };
 
   pythonRelaxDeps = [ "typer" ];
@@ -85,7 +85,7 @@ buildPythonPackage (finalAttrs: {
   meta = {
     description = "SDK and CLI tool for DNS, email and web security hygiene";
     homepage = "https://github.com/dnsight/dnsight";
-    changelog = "https://github.com/dnsight/dnsight/releases/tag/v${finalAttrs.src.tag}";
+    changelog = "https://github.com/dnsight/dnsight/releases/tag/${finalAttrs.src.tag}";
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ fab ];
     mainProgram = "dnsight";

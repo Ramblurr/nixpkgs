@@ -14,13 +14,13 @@ let
 in
 renode.overrideAttrs (old: rec {
   pname = "renode-unstable";
-  version = "1.16.1-unstable-2026-04-12";
+  version = "1.16.1-unstable-2026-04-29";
 
   src = fetchFromGitHub {
     owner = "renode";
     repo = "renode";
-    rev = "1ad93ffd5b0f2d67ff04f593de6318d12379d897";
-    hash = "sha256-MOCjxn4VB9uaq5UkHbZiGOdJDetUP816lnuPN0kXjTM=";
+    rev = "67b2b9ce5e6162e60b4b46a21e0e5b696a3cdb45";
+    hash = "sha256-MPcSEijyfC49l96G7y220eljpEdz03uv9LrDm/LXHA0=";
     fetchSubmodules = true;
   };
 

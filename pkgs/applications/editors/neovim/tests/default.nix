@@ -91,7 +91,6 @@ let
     neovim-drv: buildCommand:
     runCommandLocal "test-${neovim-drv.name}"
       {
-        nativeBuildInputs = [ ];
         meta.platforms = neovim-drv.meta.platforms;
       }
       (
@@ -248,6 +247,15 @@ pkgs.lib.recurseIntoAttrs rec {
       };
     };
 
+  nvim_with_no_pname_plugin = neovim.override {
+    extraName = "-with-no-pname-plugin";
+    configure.packages.plugins = {
+      start = [
+        vimPlugins.corePlugins
+      ];
+    };
+  };
+
   # regression test that ftplugin files from plugins are loaded before the ftplugin
   # files from $VIMRUNTIME
   run_nvim_with_ftplugin = runTest nvim_with_ftplugin ''
@@ -259,6 +267,10 @@ pkgs.lib.recurseIntoAttrs rec {
     result="$(cat plugin_was_loaded_too_late)"
     echo $result
     [ "$result" = 0 ]
+  '';
+
+  run_nvim_with_no_pname_plugin = runTest nvim_with_no_pname_plugin ''
+    ${nvim_with_no_pname_plugin}/bin/nvim -i NONE -e --headless +quit
   '';
 
   # Generate a neovim wrapper with only a init.lua and no init.vim file
