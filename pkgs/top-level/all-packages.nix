@@ -1963,9 +1963,10 @@ with pkgs;
   };
 
   inherit (callPackage ../applications/networking/remote/citrix-workspace { })
+    citrix_workspace_26_01_0
     citrix_workspace_25_08_10
     ;
-  citrix_workspace = citrix_workspace_25_08_10;
+  citrix_workspace = citrix_workspace_26_01_0;
 
   colord-gtk4 = colord-gtk.override { withGtk4 = true; };
 
@@ -2258,29 +2259,9 @@ with pkgs;
 
   chewing-editor = libsForQt5.callPackage ../applications/misc/chewing-editor { };
 
-  fcitx5 = callPackage ../tools/inputmethods/fcitx5 { };
-
-  fcitx5-bamboo = callPackage ../tools/inputmethods/fcitx5/fcitx5-bamboo.nix { };
-
   fcitx5-skk = qt6Packages.callPackage ../tools/inputmethods/fcitx5/fcitx5-skk.nix { };
 
-  fcitx5-anthy = callPackage ../tools/inputmethods/fcitx5/fcitx5-anthy.nix { };
-
-  fcitx5-chewing = callPackage ../tools/inputmethods/fcitx5/fcitx5-chewing.nix { };
-
   fcitx5-lua = callPackage ../tools/inputmethods/fcitx5/fcitx5-lua.nix { lua = lua5_3; };
-
-  fcitx5-m17n = callPackage ../tools/inputmethods/fcitx5/fcitx5-m17n.nix { };
-
-  fcitx5-gtk = callPackage ../tools/inputmethods/fcitx5/fcitx5-gtk.nix { };
-
-  fcitx5-hangul = callPackage ../tools/inputmethods/fcitx5/fcitx5-hangul.nix { };
-
-  fcitx5-rime = callPackage ../tools/inputmethods/fcitx5/fcitx5-rime.nix { };
-
-  fcitx5-table-extra = callPackage ../tools/inputmethods/fcitx5/fcitx5-table-extra.nix { };
-
-  fcitx5-table-other = callPackage ../tools/inputmethods/fcitx5/fcitx5-table-other.nix { };
 
   flannel = callPackage ../tools/networking/flannel { };
   cni-plugin-flannel = callPackage ../tools/networking/flannel/plugin.nix { };
@@ -3402,8 +3383,6 @@ with pkgs;
   trezor-agent = with python3Packages; toPythonApplication trezor-agent;
 
   ttp = with python3.pkgs; toPythonApplication ttp;
-
-  trace-cmd = callPackage ../os-specific/linux/trace-cmd { };
 
   translatelocally-models = recurseIntoAttrs (callPackages ../misc/translatelocally-models { });
 
@@ -4626,10 +4605,6 @@ with pkgs;
   teyjus = callPackage ../development/compilers/teyjus {
     inherit (ocaml-ng.ocamlPackages_4_14) buildDunePackage;
     stdenv = gcc14Stdenv;
-  };
-
-  urweb = callPackage ../development/compilers/urweb {
-    icu = icu67;
   };
 
   vcard = python3Packages.toPythonApplication python3Packages.vcard;
@@ -7142,8 +7117,6 @@ with pkgs;
 
   pth = if stdenv.hostPlatform.isMusl then npth else gnupth;
 
-  pyotherside = libsForQt5.callPackage ../development/libraries/pyotherside { };
-
   qbs = libsForQt5.callPackage ../development/tools/build-managers/qbs { };
 
   qdjango = libsForQt5.callPackage ../development/libraries/qdjango { };
@@ -7972,6 +7945,8 @@ with pkgs;
 
   home-assistant-cli = callPackage ../servers/home-assistant/cli.nix { };
 
+  _surrealdbPackage = ../by-name/su/surrealdb/package.nix;
+
   icingaweb2-ipl = callPackage ../servers/icingaweb2/ipl.nix { };
   icingaweb2-thirdparty = callPackage ../servers/icingaweb2/thirdparty.nix { };
   icingaweb2 = callPackage ../servers/icingaweb2 { };
@@ -8000,14 +7975,20 @@ with pkgs;
       kanidm_1_9 = callPackage ../servers/kanidm/1_9.nix {
         kanidmWithSecretProvisioning = kanidmWithSecretProvisioning_1_9;
       };
+      kanidm_1_10 = callPackage ../servers/kanidm/1_10.nix {
+        kanidmWithSecretProvisioning = kanidmWithSecretProvisioning_1_10;
+      };
 
       kanidmWithSecretProvisioning_1_8 = kanidm_1_8.override { enableSecretProvisioning = true; };
       kanidmWithSecretProvisioning_1_9 = kanidm_1_9.override { enableSecretProvisioning = true; };
+      kanidmWithSecretProvisioning_1_10 = kanidm_1_10.override { enableSecretProvisioning = true; };
     })
     kanidm_1_8
     kanidm_1_9
+    kanidm_1_10
     kanidmWithSecretProvisioning_1_8
     kanidmWithSecretProvisioning_1_9
+    kanidmWithSecretProvisioning_1_10
     ;
 
   lemmy-server = callPackage ../servers/web-apps/lemmy/server.nix { };
@@ -8630,11 +8611,6 @@ with pkgs;
 
   sgx-psw = callPackage ../os-specific/linux/sgx/psw {
     protobuf = protobuf_33;
-  };
-
-  sinit = callPackage ../os-specific/linux/sinit {
-    rcinit = "/etc/rc.d/rc.init";
-    rcshutdown = "/etc/rc.d/rc.shutdown";
   };
 
   sysdig = callPackage ../os-specific/linux/sysdig {
@@ -10821,9 +10797,7 @@ with pkgs;
     inherit (darwin) autoSignDarwinBinariesHook;
   };
 
-  gridcoin-research = libsForQt5.callPackage ../applications/blockchains/gridcoin-research {
-    boost = boost179;
-  };
+  gridcoin-researchd = gridcoin-research.override { withGui = false; };
 
   groestlcoin = libsForQt5.callPackage ../applications/blockchains/groestlcoin {
     withGui = true;

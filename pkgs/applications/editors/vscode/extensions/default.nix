@@ -1346,8 +1346,8 @@ let
         mktplcRef = {
           publisher = "discloud";
           name = "discloud";
-          version = "2.28.7";
-          hash = "sha256-0RCuCZXDJ9svmI9Kc6vBE/l0f33aB3BXCFuHLFpa8nI=";
+          version = "2.29.5";
+          hash = "sha256-oWrGDJHVQ8Gwjrh6vlQPKoFlBx3wxzLbMkH0gDFa5jg=";
         };
         meta = {
           changelog = "https://marketplace.visualstudio.com/items/discloud.discloud/changelog";
@@ -1375,8 +1375,8 @@ let
         mktplcRef = {
           name = "competitive-programming-helper";
           publisher = "DivyanshuAgrawal";
-          version = "2026.4.1776958969";
-          hash = "sha256-Ng9Yw1Jq2lSLqczHj6tjhtINfzx1bOXlVN0K1pogIKw=";
+          version = "2026.5.1777808848";
+          hash = "sha256-HzevH4HO9QVkSwARx5EF5ylKE3bjOgWt7eSPP5rHEUw=";
         };
         meta = {
           changelog = "https://marketplace.visualstudio.com/items/DivyanshuAgrawal.competitive-programming-helper/changelog";
@@ -1457,8 +1457,8 @@ let
         mktplcRef = {
           name = "protobuf-vsc";
           publisher = "DrBlury";
-          version = "1.6.0";
-          hash = "sha256-HvTJSFRKO0K7Ud9381viPrXp3TInB1FT97qZArosAjY=";
+          version = "1.6.6";
+          hash = "sha256-uMyxdLptaLZBlLEugvYQgJTZCtysmnZix9faXsQfHGk=";
         };
         meta = {
           description = "Comprehensive Protocol Buffers support with syntax highlighting, IntelliSense, diagnostics and formatting";
@@ -2324,8 +2324,8 @@ let
         mktplcRef = {
           name = "vscode-vibrancy-continued";
           publisher = "illixion";
-          version = "1.1.76";
-          hash = "sha256-QMKEFoqOzlSduwjefou1ozt3WbSbeXfxEGj6KMqR3eY=";
+          version = "1.1.77";
+          hash = "sha256-khxajorzIntF2YwKVd6aZ1+doEr2oN4OliBpc7TTB7o=";
         };
         meta = {
           downloadPage = "https://marketplace.visualstudio.com/items?itemName=illixion.vscode-vibrancy-continued";
@@ -2918,8 +2918,8 @@ let
         mktplcRef = {
           name = "marp-vscode";
           publisher = "marp-team";
-          version = "3.4.1";
-          hash = "sha256-SS9GMib7ixL/KuMbavUVcOW6EBxxLN83ujg+clrTKrs=";
+          version = "3.5.0";
+          hash = "sha256-BH+9HK08+G2hZTanOuBplxl/cYpGrIqrapFGjNIX4QA=";
         };
         meta = {
           license = lib.licenses.mit;
@@ -3861,8 +3861,8 @@ let
         mktplcRef = {
           name = "ansible";
           publisher = "redhat";
-          version = "26.4.4";
-          hash = "sha256-fBwehxNmePQuM+kJ4cigVQCZ9UqBlBcT6+xD/gDCv64=";
+          version = "26.4.6";
+          hash = "sha256-ckirgCt6+mdnWkvmLwpH7YwqOxQ+JEeRE0/NJGCi7rU=";
         };
         meta = {
           description = "Ansible language support";
@@ -5025,8 +5025,8 @@ let
         mktplcRef = {
           name = "vstuc";
           publisher = "VisualStudioToolsForUnity";
-          version = "1.2.1";
-          hash = "sha256-WvEjR3cBXhCdd4FdIcTYEtifTdx0nNm3Ku0WpVrJ7hM=";
+          version = "1.2.2";
+          hash = "sha256-Yh4nhRTOmQiL34wYnd7Y2OMdl837fexRm5r2hHfhjIg=";
         };
         meta = {
           description = "Integrates Visual Studio Code for Unity";
