@@ -2512,12 +2512,18 @@ self: super: with self; {
 
   casa-formats-io = callPackage ../development/python-modules/casa-formats-io { };
 
+  casaconfig = callPackage ../development/python-modules/casaconfig { };
+
   casadi = toPythonModule (
     pkgs.casadi.override {
       pythonSupport = true;
       python3Packages = self;
     }
   );
+
+  casatasks = callPackage ../development/python-modules/casatasks { };
+
+  casatools = callPackage ../development/python-modules/casatools { };
 
   case-converter = callPackage ../development/python-modules/case-converter { };
 
@@ -4358,6 +4364,8 @@ self: super: with self; {
 
   django-reversion = callPackage ../development/python-modules/django-reversion { };
 
+  django-rich = callPackage ../development/python-modules/django-rich { };
+
   django-rosetta = callPackage ../development/python-modules/django-rosetta { };
 
   django-rq = callPackage ../development/python-modules/django-rq { };
@@ -5334,6 +5342,16 @@ self: super: with self; {
     faiss-build = pkgs.faiss.override {
       pythonSupport = true;
       python3Packages = self;
+    };
+  };
+
+  faiss-cpu = callPackage ../development/python-modules/faiss-cpu {
+    faiss = self.faiss.override {
+      faiss-build = pkgs.faiss.override {
+        pythonSupport = true;
+        python3Packages = self;
+        cudaSupport = false;
+      };
     };
   };
 
@@ -8069,8 +8087,6 @@ self: super: with self; {
 
   jsonschema-rs = callPackage ../development/python-modules/jsonschema-rs { };
 
-  jsonschema-spec = callPackage ../development/python-modules/jsonschema-spec { };
-
   jsonschema-specifications = callPackage ../development/python-modules/jsonschema-specifications { };
 
   jsonslicer = callPackage ../development/python-modules/jsonslicer { };
@@ -8499,6 +8515,8 @@ self: super: with self; {
   langchain-openai = callPackage ../development/python-modules/langchain-openai { };
 
   langchain-perplexity = callPackage ../development/python-modules/langchain-perplexity { };
+
+  langchain-protocol = callPackage ../development/python-modules/langchain-protocol { };
 
   langchain-tests = callPackage ../development/python-modules/langchain-tests { };
 
@@ -12509,8 +12527,6 @@ self: super: with self; {
   pika-pool = callPackage ../development/python-modules/pika-pool { };
 
   pikepdf = callPackage ../development/python-modules/pikepdf { };
-
-  pilight = callPackage ../development/python-modules/pilight { };
 
   pilkit = callPackage ../development/python-modules/pilkit { };
 
@@ -19039,7 +19055,6 @@ self: super: with self; {
 
   taco = toPythonModule (
     pkgs.taco.override {
-      inherit (self) python;
       enablePython = true;
     }
   );
@@ -19597,6 +19612,8 @@ self: super: with self; {
   torch-bin = callPackage ../development/python-modules/torch/bin { triton = self.triton-bin; };
 
   torch-c-dlpack-ext = callPackage ../development/python-modules/torch-c-dlpack-ext { };
+
+  torch-einops-utils = callPackage ../development/python-modules/torch-einops-utils { };
 
   torch-geometric = callPackage ../development/python-modules/torch-geometric { };
 
