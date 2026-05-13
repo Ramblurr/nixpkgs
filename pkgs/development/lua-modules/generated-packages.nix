@@ -4477,6 +4477,63 @@ final: prev: {
     }
   ) { };
 
+  mega-cmdparse = callPackage (
+    {
+      buildLuarocksPackage,
+      fetchurl,
+      fetchzip,
+      mega-logging,
+    }:
+    buildLuarocksPackage {
+      pname = "mega.cmdparse";
+      version = "1.2.1-1";
+      knownRockspec =
+        (fetchurl {
+          url = "mirror://luarocks/mega.cmdparse-1.2.1-1.rockspec";
+          sha256 = "1766pqazkr3zfwaaj541m53y90n5zr0r7068hd67d9hgvd7za6sb";
+        }).outPath;
+      src = fetchzip {
+        url = "https://github.com/ColinKennedy/mega.cmdparse/archive/v1.2.1.zip";
+        sha256 = "1bf3rf80m65jc51dlv3vcs2jhzk5ni2kr7v5rsmb31k7wk3002qb";
+      };
+
+      propagatedBuildInputs = [ mega-logging ];
+
+      meta = {
+        homepage = "https://github.com/ColinKennedy/mega.cmdparse";
+        license.fullName = "MIT";
+        description = "A Neovim command-mode parser. Similar to Python's argparse module";
+      };
+    }
+  ) { };
+
+  mega-logging = callPackage (
+    {
+      buildLuarocksPackage,
+      fetchurl,
+      fetchzip,
+    }:
+    buildLuarocksPackage {
+      pname = "mega.logging";
+      version = "1.1.6-1";
+      knownRockspec =
+        (fetchurl {
+          url = "mirror://luarocks/mega.logging-1.1.6-1.rockspec";
+          sha256 = "1va6vl4iqnc3ip2ws1ff65xavw1m6wgdrsal1gvqnjn0gh20vxbg";
+        }).outPath;
+      src = fetchzip {
+        url = "https://github.com/ColinKennedy/mega.logging/archive/v1.1.6.zip";
+        sha256 = "0sy7f42rbdanz9bi0kq6vzllykqcrp04bp7b5k3cqpml5ckywpl5";
+      };
+
+      meta = {
+        homepage = "https://github.com/ColinKennedy/mega.logging";
+        license.fullName = "MIT";
+        description = "A Neovim plugin for logging to Neovim or to disk";
+      };
+    }
+  ) { };
+
   middleclass = callPackage (
     {
       buildLuarocksPackage,
@@ -5974,6 +6031,40 @@ final: prev: {
         maintainers = with lib.maintainers; [ mephistophiles ];
         license.fullName = "MIT";
         description = "Teal, a typed dialect of Lua";
+      };
+    }
+  ) { };
+
+  tomlua = callPackage (
+    {
+      buildLuarocksPackage,
+      fetchurl,
+      fetchzip,
+      luaOlder,
+    }:
+    buildLuarocksPackage {
+      pname = "tomlua";
+      version = "1.1.5-1";
+      knownRockspec =
+        (fetchurl {
+          url = "mirror://luarocks/tomlua-1.1.5-1.rockspec";
+          sha256 = "0xqxlw1pzvy63kw8d98nfh0k9269s4dg90md72m8kfcrj7isrb6m";
+        }).outPath;
+      src = fetchzip {
+        url = "https://github.com/BirdeeHub/tomlua/archive/v1.1.5.zip";
+        sha256 = "136jxj26dk3jl17dm86ifvfmpfbj0mf6yp2yy6i8g4xxfqs27n9q";
+      };
+
+      disabled = luaOlder "5.1";
+
+      meta = {
+        homepage = "https://github.com/BirdeeHub/tomlua";
+        maintainers = [ lib.maintainers.birdee ];
+        license.fullName = "MIT";
+        description = "Speedy toml parsing for lua, implemented in C";
+        longDescription = ''
+          Speedy toml parsing for lua, implemented in C
+              for use in hot-path or startup-time parsing of toml files.'';
       };
     }
   ) { };

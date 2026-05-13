@@ -527,6 +527,11 @@ lib.mapAttrs mkLicense (
       fullName = "DOC License";
     };
 
+    docBookDtd = {
+      spdxId = "DocBook-DTD";
+      fullName = "DocBook DTD License";
+    };
+
     drl10 = {
       spdxId = "DRL-1.0";
       fullName = "Detection Rule License 1.0";
@@ -863,6 +868,12 @@ lib.mapAttrs mkLicense (
     isc = {
       spdxId = "ISC";
       fullName = "ISC License";
+    };
+
+    json = {
+      spdxId = "JSON";
+      fullName = "JSON License";
+      free = false;
     };
 
     databricks = {
