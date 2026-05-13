@@ -3892,7 +3892,7 @@ assertNoAdditions {
     };
   });
 
-  run-nvim = super.run-nvim.overrideAttrs {
+  run-nvim = super.run-nvim.overrideAttrs (old: {
     dependencies = [
       self.telescope-nvim
     ];
@@ -3902,7 +3902,11 @@ assertNoAdditions {
       # Issue: https://github.com/NixOS/nixpkgs/issues/394939
       self.plenary-nvim
     ];
-  };
+
+    meta = old.meta // {
+      license = lib.licenses.gpl3Only;
+    };
+  });
 
   rust-tools-nvim = super.rust-tools-nvim.overrideAttrs {
     dependencies = [ self.nvim-lspconfig ];
@@ -4946,10 +4950,13 @@ assertNoAdditions {
     };
   });
 
-  vim-flog = super.vim-flog.overrideAttrs {
+  vim-flog = super.vim-flog.overrideAttrs (old: {
     # Not intended to be required, used by vim plugin
     nvimSkipModules = "flog.graph_bin";
-  };
+    meta = old.meta // {
+      license = lib.licenses.vim;
+    };
+  });
 
   vim-fugitive = super.vim-fugitive.overrideAttrs (old: {
     meta = old.meta // {

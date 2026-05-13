@@ -7758,6 +7758,20 @@ final: prev: {
     meta.hydraPlatforms = [ ];
   };
 
+  inlay-hints-nvim = buildVimPlugin {
+    pname = "inlay-hints.nvim";
+    version = "0.0.7";
+    src = fetchFromGitHub {
+      owner = "MysticalDevil";
+      repo = "inlay-hints.nvim";
+      tag = "v0.0.7";
+      hash = "sha256-136r1/SjBHcrKZZcFHZK7rFTcJHAReZqIzUrKsZStc4=";
+    };
+    meta.homepage = "https://github.com/MysticalDevil/inlay-hints.nvim";
+    meta.license = getLicenseFromSpdxId "Apache-2.0";
+    meta.hydraPlatforms = [ ];
+  };
+
   instant-nvim = buildVimPlugin {
     pname = "instant.nvim";
     version = "0-unstable-2022-06-25";
@@ -11948,14 +11962,14 @@ final: prev: {
 
   nordic-nvim = buildVimPlugin {
     pname = "nordic.nvim";
-    version = "0-unstable-2024-06-16";
+    version = "0.2.0";
     src = fetchFromGitHub {
-      owner = "andersevenrud";
+      owner = "alexvzyl";
       repo = "nordic.nvim";
-      rev = "c88388b2a5f6e621df2718c316b856d4971bb89d";
-      hash = "sha256-ipmt0xD2zTfoh8fyYG4+09uVL2ef98FE9VwWpWJtQks=";
+      tag = "0.2.0";
+      hash = "sha256-kjr4SsRbKfVgNjAFWybkRQ8/QDOPLm7lbysi6Gblpfg=";
     };
-    meta.homepage = "https://github.com/andersevenrud/nordic.nvim/";
+    meta.homepage = "https://github.com/alexvzyl/nordic.nvim/";
     meta.license = getLicenseFromSpdxId "MIT";
     meta.hydraPlatforms = [ ];
   };
@@ -25838,7 +25852,7 @@ final: prev: {
       hash = "sha256-I+nPSItC/0M8QTs1mVX7F+KjtezYpq9GFpUdsFl6bTE=";
     };
     meta.homepage = "https://codeberg.org/ziglang/zig.vim/";
-    meta.license = lib.licenses.unfree;
+    meta.license = unfree;
     meta.hydraPlatforms = [ ];
   };
 
