@@ -14,7 +14,6 @@
   libayatana-appindicator,
   wayland,
   libxkbcommon,
-  mesa,
   libxcb,
   leptonica,
   glib,
@@ -101,7 +100,7 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   inherit pname;
-  version = "2.66.01";
+  version = "2.74.01";
 
   src = fetchzip {
     url = "https://storage.tdarr.io/versions/${finalAttrs.version}/${platform}/${componentName}.zip";
@@ -122,7 +121,6 @@ stdenv.mkDerivation (finalAttrs: {
     wayland
     libxkbcommon
     libxcb
-    mesa
     tesseract4
     leptonica
     glib

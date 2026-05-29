@@ -12,17 +12,19 @@
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "cosmic-session";
-  version = "1.0.12";
+  version = "1.0.13";
 
   # nixpkgs-update: no auto update
   src = fetchFromGitHub {
     owner = "pop-os";
     repo = "cosmic-session";
     tag = "epoch-${finalAttrs.version}";
-    hash = "sha256-ugVj4SIO77Fw9ET4zIyK3OJaRFH3ujbQBJ57Vc+f2Ao=";
+    hash = "sha256-FphY53MaOUUR2oQfZak3HbT+kvysUnw2AIc4L9O+TcU=";
   };
 
   cargoHash = "sha256-5dLG40X+yxJo566guyHqOCLNp+uNSE+HONS8GIDm58A=";
+
+  separateDebugInfo = true;
 
   postPatch = ''
     substituteInPlace data/start-cosmic \
@@ -31,6 +33,8 @@ rustPlatform.buildRustPackage (finalAttrs: {
     substituteInPlace data/cosmic.desktop \
       --replace-fail '/usr/bin/start-cosmic' "${placeholder "out"}/bin/start-cosmic"
   '';
+
+  __structuredAttrs = true;
 
   buildInputs = [ bash ];
   nativeBuildInputs = [ just ];

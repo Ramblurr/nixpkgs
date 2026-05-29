@@ -9,13 +9,13 @@
 }:
 let
   pname = "open-webui";
-  version = "0.9.4";
+  version = "0.9.5";
 
   src = fetchFromGitHub {
     owner = "open-webui";
     repo = "open-webui";
     tag = "v${version}";
-    hash = "sha256-J0B/N4Bb7lRK4/BiILliy/Gw7FayM3liG+4NiskOq9U=";
+    hash = "sha256-RVmFRThK6dNJyqxKepk9WfxzXIwkRoYijZjR1HEhDm8=";
   };
 
   frontend = buildNpmPackage rec {
@@ -24,21 +24,15 @@ let
 
     # the backend for run-on-client-browser python execution
     # must match lock file in open-webui
-    # TODO: should we automate this?
-    # TODO: with JQ? "jq -r '.packages["node_modules/pyodide"].version' package-lock.json"
-    pyodideVersion = "0.28.2";
+    pyodideVersion = "0.28.3";
     pyodide = fetchurl {
-      hash = "sha256-MQIRdOj9yVVsF+nUNeINnAfyA6xULZFhyjuNnV0E5+c=";
+      hash = "sha256-fcqubT8VmGoJ8PnmxHE6DA8kv/DJDHToWoFyPxvGCUA=";
       url = "https://github.com/pyodide/pyodide/releases/download/${pyodideVersion}/pyodide-${pyodideVersion}.tar.bz2";
     };
 
-    npmDepsHash = "sha256-jPGSJ+f5xuhnB4E9/FlgQkC37W6Yw2aGh8O8f8ajVC4=";
+    npmDepsHash = "sha256-kAUbFAFNo5RHMGqO7sPHSxSEZw9Ky6Pxp/vddDyw90E=";
 
-    # See https://github.com/open-webui/open-webui/issues/15880
-    npmFlags = [
-      "--force"
-      "--legacy-peer-deps"
-    ];
+    npmFlags = [ "--force" ];
 
     # Disabling `pyodide:fetch` as it downloads packages during `buildPhase`
     # Until this is solved, running python packages from the browser will not work.
