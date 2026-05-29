@@ -18,6 +18,23 @@
   writableTmpDirAsHomeHook,
   writeDarwinBundle,
   xcbuild,
+  enableAzureDevOps ? false,
+  azure-cli,
+  azure-cli-extensions,
+  enableBitbucket ? false,
+  bitbucket-cli,
+  enableClaude ? false,
+  claude-code,
+  enableCodex ? true,
+  codex,
+  enableGitHub ? true,
+  gh,
+  enableGit ? true,
+  git,
+  enableGitLab ? false,
+  glab,
+  enableJujutsu ? false,
+  jujutsu,
 }:
 
 stdenv.mkDerivation (
@@ -30,6 +47,22 @@ stdenv.mkDerivation (
         "assets/prod/black-macos-1024.png"
       else
         "assets/prod/black-universal-1024.png";
+    runtimePackages =
+      lib.optionals enableAzureDevOps [
+        azure-cli.withExtensions
+        [ azure-cli-extensions.azure-devops ]
+      ]
+      ++ lib.optionals enableBitbucket [ bitbucket-cli ]
+      ++ lib.optionals enableClaude [ claude-code ]
+      ++ lib.optionals enableCodex [ codex ]
+      ++ lib.optionals enableGitHub [ gh ]
+      ++ lib.optionals enableGit [ git ]
+      ++ lib.optionals enableGitLab [ glab ]
+      ++ lib.optionals enableJujutsu [ jujutsu ];
+    runtimePathWrapperArgs = lib.optionalString (runtimePackages != [ ]) ''
+      \
+        --prefix PATH : ${lib.makeBinPath runtimePackages}
+    '';
     nodeModules = stdenvNoCC.mkDerivation {
       pname = "${finalAttrs.pname}-node_modules";
       inherit (finalAttrs) src version strictDeps;
@@ -70,13 +103,13 @@ stdenv.mkDerivation (
         runHook postInstall
       '';
 
-      outputHash = "sha256-63Vx05VLHiZpY1K8ZS1GyoupU4i3sEPEAnWMWyMelbg=";
+      outputHash = "sha256-0wA39cSxybKPbZ1xXf+mcI4QSXJhLcNQ6x+o2xvLuq8=";
       outputHashMode = "recursive";
     };
   in
   {
     pname = "t3code";
-    version = "0.0.23";
+    version = "0.0.24";
     strictDeps = true;
     __structuredAttrs = true;
 
@@ -84,7 +117,7 @@ stdenv.mkDerivation (
       owner = "pingdotgg";
       repo = "t3code";
       tag = "v${finalAttrs.version}";
-      hash = "sha256-gsDHogGnzKVwypGwK1PzYBXpBYBFQHIbXMpWVUGzKU8=";
+      hash = "sha256-7mqRuWft9h9MAEVzuwC6K1aj2UUAcjheWrwncXhpbro=";
     };
 
     postPatch = ''
@@ -117,6 +150,10 @@ stdenv.mkDerivation (
 
       chmod --recursive u+rwX node_modules
       patchShebangs node_modules
+
+      # Upstream bumps package.json versions after tagging releases, then applies
+      # the same bump in the release workflow before building artifacts.
+      bun scripts/update-release-package-versions.ts ${finalAttrs.version}
 
       # Compile node-pty's native addon (hoisted into node_modules).
       export npm_config_nodedir=${nodejs}
@@ -162,11 +199,11 @@ stdenv.mkDerivation (
       find "$out"/libexec/t3code -xtype l -delete
 
       makeWrapper ${lib.getExe nodejs} "$out"/bin/t3code \
-        --add-flags "$out"/libexec/t3code/apps/server/dist/bin.mjs
+        --add-flags "$out"/libexec/t3code/apps/server/dist/bin.mjs ${runtimePathWrapperArgs}
 
       makeWrapper ${lib.getExe electron} "$out"/bin/t3code-desktop \
         --add-flags "$out"/libexec/t3code/apps/desktop/dist-electron/main.cjs \
-        --inherit-argv0
+        --inherit-argv0 ${runtimePathWrapperArgs}
     ''
     + lib.optionalString stdenv.hostPlatform.isDarwin ''
       mkdir --parents "$out/Applications/${appName}.app/Contents/"{MacOS,Resources}

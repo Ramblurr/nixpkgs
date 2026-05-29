@@ -42,6 +42,9 @@
   yyjson,
   zlib,
   zfs,
+
+  fastfetch,
+
   # Feature flags
   audioSupport ? true,
   brightnessSupport ? true,
@@ -64,6 +67,9 @@
 stdenv.mkDerivation (finalAttrs: {
   pname = "fastfetch";
   version = "2.63.1";
+
+  strictDeps = true;
+  __structuredAttrs = true;
 
   src = fetchFromGitHub {
     owner = "fastfetch-cli";
@@ -269,7 +275,28 @@ stdenv.mkDerivation (finalAttrs: {
   nativeInstallCheckInputs = [ versionCheckHook ];
   doInstallCheck = true;
 
-  passthru.updateScript = nix-update-script { };
+  passthru = {
+    updateScript = nix-update-script { };
+    # finalAttrs.finalPackage.override doesn’t exist
+    minimal = fastfetch.override {
+      audioSupport = false;
+      brightnessSupport = false;
+      dbusSupport = false;
+      enlightenmentSupport = false;
+      flashfetchSupport = false;
+      gnomeSupport = false;
+      imageSupport = false;
+      openclSupport = false;
+      openglSupport = false;
+      rpmSupport = false;
+      sqliteSupport = false;
+      terminalSupport = false;
+      vulkanSupport = false;
+      waylandSupport = false;
+      x11Support = false;
+      xfceSupport = false;
+    };
+  };
 
   meta = {
     description = "Actively maintained, feature-rich and performance oriented, neofetch like system information tool";

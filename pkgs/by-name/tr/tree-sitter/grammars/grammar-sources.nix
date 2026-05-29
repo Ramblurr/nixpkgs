@@ -30,6 +30,8 @@
         aciceri
       ];
     };
+    # Non-schema `queries` nesting in grammar entry
+    excludeBrokenTreeSitterJson = true;
   };
 
   alloy = {
@@ -740,6 +742,8 @@
         sei40kr
       ];
     };
+    # Non-schema `camelCase` and `external-scanner` fields
+    excludeBrokenTreeSitterJson = true;
   };
 
   gas = {
@@ -1022,6 +1026,8 @@
         aciceri
       ];
     };
+    # Slash in grammar name and non-schema top-level `tree-sitter` field
+    excludeBrokenTreeSitterJson = true;
   };
 
   groovy = {
@@ -1824,6 +1830,8 @@
     meta = {
       license = lib.licenses.mit;
     };
+    # Missing required `metadata.links`
+    excludeBrokenTreeSitterJson = true;
   };
 
   opencl = {
@@ -2200,6 +2208,8 @@
         aciceri
       ];
     };
+    # Missing required `grammars[0].name` and `metadata`
+    excludeBrokenTreeSitterJson = true;
   };
 
   r = {
@@ -2528,6 +2538,8 @@
         aciceri
       ];
     };
+    # Empty `metadata.links.funding` fails URL parsing
+    excludeBrokenTreeSitterJson = true;
   };
 
   supercollider = {
@@ -2583,9 +2595,9 @@
   };
 
   t32 = {
-    version = "7.2.6";
+    version = "9.0.0";
     url = "github:xasc/tree-sitter-t32";
-    hash = "sha256-r89C29D8N8E+MJi+RUxTE0+Y/e4ykLzIDaw/AQHegLc=";
+    hash = "sha256-IL+wPbopaiX+pG/9yvkXx0VVPVCSgG05uObw/wsQGAw=";
     meta = {
       maintainers = with lib.maintainers; [
         aciceri
@@ -2617,6 +2629,8 @@
         aciceri
       ];
     };
+    # Non-schema `metadata.links.homepage`
+    excludeBrokenTreeSitterJson = true;
   };
 
   talon = rec {
@@ -2971,6 +2985,8 @@
         jeafleohj
       ];
     };
+    # Relative repository URL, empty funding and author URLs
+    excludeBrokenTreeSitterJson = true;
   };
 
   wast = {

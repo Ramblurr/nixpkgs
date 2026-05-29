@@ -21,7 +21,7 @@
 /ci/OWNERS                              @infinisil @philiptaron
 
 # Development support
-/.editorconfig @Mic92 @zowoq
+/.editorconfig @Mic92
 /shell.nix @infinisil @NixOS/Security
 
 # Libraries
@@ -124,6 +124,7 @@ nixos/modules/installer/tools/nix-fallback-paths.nix  @Artturin @Ericson2314 @lo
 
 # NixOS integration test driver
 /nixos/lib/test-driver  @tfc
+/nixos/lib/testing      @tfc
 
 # NixOS QEMU virtualisation
 /nixos/modules/virtualisation/qemu-vm.nix                 @raitobezarius
@@ -219,10 +220,10 @@ nixos/modules/installer/tools/nix-fallback-paths.nix  @Artturin @Ericson2314 @lo
 /pkgs/development/r-modules         @jbedo
 
 # Rust
-/pkgs/development/compilers/rust @alyssais @Mic92 @zowoq @winterqt
-/pkgs/build-support/rust @zowoq @winterqt
+/pkgs/development/compilers/rust @alyssais @Mic92 @winterqt
+/pkgs/build-support/rust @winterqt
 /pkgs/build-support/rust/fetch-cargo-vendor* @TomaSajt
-/doc/languages-frameworks/rust.section.md @zowoq @winterqt
+/doc/languages-frameworks/rust.section.md @winterqt
 
 # Tcl
 /pkgs/development/interpreters/tcl  @fgaz
@@ -505,7 +506,7 @@ pkgs/development/interpreters/elixir/   @NixOS/beam
 pkgs/development/interpreters/lfe/      @NixOS/beam
 
 # Authelia
-pkgs/by-name/au/authelia/ @06kellyjac @dit7ya @nicomem
+pkgs/by-name/au/authelia/ @06kellyjac @nicomem
 
 # OctoDNS
 pkgs/by-name/oc/octodns/ @anthonyroussel
@@ -526,3 +527,6 @@ pkgs/by-name/wa/warp-terminal/  @emilytrau @imadnyc @FlameFlag @johnrtitor
 # Radicle
 /pkgs/build-support/fetchradicle/      @NixOS/radicle
 /pkgs/build-support/fetchradiclepatch/ @NixOS/radicle
+
+# Zellij plugins
+/pkgs/by-name/ze/zellij/plugins/   @PerchunPak

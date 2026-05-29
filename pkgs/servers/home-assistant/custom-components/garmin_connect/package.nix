@@ -8,13 +8,13 @@
 buildHomeAssistantComponent rec {
   owner = "cyberjunky";
   domain = "garmin_connect";
-  version = "3.0.5";
+  version = "3.0.8";
 
   src = fetchFromGitHub {
     owner = "cyberjunky";
     repo = "home-assistant-garmin_connect";
     tag = version;
-    hash = "sha256-omHgfkrje5xR9gLnQpAz33+LtXm5eGJ8nERYBX4F2sY=";
+    hash = "sha256-F/zMwaGt9lbMzhgy3Jk23ylalMJqMT5xf90YUeH0Fv4=";
   };
 
   dependencies = [
