@@ -56,6 +56,12 @@
 /pkgs/top-level/splice.nix                       @Ericson2314
 /pkgs/top-level/release-cross.nix                @Ericson2314
 /pkgs/top-level/by-name-overlay.nix              @infinisil @philiptaron
+/pkgs/top-level/config.nix                       @jopejoe1
+/pkgs/top-level/make-tarball.nix                 @jopejoe1
+/pkgs/top-level/packages-config.nix              @jopejoe1
+/pkgs/top-level/packages-info.nix                @jopejoe1
+/pkgs/top-level/release-lib.nix                  @jopejoe1
+/pkgs/top-level/release.nix                      @jopejoe1
 /pkgs/stdenv                                     @philiptaron @NixOS/stdenv
 /pkgs/stdenv/generic                             @Ericson2314 @NixOS/stdenv
 /pkgs/stdenv/generic/problems.nix                @infinisil
@@ -73,6 +79,7 @@
 
 ## Format generators/serializers
 /pkgs/pkgs-lib                                   @Stunkymonkey @h7x4
+/pkgs/pkgs-lib/formats/json2x                    @Stunkymonkey @h7x4 @figsoda
 
 # Nixpkgs build-support
 /pkgs/build-support/writers @lassulus
@@ -124,6 +131,7 @@ nixos/modules/installer/tools/nix-fallback-paths.nix  @Artturin @Ericson2314 @lo
 
 # NixOS integration test driver
 /nixos/lib/test-driver  @tfc
+/nixos/lib/testing      @tfc
 
 # NixOS QEMU virtualisation
 /nixos/modules/virtualisation/qemu-vm.nix                 @raitobezarius
@@ -188,8 +196,6 @@ nixos/modules/installer/tools/nix-fallback-paths.nix  @Artturin @Ericson2314 @lo
 /maintainers/scripts/update-python-libraries  @mweinelt @natsukium
 /pkgs/by-name/up/update-python-libraries      @mweinelt @natsukium
 /pkgs/development/interpreters/python         @mweinelt @natsukium
-/pkgs/top-level/python-packages.nix                     @natsukium
-/pkgs/top-level/release-python.nix                      @natsukium
 
 # CUDA
 /pkgs/top-level/cuda-packages.nix             @NixOS/cuda-maintainers
@@ -526,3 +532,6 @@ pkgs/by-name/wa/warp-terminal/  @emilytrau @imadnyc @FlameFlag @johnrtitor
 # Radicle
 /pkgs/build-support/fetchradicle/      @NixOS/radicle
 /pkgs/build-support/fetchradiclepatch/ @NixOS/radicle
+
+# Zellij plugins
+/pkgs/by-name/ze/zellij/plugins/   @PerchunPak

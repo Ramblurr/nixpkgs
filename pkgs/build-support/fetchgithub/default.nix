@@ -59,9 +59,8 @@ decorate (
   }@args:
 
   assert (
-    lib.assertMsg (lib.xor (tag == null) (
-      rev == null
-    )) "fetchFromGitHub requires one of either `rev` or `tag` to be provided (not both)."
+    lib.xor (tag == null) (rev == null)
+    || throw "fetchFromGitHub requires one of either `rev` or `tag` to be provided (not both)."
   );
 
   let
@@ -89,6 +88,22 @@ decorate (
       meta
       // {
         homepage = meta.homepage or baseUrl;
+        identifiers = {
+          purlParts =
+            if githubBase == "github.com" then
+              {
+                type = "github";
+                # https://github.com/package-url/purl-spec/blob/18fd3e395dda53c00bc8b11fe481666dc7b3807a/types-doc/github-definition.md
+                spec = "${owner}/${repo}@${(lib.revOrTag rev tag)}";
+              }
+            else
+              {
+                type = "generic";
+                # https://github.com/package-url/purl-spec/blob/18fd3e395dda53c00bc8b11fe481666dc7b3807a/types-doc/generic-definition.md
+                spec = "${repo}?vcs_url=https://${githubBase}/${owner}/${repo}@${(lib.revOrTag rev tag)}";
+              };
+        }
+        // meta.identifiers or { };
       }
       // lib.optionalAttrs (position != null) {
         # to indicate where derivation originates, similar to make-derivation.nix's mkDerivation

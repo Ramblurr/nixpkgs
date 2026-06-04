@@ -103,6 +103,13 @@ let
           ''
       + lib.optionalString stdenv.hostPlatform.isCygwin ''
         rm test/recipes/01-test_symbol_presence.t
+      ''
+      # this test has inconsistent behavior in the freebsd sandbox
+      # (binds to only ipv6 and connects on only ipv4)
+      + lib.optionalString stdenv.hostPlatform.isFreeBSD ''
+        substituteInPlace test/recipes/82-test_ocsp_cert_chain.t \
+          --replace-fail '"-accept",' '"-4", "-accept",' \
+          --replace-fail '"-connect",' '"-4", "-connect",'
       '';
 
       outputs = [
@@ -384,6 +391,7 @@ let
       meta = {
         homepage = "https://www.openssl.org/";
         changelog = "https://github.com/openssl/openssl/blob/openssl-${version}/CHANGES.md";
+        donationPage = "https://openssl.foundation/donate/ways-to-give";
         description = "Cryptographic library that implements the SSL and TLS protocols";
         license = lib.licenses.openssl;
         mainProgram = "openssl";
