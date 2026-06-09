@@ -10,15 +10,15 @@
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "tranquil-pds";
-  version = "0.6.3";
+  version = "0.6.5";
 
   src = fetchgit {
     url = "https://tangled.org/tranquil.farm/tranquil-pds";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-TORNOFPlbCt4QWNd+bmxkShTUvT/5ynOj+UBYITAhg8=";
+    hash = "sha256-kBy982B9ZY5W02hmdKqlR86ynJAUD98b4UgaYIPaFzM=";
   };
 
-  cargoHash = "sha256-tQk9WQZmaG2XEx5gocPhYd8fZ2cikvduhln5h/w+WZA=";
+  cargoHash = "sha256-X2zoQSBQaq+W0rT/Y08EA1b81pbePUvH7q+Ccmtbf+Y=";
 
   __structuredAttrs = true;
 

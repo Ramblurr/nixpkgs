@@ -887,6 +887,7 @@
   ./services/misc/ihaskell.nix
   ./services/misc/iio-niri.nix
   ./services/misc/input-remapper.nix
+  ./services/misc/inventree.nix
   ./services/misc/invidious-router.nix
   ./services/misc/irkerd.nix
   ./services/misc/jackett.nix
@@ -1017,6 +1018,7 @@
   ./services/monitoring/das_watchdog.nix
   ./services/monitoring/datadog-agent.nix
   ./services/monitoring/do-agent.nix
+  ./services/monitoring/flap-alerted.nix
   ./services/monitoring/fluent-bit.nix
   ./services/monitoring/fusion-inventory.nix
   ./services/monitoring/gatus.nix

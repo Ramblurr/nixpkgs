@@ -153,6 +153,7 @@ in
     console-log = runTest ./nixos-test-driver/console-log.nix;
     containers = runTest ./nixos-test-driver/containers.nix;
     skip-typecheck = runTest ./nixos-test-driver/skip-typecheck.nix;
+    options-doc-regression = import ./nixos-test-driver/options-doc-regression.nix { inherit pkgs; };
     driver-timeout =
       pkgs.runCommand "ensure-timeout-induced-failure"
         {
@@ -596,6 +597,7 @@ in
   firezone = runTest ./firezone/firezone.nix;
   fish = runTest ./fish.nix;
   flannel = runTestOn [ "x86_64-linux" ] ./flannel.nix;
+  flap-alerted = runTest ./flap-alerted.nix;
   flaresolverr = runTest ./flaresolverr.nix;
   flood = runTest ./flood.nix;
   fluent-bit = runTest ./fluent-bit.nix;
@@ -673,6 +675,7 @@ in
   gobgpd = runTest ./gobgpd.nix;
   gocd-agent = runTest ./gocd-agent.nix;
   gocd-server = runTest ./gocd-server.nix;
+  gocryptfs = runTest ./gocryptfs.nix;
   gokapi = runTest ./gokapi.nix;
   gollum = runTest ./gollum.nix;
   gonic = runTest ./gonic.nix;
@@ -799,6 +802,7 @@ in
   installer = handleTest ./installer.nix { systemdStage1 = false; };
   installer-systemd-stage-1 = handleTest ./installer.nix { systemdStage1 = true; };
   intune = runTest ./intune.nix;
+  inventree = runTest ./inventree.nix;
   invidious = runTest ./invidious.nix;
   invoiceplane = runTest ./invoiceplane.nix;
   iodine = runTest ./iodine.nix;
@@ -938,7 +942,7 @@ in
   lomiri-system-settings = runTest ./lomiri-system-settings.nix;
   lorri = handleTest ./lorri/default.nix { };
   luks = runTest ./luks.nix;
-  lvm2 = handleTest ./lvm2 { };
+  lvm2 = import ./lvm2 { inherit pkgs runTest; };
   lxc = runTestOn [ "x86_64-linux" "aarch64-linux" ] ./lxc;
   lxd-image-server = runTest ./lxd-image-server.nix;
   lxqt = runTest ./lxqt.nix;
@@ -1119,7 +1123,6 @@ in
   nimdow = runTest ./nimdow.nix;
   nipap = runTest ./web-apps/nipap.nix;
   nitter = runTest ./nitter.nix;
-  nix-channel = pkgs.callPackage ../modules/config/nix-channel/test.nix { };
   nix-config = runTest ./nix-config.nix;
   nix-daemon-firewall = runTest ./nix-daemon-firewall.nix;
   nix-daemon-unprivileged = runTest ./nix-daemon-unprivileged.nix;
@@ -1591,7 +1594,10 @@ in
   systemd = runTest ./systemd.nix;
   systemd-analyze = runTest ./systemd-analyze.nix;
   systemd-binfmt = handleTestOn [ "x86_64-linux" ] ./systemd-binfmt.nix { };
-  systemd-boot = import ./systemd-boot.nix { inherit runTest runTestOn; };
+  systemd-boot = import ./systemd-boot.nix {
+    inherit runTest runTestOn;
+    inherit (pkgs) lib;
+  };
   systemd-bpf = runTest ./systemd-bpf.nix;
   systemd-capsules = runTest ./systemd-capsules.nix;
   systemd-confinement = handleTest ./systemd-confinement { };
@@ -1660,6 +1666,7 @@ in
   systemd-sysusers-immutable = runTest ./systemd-sysusers-immutable.nix;
   systemd-sysusers-mutable = runTest ./systemd-sysusers-mutable.nix;
   systemd-sysusers-password-option-override-ordering = runTest ./systemd-sysusers-password-option-override-ordering.nix;
+  systemd-timesyncd = runTest ./systemd-timesyncd.nix;
   systemd-timesyncd-nscd-dnssec = runTest ./systemd-timesyncd-nscd-dnssec.nix;
   systemd-user-linger = runTest ./systemd-user-linger.nix;
   systemd-user-linger-purge = runTest ./systemd-user-linger-purge.nix;
@@ -1759,10 +1766,6 @@ in
   utils = import ./utils { inherit runTest; };
   uwsgi = runTest ./uwsgi.nix;
   v2ray = runTest ./v2ray.nix;
-  varnish60 = runTest {
-    imports = [ ./varnish.nix ];
-    _module.args.package = pkgs.varnish60;
-  };
   varnish80 = runTest {
     imports = [ ./varnish.nix ];
     _module.args.package = pkgs.varnish80;
@@ -1846,7 +1849,7 @@ in
   zammad = runTest ./zammad.nix;
   zenohd = runTest ./zenohd.nix;
   zeronet-conservancy = runTest ./zeronet-conservancy.nix;
-  zfs = handleTest ./zfs.nix { };
+  zfs = import ./zfs.nix { inherit system pkgs runTest; };
   zigbee2mqtt = runTest ./zigbee2mqtt.nix;
   zipline = runTest ./zipline.nix;
   zoneminder = runTest ./zoneminder.nix;

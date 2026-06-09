@@ -262,8 +262,8 @@ let
         mktplcRef = {
           name = "ng-template";
           publisher = "Angular";
-          version = "21.2.4";
-          hash = "sha256-2oTZLOQfcbqrSpEhJ0p7et/8X2JkTi4Kf2jfqVS2DKo=";
+          version = "22.0.0";
+          hash = "sha256-3b77hepFW03I2hwsVvCA3f1Jqwnq5WfGAq2yqBDIt5Q=";
         };
         meta = {
           changelog = "https://marketplace.visualstudio.com/items/Angular.ng-template/changelog";
@@ -618,8 +618,8 @@ let
         mktplcRef = {
           name = "github-markdown-preview";
           publisher = "bierner";
-          version = "0.3.0";
-          hash = "sha256-7pbl5OgvJ6S0mtZWsEyUzlg+lkUhdq3rkCCpLsvTm4g=";
+          version = "0.4.0";
+          hash = "sha256-bfj0rrZWVtgNfynap9+kdp8jAef0g9pTozEJwmkzhgU=";
         };
         meta = {
           description = "VSCode extension that changes the markdown preview to support GitHub markdown features";
@@ -1145,8 +1145,8 @@ let
         mktplcRef = {
           name = "vscode-database-client2";
           publisher = "cweijan";
-          version = "8.4.6";
-          hash = "sha256-GBz0hS75VgfuGuHY/K/VHxp5sFptUCJaz/CXrm6wFPc=";
+          version = "8.4.7";
+          hash = "sha256-HiyLNVtdJgzwn6BSR4ojHOkLrQ49PhRQa4twst69j7Q=";
         };
         meta = {
           description = "Database Client For Visual Studio Code";
@@ -1174,8 +1174,8 @@ let
         mktplcRef = {
           publisher = "DanielSanMedium";
           name = "dscodegpt";
-          version = "3.20.6";
-          hash = "sha256-QDs+zi2Kb2APYxZOzvBnrEZqlmhzNFmQ3bpSfIaPjlc=";
+          version = "3.20.14";
+          hash = "sha256-jD+e+s4iaX1p+KR3neJUwvPm/DQiX1gSTt595ryw8xE=";
         };
         meta = {
           changelog = "https://marketplace.visualstudio.com/items/DanielSanMedium.dscodegpt/changelog";
@@ -1760,8 +1760,8 @@ let
         mktplcRef = {
           name = "foam-vscode";
           publisher = "foam";
-          version = "0.40.4";
-          hash = "sha256-WqFIWt3c3XtdsXys+V4tQWxzDMefYOQ88MzTSPDHOKE=";
+          version = "0.42.0";
+          hash = "sha256-mk4ZgaBxLFPvrm3EU+hdidorhdWp7EGfRP0e/kARd1A=";
         };
         meta = {
           changelog = "https://marketplace.visualstudio.com/items/foam.foam-vscode/changelog";
@@ -2014,8 +2014,8 @@ let
         mktplcRef = {
           name = "gleam";
           publisher = "gleam";
-          version = "2.12.1";
-          hash = "sha256-zU/iwaJ6ShEHYq7OeM6+RF/RVIx6SmJJKxtebN/tSGI=";
+          version = "2.12.2";
+          hash = "sha256-41HgkDcgyStJtyeE0x1H9rFOZ18imcKF7XQixDOmurE=";
         };
         meta = {
           description = "Support for the Gleam programming language";
@@ -3491,8 +3491,8 @@ let
         mktplcRef = {
           name = "veriloghdl";
           publisher = "mshr-h";
-          version = "1.23.2";
-          hash = "sha256-btwEFVhvNqCnMCftSt7CS6c4lAf29N3MxBAMriKDyjg=";
+          version = "1.25.0";
+          hash = "sha256-7DN0lYxwLL+Z0mIKApRHGHT7HiJZ0nfDMdojQm7XGAM=";
         };
         meta = {
           changelog = "https://marketplace.visualstudio.com/items/mshr-h.VerilogHDL/changelog";
@@ -3803,8 +3803,8 @@ let
         mktplcRef = {
           name = "prisma";
           publisher = "Prisma";
-          version = "31.10.0";
-          hash = "sha256-2KJdvzIKrNcFwxvTmXKl3z7AkClfJhyl0ZUmdUcMnzg=";
+          version = "31.11.0";
+          hash = "sha256-vvHr5jZ2lccO93O82OKnRF4wyVv3n/H3nKJIqZdIjlY=";
         };
         meta = {
           changelog = "https://marketplace.visualstudio.com/items/Prisma.prisma/changelog";
@@ -3967,8 +3967,8 @@ let
           publisher = "rocq-prover";
           name = "vsrocq";
           # When updating the version here, also update the language server vsrocq-language-server
-          version = "2.3.4";
-          hash = "sha256-2zYoCUtyhboQt68UJEmWOvrTrIOV2QmpaXU5mUhJfsA=";
+          version = "2.4.3";
+          hash = "sha256-o9rsSDCDYRWZQBMDA7DtWay50tBI76kw7H7CivrZpKo=";
         };
         meta = {
           description = "VsRocq is an extension for Visual Studio Code with support for the Rocq Prover";
@@ -4534,8 +4534,8 @@ let
         mktplcRef = {
           name = "svelte-vscode";
           publisher = "svelte";
-          version = "110.0.0";
-          hash = "sha256-l5L0uqHpBR6nWzr8/edz3EU8+BP9yqRRFhpnngG0RGY=";
+          version = "110.1.0";
+          hash = "sha256-i6FObecuMylaCZYl/KLMscE07JIzQz+NSkfRdxtSfgg=";
         };
         meta = {
           changelog = "https://github.com/sveltejs/language-tools/releases";
@@ -4962,7 +4962,7 @@ let
 
         meta = {
           license = lib.licenses.mpl20;
-          maintainers = [ lib.maintainers._0xbe7a ];
+          maintainers = [ ];
         };
       };
 
@@ -5110,8 +5110,8 @@ let
         mktplcRef = {
           publisher = "vscjava";
           name = "vscode-java-dependency";
-          version = "0.27.4";
-          hash = "sha256-nEONTcT0chv+gpi43naszDCh3R0aKnwC91hZ8hqje7s=";
+          version = "0.27.5";
+          hash = "sha256-epLCQeNIZkwM8U/dKQ1dIAlWVKts2AlJivhSuJHXy2o=";
         };
         meta = {
           license = lib.licenses.mit;
@@ -5200,8 +5200,8 @@ let
         mktplcRef = {
           name = "volar";
           publisher = "Vue";
-          version = "3.3.2";
-          hash = "sha256-aGjhpgBhXVl/0dpWtfn7Eps5r7PJr99Dyu4FlPYtCw0=";
+          version = "3.3.3";
+          hash = "sha256-Q2PnfjO7wzHrmWAeD4dOFT+GFe8qGG8wHU1FpwYeDnA=";
         };
         meta = {
           changelog = "https://github.com/vuejs/language-tools/blob/master/CHANGELOG.md";
