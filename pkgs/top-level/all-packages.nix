@@ -1191,8 +1191,6 @@ with pkgs;
 
   github-cli = gh;
 
-  git-credential-manager = callPackage ../applications/version-management/git-credential-manager { };
-
   git-credential-aol = callPackage ../by-name/gi/git-credential-email/git-credential-aol { };
 
   git-credential-gmail = callPackage ../by-name/gi/git-credential-email/git-credential-gmail { };
@@ -1341,11 +1339,6 @@ with pkgs;
   x16-rom = x16.rom;
   x16-run = x16.run;
 
-  yabause = libsForQt5.callPackage ../applications/emulators/yabause {
-    libglut = null;
-    openal = null;
-  };
-
   ### APPLICATIONS/FILE-MANAGERS
 
   vifm-full = vifm.override {
@@ -1485,8 +1478,6 @@ with pkgs;
   gams = callPackage ../tools/misc/gams (config.gams or { });
 
   gancioPlugins = recurseIntoAttrs (callPackage ../by-name/ga/gancio/plugins.nix { });
-
-  github-changelog-generator = callPackage ../development/tools/github-changelog-generator { };
 
   github-to-sqlite = with python3Packages; toPythonApplication github-to-sqlite;
 
@@ -1737,10 +1728,9 @@ with pkgs;
 
   inherit (go-containerregistry) crane gcrane;
 
-  geekbench_4 = callPackage ../tools/misc/geekbench/4.nix { };
-  geekbench_5 = callPackage ../tools/misc/geekbench/5.nix { };
-  geekbench_6 = callPackage ../tools/misc/geekbench/6.nix { };
-  geekbench = geekbench_6;
+  geekbench_4 = callPackage ../by-name/ge/geekbench/4.nix { };
+  geekbench_5 = callPackage ../by-name/ge/geekbench/5.nix { };
+  geekbench_6 = geekbench;
 
   ghidra = callPackage ../tools/security/ghidra/build.nix {
     protobuf = protobuf_21;
@@ -1845,8 +1835,6 @@ with pkgs;
 
   pixcat = with python3Packages; toPythonApplication pixcat;
 
-  psrecord = python3Packages.callPackage ../tools/misc/psrecord { };
-
   remarkable-mouse = python3Packages.callPackage ../applications/misc/remarkable/remarkable-mouse { };
 
   ropgadget = with python3Packages; toPythonApplication ropgadget;
@@ -1896,8 +1884,6 @@ with pkgs;
   bmrsa = callPackage ../tools/security/bmrsa/11.nix { };
 
   bzip2 = callPackage ../tools/compression/bzip2 { };
-
-  bzip2_1_1 = callPackage ../tools/compression/bzip2/1_1.nix { };
 
   davix-copy = davix.override { enableThirdPartyCopy = true; };
 
@@ -1954,13 +1940,7 @@ with pkgs;
     libsbsms_2_3_0
     ;
 
-  m17n_lib = callPackage ../tools/inputmethods/m17n-lib { };
-
-  libotf = callPackage ../tools/inputmethods/m17n-lib/otf.nix { };
-
   skkDictionaries = recurseIntoAttrs (callPackages ../tools/inputmethods/skk/skk-dicts { });
-
-  ibus = callPackage ../tools/inputmethods/ibus { };
 
   ibus-engines = recurseIntoAttrs {
     anthy = callPackage ../tools/inputmethods/ibus-engines/ibus-anthy { };
@@ -2005,8 +1985,6 @@ with pkgs;
     };
   };
 
-  ibus-with-plugins = callPackage ../tools/inputmethods/ibus/wrapper.nix { };
-
   interception-tools = callPackage ../tools/inputmethods/interception-tools { };
   interception-tools-plugins = recurseIntoAttrs {
     caps2esc = callPackage ../tools/inputmethods/interception-tools/caps2esc.nix { };
@@ -2026,8 +2004,6 @@ with pkgs;
   cmdpack = callPackages ../tools/misc/cmdpack { };
 
   comet-gog_heroic = callPackage ../by-name/co/comet-gog/package.nix { comet-gog_kind = "heroic"; };
-
-  compass = callPackage ../development/tools/compass { };
 
   coreutils = callPackage ../tools/misc/coreutils { };
 
@@ -2187,9 +2163,6 @@ with pkgs;
 
   fcitx5-lua = callPackage ../tools/inputmethods/fcitx5/fcitx5-lua.nix { lua = lua5_3; };
 
-  flannel = callPackage ../tools/networking/flannel { };
-  cni-plugin-flannel = callPackage ../tools/networking/flannel/plugin.nix { };
-
   flatpak-builder = callPackage ../development/tools/flatpak-builder {
     binutils = binutils-unwrapped;
   };
@@ -2207,8 +2180,6 @@ with pkgs;
   bsd-fingerd = bsd-finger.override {
     buildProduct = "daemon";
   };
-
-  fluentd = callPackage ../tools/misc/fluentd { };
 
   fpm = callPackage ../tools/package-management/fpm { };
 
@@ -2371,8 +2342,6 @@ with pkgs;
   gruut = with python3.pkgs; toPythonApplication gruut;
 
   gruut-ipa = with python3.pkgs; toPythonApplication gruut-ipa;
-
-  gup = callPackage ../development/tools/build-managers/gup { };
 
   gvm-tools = with python3.pkgs; toPythonApplication gvm-tools;
 
@@ -2540,8 +2509,6 @@ with pkgs;
     inherit (darwin) sigtool;
   };
 
-  kronometer = kdePackages.callPackage ../tools/misc/kronometer { };
-
   limine-full = limine.override { enableAll = true; };
 
   logstash7 = callPackage ../tools/misc/logstash/7.x.nix {
@@ -2569,10 +2536,6 @@ with pkgs;
 
   mdcat = callPackage ../tools/text/mdcat {
     inherit (python3Packages) ansi2html;
-  };
-
-  medfile = callPackage ../development/libraries/medfile {
-    hdf5 = hdf5.override { apiVersion = "v110"; };
   };
 
   mhonarc = perlPackages.MHonArc;
@@ -3243,10 +3206,6 @@ with pkgs;
   vimpager-latest = callPackage ../tools/misc/vimpager/latest.nix { };
 
   vimwiki-markdown = python3Packages.callPackage ../tools/misc/vimwiki-markdown { };
-
-  vkbasalt = callPackage ../tools/graphics/vkbasalt {
-    vkbasalt32 = pkgsi686Linux.vkbasalt;
-  };
 
   voxtype-vulkan = callPackage ../by-name/vo/voxtype/package.nix { vulkanSupport = true; };
   voxtype-onnx = callPackage ../by-name/vo/voxtype/package.nix { onnxSupport = true; };
@@ -4793,10 +4752,6 @@ with pkgs;
   luarocks = luaPackages.luarocks;
   luarocks-nix = luaPackages.luarocks-nix;
 
-  toluapp = callPackage ../development/tools/toluapp {
-    lua = lua5_1; # doesn't work with any other :(
-  };
-
   ### END OF LUA
 
   ### CuboCore
@@ -4849,10 +4804,6 @@ with pkgs;
 
   php85Extensions = recurseIntoAttrs php85.extensions;
   php85Packages = recurseIntoAttrs php85.packages;
-
-  polyml = callPackage ../development/compilers/polyml { };
-  polyml56 = callPackage ../development/compilers/polyml/5.6.nix { };
-  polyml57 = callPackage ../development/compilers/polyml/5.7.nix { };
 
   # Python interpreters. All standard library modules are included except for tkinter, which is
   # available as `pythonPackages.tkinter` and can be used as any other Python package.
@@ -5493,15 +5444,7 @@ with pkgs;
 
   griffe = with python3Packages; toPythonApplication griffe;
 
-  hadolint =
-    # TODO: Erroneous references to GHC on aarch64-darwin: https://github.com/NixOS/nixpkgs/issues/318013
-    (
-      if stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64 then
-        lib.id
-      else
-        haskell.lib.compose.justStaticExecutables
-    )
-      haskellPackages.hadolint;
+  hadolint = haskell.lib.compose.justStaticExecutables haskellPackages.hadolint;
 
   iaca_2_1 = callPackage ../development/tools/iaca/2.1.nix { };
   iaca_3_0 = callPackage ../development/tools/iaca/3.0.nix { };
@@ -5581,8 +5524,6 @@ with pkgs;
   nwjs-sdk = nwjs.override {
     sdk = true;
   };
-
-  obelisk = callPackage ../development/tools/ocaml/obelisk { menhir = ocamlPackages.menhir; };
 
   openai = with python3Packages; toPythonApplication openai;
 
@@ -7129,8 +7070,6 @@ with pkgs;
     sqldiff
     sqlite-rsync
     ;
-
-  sqlar = callPackage ../development/libraries/sqlite/sqlar.nix { };
 
   sqlite-interactive = (sqlite.override { interactive = true; }).bin;
 
@@ -8941,6 +8880,11 @@ with pkgs;
   electrum-ltc = libsForQt5.callPackage ../applications/misc/electrum/ltc.nix { };
 
   inherit (recurseIntoAttrs (callPackage ../applications/editors/emacs { }))
+    emacs31
+    emacs31-gtk3
+    emacs31-nox
+    emacs31-pgtk
+
     emacs30
     emacs30-gtk3
     emacs30-nox
@@ -9000,9 +8944,6 @@ with pkgs;
   gaucheBootstrap = callPackage ../development/interpreters/gauche/boot.nix { };
 
   gauche = callPackage ../development/interpreters/gauche { };
-
-  geany = callPackage ../applications/editors/geany { };
-  geany-with-vte = callPackage ../applications/editors/geany/with-vte.nix { };
 
   gimagereader-qt = qt6Packages.callPackage ../by-name/gi/gimagereader/package.nix {
     withQt6 = true;
@@ -9343,10 +9284,6 @@ with pkgs;
     callPackage ../applications/networking/instant-messengers/telegram/kotatogram-desktop
       { };
 
-  kubeval = callPackage ../applications/networking/cluster/kubeval { };
-
-  kubeval-schema = callPackage ../applications/networking/cluster/kubeval/schema.nix { };
-
   kubectl-convert = kubectl.convert;
 
   kubectl-view-allocations =
@@ -9445,10 +9382,6 @@ with pkgs;
   mendeley = callPackage ../applications/office/mendeley { };
 
   mercurialFull = mercurial.override { fullBuild = true; };
-
-  mldonkey = callPackage ../applications/networking/p2p/mldonkey {
-    ocamlPackages = ocaml-ng.ocamlPackages_4_14;
-  };
 
   monotone = callPackage ../applications/version-management/monotone {
     lua = lua5;
@@ -9578,10 +9511,6 @@ with pkgs;
     enableX11 = false;
     enableGL = false;
   };
-
-  mypaint-brushes1 = callPackage ../development/libraries/mypaint-brushes/1.0.nix { };
-
-  mypaint-brushes = callPackage ../development/libraries/mypaint-brushes { };
 
   ncdu_1 = callPackage ../by-name/nc/ncdu/1.nix { };
 
@@ -9787,10 +9716,6 @@ with pkgs;
     })
   );
 
-  dropbox = callPackage ../applications/networking/dropbox { };
-
-  dropbox-cli = callPackage ../applications/networking/dropbox/cli.nix { };
-
   maestral = with python3Packages; toPythonApplication maestral;
 
   myfitnesspal = with python3Packages; toPythonApplication myfitnesspal;
@@ -9948,20 +9873,6 @@ with pkgs;
   };
 
   trustedqsl = tqsl; # Alias added 2019-02-10
-
-  transmission_4 = callPackage ../applications/networking/p2p/transmission/4.nix {
-    libutp = libutp_3_4;
-  };
-  libtransmission_4 = transmission_4.override {
-    installLib = true;
-    enableDaemon = false;
-    enableCli = false;
-  };
-  transmission_4-gtk = transmission_4.override { enableGTK3 = true; };
-  transmission_4-qt5 = transmission_4.override { enableQt5 = true; };
-  transmission_4-qt6 = transmission_4.override { enableQt6 = true; };
-  transmission_4-qt = transmission_4-qt5;
-  transmission_4-mac = transmission_4.override { enableMac = true; };
 
   tinywl = callPackage ../applications/window-managers/tinywl {
     wlroots = wlroots_0_20;
@@ -10210,8 +10121,6 @@ with pkgs;
   wrapFirefox = callPackage ../applications/networking/browsers/firefox/wrapper.nix { };
 
   wrapThunderbird = callPackage ../applications/networking/mailreaders/thunderbird/wrapper.nix { };
-
-  x2gokdriveclient = libsForQt5.callPackage ../applications/networking/remote/x2gokdriveclient { };
 
   x32edit = callPackage ../applications/audio/midas/x32edit.nix { };
 
@@ -10590,7 +10499,7 @@ with pkgs;
     ];
   };
 
-  ultrastar-creator = libsForQt5.callPackage ../tools/misc/ultrastar-creator { };
+  ultrastar-creator = callPackage ../tools/misc/ultrastar-creator { };
 
   ultrastar-manager = libsForQt5.callPackage ../tools/misc/ultrastar-manager { };
 
@@ -10989,8 +10898,6 @@ with pkgs;
   glucose-syrup = glucose.override {
     enableUnfree = true;
   };
-
-  inherit (ocamlPackages) hol_light;
 
   isabelle-components = recurseIntoAttrs (callPackage ../by-name/is/isabelle/components { });
 
@@ -11484,9 +11391,9 @@ with pkgs;
 
   inherit (callPackage ../servers/web-apps/wordpress { })
     wordpress
-    wordpress_6_7
     wordpress_6_8
     wordpress_6_9
+    wordpress_7_0
     ;
 
   wordpressPackages = recurseIntoAttrs (
@@ -11575,8 +11482,6 @@ with pkgs;
   vdr = callPackage ../applications/video/vdr { };
   vdrPlugins = recurseIntoAttrs (callPackage ../applications/video/vdr/plugins.nix { });
   wrapVdr = callPackage ../applications/video/vdr/wrapper.nix { };
-
-  chrome-token-signing = libsForQt5.callPackage ../tools/security/chrome-token-signing { };
 
   phonetisaurus = callPackage ../development/libraries/phonetisaurus {
     # https://github.com/AdolfVonKleist/Phonetisaurus/issues/70

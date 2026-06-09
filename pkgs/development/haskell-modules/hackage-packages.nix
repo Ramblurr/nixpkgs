@@ -569853,9 +569853,7 @@ self: {
       doHaddock = false;
       description = "Command line tool qhs, SQL queries on CSV and TSV files";
       license = lib.meta.getLicenseFromSpdxId "MIT";
-      hydraPlatforms = lib.platforms.none;
       mainProgram = "qhs";
-      broken = true;
     }
   ) { };
 
@@ -669605,7 +669603,6 @@ self: {
       description = "Stream data from archives using the streamly library";
       license = lib.meta.getLicenseFromSpdxId "BSD-3-Clause";
       hydraPlatforms = lib.platforms.none;
-      maintainers = [ lib.maintainers.shlok ];
       broken = true;
     }
   ) { archive = null; };
@@ -670069,7 +670066,6 @@ self: {
       description = "Stream data to or from LMDB databases using the streamly library";
       license = lib.meta.getLicenseFromSpdxId "BSD-3-Clause";
       hydraPlatforms = lib.platforms.none;
-      maintainers = [ lib.maintainers.shlok ];
       broken = true;
     }
   ) { inherit (pkgs) lmdb; };
