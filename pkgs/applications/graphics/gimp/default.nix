@@ -129,6 +129,7 @@ stdenv.mkDerivation (finalAttrs: {
     libxslt # for xsltproc
     gobject-introspection
     perl
+    python
     vala
 
     # for docs
@@ -221,6 +222,8 @@ stdenv.mkDerivation (finalAttrs: {
     pango
     gexiv2
   ];
+
+  strictDeps = true;
 
   mesonFlags = [
     "-Dbug-report-url=https://github.com/NixOS/nixpkgs/issues/new"

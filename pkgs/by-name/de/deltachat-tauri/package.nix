@@ -2,6 +2,7 @@
   apple-sdk_14,
   cargo-tauri,
   darwin,
+  deltachat-desktop,
   fetchFromGitHub,
   fetchPnpmDeps,
   gst_all_1,
@@ -12,7 +13,7 @@
   openssl,
   perl,
   pkg-config,
-  pnpm_9,
+  pnpm_10,
   pnpmConfigHook,
   python3,
   rustPlatform,
@@ -23,31 +24,21 @@
 }:
 
 let
-  pnpm = pnpm_9;
+  pnpm = pnpm_10;
 in
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "deltachat-tauri";
-  version = "2.51.0";
+  inherit (deltachat-desktop)
+    version
+    src
+    pnpmDeps
+    ;
   __structuredAttrs = true;
 
-  src = fetchFromGitHub {
-    owner = "deltachat";
-    repo = "deltachat-desktop";
-    tag = "v${finalAttrs.version}";
-    hash = "sha256-ORp8lZcHzswrSCe30cGKpZdyqZCcvqLgu2hwvadMHN0=";
-  };
-
-  pnpmDeps = fetchPnpmDeps {
-    inherit (finalAttrs) pname version src;
-    inherit pnpm;
-    fetcherVersion = 3;
-    hash = "sha256-OP+FbBxSnyFdeKvhqhmdEr1htFSX+WoPj6Ti8Q+ab/Y=";
-  };
-
-  cargoHash = "sha256-JhsoIQZrU4GVcs/TCIug6y/84gODyEWl0Bl2jRNxL5Y=";
+  cargoHash = "sha256-euRUA4LTmAdb9466DAMqKgAPX3N4KNXCh1ED9cL42lA=";
 
   postPatch = lib.optionalString stdenv.hostPlatform.isLinux ''
-    substituteInPlace $cargoDepsCopy/source-registry-0/libappindicator-sys-*/src/lib.rs \
+    substituteInPlace $cargoDepsCopy/*/libappindicator-sys-*/src/lib.rs \
       --replace-fail libayatana-appindicator3.so.1 '${libayatana-appindicator}/lib/libayatana-appindicator3.so.1'
   '';
 

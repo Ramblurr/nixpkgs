@@ -188,6 +188,7 @@ stdenv.mkDerivation (
     passthru = {
       inherit
         executableName
+        iconName
         longName
         tests
         updateScript
@@ -375,7 +376,7 @@ stdenv.mkDerivation (
           )
         }
         --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--ozone-platform-hint=auto --enable-features=WaylandWindowDecorations --enable-wayland-ime=true --wayland-text-input-version=3}}"
-        --add-flags ${lib.escapeShellArg commandLineArgs}
+        --append-flags ${lib.escapeShellArg commandLineArgs}
       )
     '';
 

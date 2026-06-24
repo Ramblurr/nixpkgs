@@ -27,6 +27,7 @@
   enableGTK3 ? false,
   gtkmm3,
   libpthread-stubs,
+  libayatana-appindicator,
   wrapGAppsHook3,
   enableQt5 ? false,
   enableQt6 ? false,
@@ -66,13 +67,13 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "transmission";
-  version = "4.1.1";
+  version = "4.1.2";
 
   src = fetchFromGitHub {
     owner = "transmission";
     repo = "transmission";
     tag = finalAttrs.version;
-    hash = "sha256-c3BOQ25xWIj4bLDQDnfzw9ZyuPemyHrK2Ua0jbOSuOw=";
+    hash = "sha256-FI/qH0VqhEjiN+31UCOiDLWkyucMKfH4i0bYW7lceQk=";
     fetchSubmodules = true;
   };
 
@@ -188,6 +189,7 @@ stdenv.mkDerivation (finalAttrs: {
   ++ optionals enableGTK3 [
     gtkmm3
     libpthread-stubs
+    libayatana-appindicator
   ]
   ++ optionals enableSystemd [ systemd ]
   ++ optionals stdenv.hostPlatform.isLinux [ inotify-tools ];
@@ -253,6 +255,6 @@ stdenv.mkDerivation (finalAttrs: {
       gpl2Plus
       mit
     ];
-    platforms = lib.platforms.unix;
+    platforms = if enableMac then lib.platforms.darwin else lib.platforms.unix;
   };
 })

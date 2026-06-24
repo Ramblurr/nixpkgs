@@ -128,7 +128,7 @@ let
           ]
           ++ lib.optionals cfg.userControlled [
             # set up client sockets directory
-            "+${pkgs.coreutils}/bin/mkdir /run/wpa_supplicant/client"
+            "+${pkgs.coreutils}/bin/mkdir -p /run/wpa_supplicant/client"
             "+${pkgs.coreutils}/bin/chown wpa_supplicant:wpa_supplicant /run/wpa_supplicant/client"
             "+${pkgs.coreutils}/bin/chmod g=u /run/wpa_supplicant/client"
           ];
@@ -565,9 +565,9 @@ in
           coercedTo attrs (
             val:
             if builtins.isAttrs val && val ? enable then
-              trace "Obsolete option `networking.wireless.userControlled.enable' is used. It was renamed to networking.wireless.userControlled" val.enable
+              warn "Obsolete option `networking.wireless.userControlled.enable' is used. It was renamed to networking.wireless.userControlled" val.enable
             else if builtins.isAttrs val && val ? group then
-              trace
+              warn
                 "The option definition `networking.wireless.userControlled.group' no longer has any effect. The group is now fixed to `wpa_supplicant'."
                 (val.enable or false)
             else if builtins.isBool val then

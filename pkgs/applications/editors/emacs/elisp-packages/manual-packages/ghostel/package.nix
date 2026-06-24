@@ -13,13 +13,13 @@ let
 
   pname = "ghostel";
 
-  version = "0.31.0-unstable-2026-06-01";
+  version = "0.34.0-unstable-2026-06-08";
 
   src = fetchFromGitHub {
     owner = "dakra";
     repo = "ghostel";
-    rev = "09aad9fefffce6370256a9888a1ed4f77535fcfd";
-    hash = "sha256-CKN0m+DVvxJhLkr/Hi/44w0m+kJVrx28axLCKLogIQs=";
+    rev = "f7800f6430b6ab85dbfc2db2129625e8a28ac17e";
+    hash = "sha256-o9EQFA6xunwt/chdA5z8bqadr9V3COBPjRqiAY3jkp0=";
   };
 
   module = stdenv.mkDerivation (finalAttrs: {
@@ -28,7 +28,7 @@ let
     deps = zig.fetchDeps {
       inherit (finalAttrs) src pname version;
       fetchAll = true;
-      hash = "sha256-ghN/UMACgkFQQEr4nH5gbbJbt/+2bz6tL2bJpbw9mGE=";
+      hash = "sha256-CTsG3dXu3DECDbklBAtr2fYou82WNvQ1Q3JET0TmuyM=";
     };
 
     nativeBuildInputs = [ zig ];
