@@ -39,6 +39,7 @@
 /lib/derivations.nix        @NixOS/stdenv
 /lib/fetchers.nix           @alyssais @NixOS/stdenv
 /lib/meta.nix               @alyssais @NixOS/stdenv
+/lib/meta-types.nix         @infinisil @adisbladis @NixOS/stdenv
 /lib/source-types.nix       @alyssais @NixOS/stdenv
 /lib/systems                @alyssais @NixOS/stdenv
 ## Libraries / Module system
@@ -67,15 +68,12 @@
 /pkgs/stdenv/generic/problems.nix                @infinisil
 /pkgs/test/problems                              @infinisil
 /pkgs/stdenv/generic/check-meta.nix              @infinisil @Ericson2314 @adisbladis @NixOS/stdenv
-/pkgs/stdenv/generic/meta-types.nix              @infinisil @adisbladis @NixOS/stdenv
 /pkgs/stdenv/cross                               @Ericson2314 @NixOS/stdenv
 /pkgs/build-support                              @philiptaron
 /pkgs/build-support/cc-wrapper                   @Ericson2314
 /pkgs/build-support/bintools-wrapper             @Ericson2314
 /pkgs/build-support/setup-hooks                  @Ericson2314
 /pkgs/build-support/setup-hooks/arrayUtilities   @ConnorBaker
-/pkgs/build-support/setup-hooks/auto-patchelf.sh @layus
-/pkgs/by-name/au/auto-patchelf                   @layus
 
 ## Format generators/serializers
 /pkgs/pkgs-lib                                   @Stunkymonkey @h7x4
@@ -225,10 +223,10 @@ nixos/modules/installer/tools/nix-fallback-paths.nix  @Artturin @Ericson2314 @lo
 /pkgs/development/r-modules         @jbedo
 
 # Rust
-/pkgs/development/compilers/rust @alyssais @Mic92 @winterqt
-/pkgs/build-support/rust @winterqt
+/pkgs/development/compilers/rust @NixOS/rust @alyssais
+/pkgs/build-support/rust @NixOS/rust
 /pkgs/build-support/rust/fetch-cargo-vendor* @TomaSajt
-/doc/languages-frameworks/rust.section.md @winterqt
+/doc/languages-frameworks/rust.section.md @NixOS/rust
 
 # Tcl
 /pkgs/development/interpreters/tcl  @fgaz
@@ -402,18 +400,15 @@ pkgs/development/python-modules/buildcatrust/ @ajs124 @lukegb @mweinelt
 /nixos/tests/docker-tools*                       @roberth @jhol
 /doc/build-helpers/images/dockertools.section.md @roberth @jhol
 
-# Blockchains
-/pkgs/applications/blockchains  @mmahut @RaghavSood
-
 # Go
 /doc/languages-frameworks/go.section.md @kalbasit @katexochen @Mic92
 /pkgs/build-support/go @kalbasit @katexochen @Mic92
 /pkgs/development/compilers/go @kalbasit @katexochen @Mic92
 
 # GNOME
-/pkgs/desktops/gnome                              @jtojnar
-/pkgs/desktops/gnome/extensions                   @jtojnar
-/pkgs/build-support/make-hardcode-gsettings-patch @jtojnar
+/pkgs/desktops/gnome                              @NixOS/gnome
+/pkgs/desktops/gnome/extensions                   @NixOS/gnome
+/pkgs/build-support/make-hardcode-gsettings-patch @NixOS/gnome
 
 # Cinnamon
 /pkgs/by-name/ci/cinnamon-*    @mkg20001

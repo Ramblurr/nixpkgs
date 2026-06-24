@@ -63,6 +63,19 @@ lib.makeOverridable (
     kernelPatches ? [ ],
     # The kernel .config file
     configfile,
+    target ?
+      if stdenv.hostPlatform.isx86 then
+        "bzImage"
+      else if stdenv.hostPlatform.isAarch32 then
+        "zImage"
+      else if stdenv.hostPlatform.isAarch64 || stdenv.hostPlatform.isRiscV then
+        "Image"
+      else if stdenv.hostPlatform.isLoongArch64 then
+        "vmlinuz.efi"
+      else
+        "vmlinux",
+    buildDTBs ?
+      stdenv.hostPlatform.isAarch || stdenv.hostPlatform.isRiscV || stdenv.hostPlatform.isLoongArch64,
     # Manually specified nixexpr representing the config
     # If unspecified, this will be autodetected from the .config
     config ? lib.optionalAttrs (builtins.isPath configfile || allowImportFromDerivation) (
@@ -139,10 +152,6 @@ lib.makeOverridable (
     isModular = config.isYes "MODULES";
     withRust = config.isYes "RUST";
 
-    target = stdenv.hostPlatform.linux-kernel.target or "vmlinux";
-
-    buildDTBs = stdenv.hostPlatform.linux-kernel.DTB or false;
-
     # Dependencies that are required to build kernel modules
     moduleBuildDependencies = [
       pahole
@@ -204,7 +213,7 @@ lib.makeOverridable (
 
     buildFlags = [
       "KBUILD_BUILD_VERSION=1-NixOS"
-      stdenv.hostPlatform.linux-kernel.target
+      target
       "vmlinux" # for "perf" and things like that
       "scripts_gdb"
     ]
@@ -496,6 +505,8 @@ lib.makeOverridable (
         config
         kernelPatches
         configfile
+        target
+        buildDTBs
         moduleBuildDependencies
         stdenv
         commonMakeFlags
@@ -511,7 +522,7 @@ lib.makeOverridable (
 
     # Some image types need special install targets
     installTargets = [
-      (stdenv.hostPlatform.linux-kernel.installTarget or (
+      (
         if
           (target == "zImage" || target == "Image.gz" || target == "vmlinuz.efi")
           && builtins.elem stdenv.hostPlatform.linuxArch [
@@ -524,7 +535,6 @@ lib.makeOverridable (
           "zinstall"
         else
           "install"
-      )
       )
     ];
 

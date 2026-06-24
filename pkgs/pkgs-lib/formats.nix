@@ -23,6 +23,7 @@ let
     pipe
     singleton
     strings
+    toJSON
     toPretty
     types
     versionAtLeast
@@ -37,6 +38,7 @@ let
     toKeyValue
     toLua
     mkLuaInline
+    toPlist
     ;
 
   inherit (lib.types)
@@ -129,6 +131,8 @@ optionalAttrs allowAliases aliases
 
   php = (import ./formats/php/default.nix { inherit lib pkgs; }).format;
 
+  configobj = (import ./formats/configobj/default.nix { inherit lib pkgs; }).format;
+
   json =
     { }:
     {
@@ -142,7 +146,7 @@ optionalAttrs allowAliases aliases
           runCommand name
             {
               nativeBuildInputs = [ jq ];
-              value = builtins.toJSON value;
+              value = toJSON value;
               preferLocalBuild = true;
               __structuredAttrs = true;
             }
@@ -167,7 +171,7 @@ optionalAttrs allowAliases aliases
           runCommand name
             {
               nativeBuildInputs = [ remarshal_0_17 ];
-              value = builtins.toJSON value;
+              value = toJSON value;
               preferLocalBuild = true;
               __structuredAttrs = true;
             }
@@ -192,7 +196,7 @@ optionalAttrs allowAliases aliases
           runCommand name
             {
               nativeBuildInputs = [ remarshal ];
-              value = builtins.toJSON value;
+              value = toJSON value;
               preferLocalBuild = true;
               __structuredAttrs = true;
             }
@@ -250,12 +254,23 @@ optionalAttrs allowAliases aliases
             description = "section of an INI file (attrs of " + atom.description + ")";
           };
 
-        maybeToList =
+        maybeCoerceList =
           listToValue:
           if listToValue != null then
             mapAttrs (key: val: if isList val then listToValue val else val)
           else
             id;
+        maybeCoerceAllLists =
+          listToValue:
+          if listToValue != null then
+            mapAttrs (_: mapAttrs (key: val: if isList val then listToValue val else val))
+          else
+            id;
+
+        ignoredArgs = [
+          "listToValue"
+          "atomsCoercedToLists"
+        ];
       in
       {
         ini =
@@ -286,13 +301,8 @@ optionalAttrs allowAliases aliases
             generate =
               name: value:
               pipe value [
-                (mapAttrs (_: maybeToList listToValue))
-                (toINI (
-                  removeAttrs args [
-                    "listToValue"
-                    "atomsCoercedToLists"
-                  ]
-                ))
+                (maybeCoerceAllLists listToValue)
+                (toINI (removeAttrs args ignoredArgs))
                 (pkgs.writeText name)
               ];
           };
@@ -341,15 +351,10 @@ optionalAttrs allowAliases aliases
                 ...
               }:
               pkgs.writeText name (
-                toINIWithGlobalSection
-                  (removeAttrs args [
-                    "listToValue"
-                    "atomsCoercedToLists"
-                  ])
-                  {
-                    globalSection = maybeToList listToValue globalSection;
-                    sections = mapAttrs (_: maybeToList listToValue) sections;
-                  }
+                toINIWithGlobalSection (removeAttrs args ignoredArgs) {
+                  globalSection = maybeCoerceList listToValue globalSection;
+                  sections = maybeCoerceAllLists listToValue sections;
+                }
               );
           };
 
@@ -357,7 +362,7 @@ optionalAttrs allowAliases aliases
           {
             listsAsDuplicateKeys ? false,
             ...
-          }@args:
+          }:
           let
             atom = iniAtom {
               inherit listsAsDuplicateKeys;
@@ -396,7 +401,7 @@ optionalAttrs allowAliases aliases
     // {
       generate =
         name: value:
-        lib.warn
+        warn
           "Direct use of `pkgs.formats.systemd` has been deprecated, please use `pkgs.formats.systemd { }` instead."
           rawFormat.generate
           name
@@ -448,15 +453,15 @@ optionalAttrs allowAliases aliases
         attrsOf atom;
 
       generate =
-        name: value:
         let
-          transformedValue =
+          transformValue =
             if listToValue != null then
-              mapAttrs (key: val: if isList val then listToValue val else val) value
+              mapAttrs (key: val: if isList val then listToValue val else val)
             else
-              value;
+              id;
+          finalArgs = removeAttrs args [ "listToValue" ];
         in
-        pkgs.writeText name (toKeyValue (removeAttrs args [ "listToValue" ]) transformedValue);
+        name: value: pkgs.writeText name (toKeyValue finalArgs (transformValue value));
 
     };
 
@@ -468,7 +473,7 @@ optionalAttrs allowAliases aliases
       generate =
         name: value:
         pkgs.callPackage (
-          { runCommand, remarshal }:
+          { runCommand }:
           runCommand name
             {
               nativeBuildInputs = [ json2x ];
@@ -494,8 +499,7 @@ optionalAttrs allowAliases aliases
   */
   cdn =
     { }:
-    json { }
-    // {
+    {
       type = serializableValueWith { typeName = "CDN"; };
 
       generate =
@@ -505,7 +509,7 @@ optionalAttrs allowAliases aliases
           runCommand name
             {
               nativeBuildInputs = [ json2cdn ];
-              value = builtins.toJSON value;
+              value = toJSON value;
               preferLocalBuild = true;
               __structuredAttrs = true;
             }
@@ -551,9 +555,6 @@ optionalAttrs allowAliases aliases
     [Tuple]: <https://hexdocs.pm/elixir/Tuple.html>
   */
   elixirConf =
-    {
-      elixir ? pkgs.elixir,
-    }:
     let
       toElixir =
         value:
@@ -606,6 +607,8 @@ optionalAttrs allowAliases aliases
           elixirMap value
         else if _elixirType == "tuple" then
           tuple value
+        else if _elixirType == "charlist" then
+          charlist value
         else
           abort "formats.elixirConf: should never happen (_elixirType = ${_elixirType})";
 
@@ -619,13 +622,17 @@ optionalAttrs allowAliases aliases
 
       tuple = values: "{${listContent values}}";
 
+      charlist = value: "~c\"${value}\"";
+
       toConf =
-        values:
         let
           keyConfig =
             rootKey: key: value:
             "config ${rootKey}, ${key}, ${toElixir value}";
           keyConfigs = rootKey: values: mapAttrsToList (keyConfig rootKey) values;
+        in
+        values:
+        let
           rootConfigs = flatten (mapAttrsToList keyConfigs values);
         in
         ''
@@ -634,6 +641,9 @@ optionalAttrs allowAliases aliases
           ${concatStringsSep "\n" rootConfigs}
         '';
     in
+    {
+      elixir ? pkgs.elixir,
+    }:
     {
       type =
         let
@@ -681,6 +691,12 @@ optionalAttrs allowAliases aliases
             _elixirType = "atom";
           };
 
+          # Make an Elixir charlist out of a string.
+          mkCharlist = value: {
+            inherit value;
+            _elixirType = "charlist";
+          };
+
           # Make an Elixir tuple out of a list.
           mkTuple = value: {
             inherit value;
@@ -719,6 +735,12 @@ optionalAttrs allowAliases aliases
                 name = "elixirAtom";
                 description = "elixir atom";
                 check = isElixirType "atom";
+              });
+
+              charlist = elixirOr (mkOptionType {
+                name = "elixirCharlist";
+                description = "elixir charlist";
+                check = isElixirType "charlist";
               });
 
               tuple = elixirOr (mkOptionType {
@@ -810,7 +832,7 @@ optionalAttrs allowAliases aliases
             ''
         ) { };
       # Alias for mkLuaInline
-      lib.mkRaw = lib.mkLuaInline;
+      lib.mkRaw = mkLuaInline;
     };
 
   nixConf =
@@ -834,14 +856,12 @@ optionalAttrs allowAliases aliases
             float
             str
             path
-            package
+            types.package
           ]);
         in
         attrsOf atomType;
       generate =
-        name: value:
         let
-
           # note that list type has been omitted here as the separator varies, see `nix.settings.*`
           mkValueString =
             v:
@@ -869,8 +889,8 @@ optionalAttrs allowAliases aliases
           mkKeyValuePairs = attrs: concatStringsSep "\n" (mapAttrsToList mkKeyValue attrs);
 
           isExtra = key: hasPrefix "extra-" key;
-
         in
+        name: value:
         pkgs.writeTextFile {
           inherit name;
           # workaround for https://github.com/NixOS/nix/issues/9487
@@ -883,7 +903,7 @@ optionalAttrs allowAliases aliases
             ${mkKeyValuePairs (filterAttrs (key: _: isExtra key) value)}
             ${extraOptions}
           '';
-          checkPhase = lib.optionalString checkConfig (
+          checkPhase = optionalString checkConfig (
             if pkgs.stdenv.hostPlatform != pkgs.stdenv.buildPlatform then
               ''
                 echo "Ignoring validation for cross-compilation"
@@ -938,8 +958,8 @@ optionalAttrs allowAliases aliases
                 python3
                 black
               ];
-              imports = builtins.toJSON (value._imports or [ ]);
-              value = builtins.toJSON (removeAttrs value [ "_imports" ]);
+              imports = toJSON (value._imports or [ ]);
+              value = toJSON (removeAttrs value [ "_imports" ]);
               pythonGen = pkgs.writeText "pythonGen" ''
                 import json
                 import os
@@ -1011,7 +1031,7 @@ optionalAttrs allowAliases aliases
                   python3Packages.xmltodict
                   libxml2Python
                 ];
-                value = builtins.toJSON value;
+                value = toJSON value;
                 pythonGen = pkgs.writeText "pythonGen" ''
                   import json
                   import os
@@ -1059,11 +1079,10 @@ optionalAttrs allowAliases aliases
         in
         valueType;
 
-      generate = name: value: pkgs.writeText name (lib.generators.toPlist { inherit escape; } value);
+      generate = name: value: pkgs.writeText name (toPlist { inherit escape; } value);
     };
 
   hcl1 =
-    args:
     let
       # Helper function to recursively transform values for HCL1 canonicalization
       # Rule: If an attribute value is an attribute set, wrap it in a list
@@ -1079,6 +1098,7 @@ optionalAttrs allowAliases aliases
           value;
       jsonFormat = json { };
     in
+    args:
     jsonFormat
     // {
       generate = name: value: jsonFormat.generate name (mapAttrs (_: transform) value);
