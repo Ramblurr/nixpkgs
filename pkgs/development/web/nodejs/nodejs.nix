@@ -140,9 +140,9 @@ let
   useSharedAdaAndSimd = lib.versionAtLeast version "22.2";
   useSharedFFI = lib.versionAtLeast version "26.1";
   useSharedGtestAndHistogram = lib.versionAtLeast version (
-    if majorVersion == 24 then "24.14.0" else "25.4"
+    if majorVersion == "24" then "24.14.0" else "25.4"
   );
-  useSharedNBytes = lib.versionAtLeast version (if majorVersion == 24 then "24.14.0" else "25.5");
+  useSharedNBytes = lib.versionAtLeast version (if majorVersion == "24" then "24.14.0" else "25.5");
   useSharedLief = lib.versionAtLeast version "25.6";
   useSharedMerve = lib.versionAtLeast version (if majorVersion == 24 then "24.14.0" else "25.6.1");
   useSharedSQLite = lib.versionAtLeast version "22.5";
@@ -529,6 +529,7 @@ let
               "test-fetch"
               "test-http2-allow-http1-upgrade-ws"
               "test-http-proxy-fetch"
+              "test-https-proxy-fetch"
               "test-http-set-global-proxy-from-env-fetch"
               "test-http-set-global-proxy-from-env-fetch-default"
               "test-http-set-global-proxy-from-env-fetch-empty"

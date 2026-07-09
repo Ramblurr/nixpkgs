@@ -9,7 +9,7 @@
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "tombi";
-  version = "1.1.3";
+  version = "1.1.7";
 
   __structuredAttrs = true;
 
@@ -17,7 +17,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     owner = "tombi-toml";
     repo = "tombi";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-zkvg82Fl8bFr5U0015z+5mQpZGw8hOQxO/7llFBpGAA=";
+    hash = "sha256-Pm+OMtVd0zSPiE56N5WjpF8mM5pft+jVEQJufqiTkG8=";
   };
 
   # Tests relies on the presence of network

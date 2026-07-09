@@ -13,14 +13,14 @@
 
 buildPythonPackage (finalAttrs: {
   pname = "genai-prices";
-  version = "0.0.66";
+  version = "0.0.69";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "pydantic";
     repo = "genai-prices";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-bvAAdlijxRzgjEeZEibuywJXhxKBWWQVPzO8gr6dWzo=";
+    hash = "sha256-kXS8+GcrcDPGxfIej18wSn/DdBzgf3mjFo/1QIOGwVM=";
   };
 
   sourceRoot = "${finalAttrs.src.name}/packages/python";

@@ -4,8 +4,6 @@
   fetchurl,
   writeScript,
   installShellFiles,
-  unzip,
-  zip,
 }:
 
 buildGraalvmNativeImage (finalAttrs: {
@@ -17,24 +15,7 @@ buildGraalvmNativeImage (finalAttrs: {
     sha256 = "sha256-CEApb2noPYfRYRDTo1RBLOZELvEuxGO4HW1CB//bky8=";
   };
 
-  nativeBuildInputs = [
-    installShellFiles
-    unzip
-    zip
-  ];
-
-  dontUnpack = false;
-  unpackCmd = "unzip -d babashka $curSrc";
-
-  patches = [
-    ./default-tools-dir.patch
-  ];
-
-  preBuild = ''
-    zip -r ../babashka.jar .
-    cd ..
-    src=babashka.jar
-  '';
+  nativeBuildInputs = [ installShellFiles ];
 
   extraNativeImageBuildArgs = [
     "-H:+ReportExceptionStackTraces"

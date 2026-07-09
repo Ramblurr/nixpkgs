@@ -9,7 +9,7 @@
 }:
 buildGoModule (finalAttrs: {
   pname = "seaweedfs";
-  version = "4.34";
+  version = "4.38";
 
   src = fetchFromGitHub {
     owner = "seaweedfs";
@@ -22,10 +22,10 @@ buildGoModule (finalAttrs: {
       find "$out" -name .git -print0 | xargs -0 rm -rf
       popd
     '';
-    hash = "sha256-lKpNBdiynDEnqCujgDRFUXvyVops4Q5l6n9P/7pm8hc=";
+    hash = "sha256-aSgww0a79FOphPKXo8l24ZA8eiOPW6jYtbJYB59qV90=";
   };
 
-  vendorHash = "sha256-MF8aLFKUFq0io7CL1EGZp+TUB2co/Hf0fwK2wZybx8Y=";
+  vendorHash = "sha256-xr1v41BMHSK/zxQM1CKzp8fCG6AdIEMb0TMsO2oaoXA=";
 
   nativeBuildInputs = [ installShellFiles ];
 
@@ -43,11 +43,13 @@ buildGoModule (finalAttrs: {
 
   ldflags = [
     "-s"
+  ]
+  ++ lib.optionals (!stdenv.hostPlatform.isDarwin) [
     "-extldflags=-static"
   ];
 
   env = {
-    CGO_ENABLED = 0;
+    CGO_ENABLED = if stdenv.hostPlatform.isDarwin then 1 else 0;
     GODEBUG = "http2client=0";
   };
 
@@ -93,6 +95,5 @@ buildGoModule (finalAttrs: {
       wozeparrot
     ];
     mainProgram = "weed";
-    broken = stdenv.hostPlatform.isDarwin;
   };
 })

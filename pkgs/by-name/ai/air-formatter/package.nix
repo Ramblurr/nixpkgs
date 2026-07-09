@@ -4,6 +4,7 @@
   fetchFromGitHub,
   versionCheckHook,
   nix-update-script,
+  installShellFiles,
 }:
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "air-formatter";
@@ -26,11 +27,21 @@ rustPlatform.buildRustPackage (finalAttrs: {
   ];
   doInstallCheck = true;
 
-  cargoBuildFlags = [ "-p air" ];
+  cargoBuildFlags = [ "--package=air" ];
 
   passthru = {
     updateScript = nix-update-script { };
   };
+
+  nativeBuildInputs = [ installShellFiles ];
+  # TODO: Upstream also provides Elvish and PowerShell completions,
+  # but `installShellCompletion` only has support for Bash, Zsh and Fish at the moment.
+  postInstall = ''
+    installShellCompletion --cmd air-formatter \
+      --bash <($out/bin/air generate-shell-completion bash) \
+      --fish <($out/bin/air generate-shell-completion fish) \
+      --zsh  <($out/bin/air generate-shell-completion zsh)
+  '';
 
   meta = {
     description = "Extremely fast R code formatter";

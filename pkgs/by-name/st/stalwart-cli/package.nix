@@ -7,14 +7,14 @@
 }:
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "stalwart-cli";
-  version = "1.0.8";
+  version = "1.0.10";
   src = fetchFromGitHub {
     owner = "stalwartlabs";
     repo = "cli";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-teQB+6ZPEH3RXxG8WX4L67ckLCTYfMF4xaiz3S074b0=";
+    hash = "sha256-9fB9qkRtXIL/8qROl3FiK0w5XUA+nDVjxi1+dhwtxJM=";
   };
-  cargoHash = "sha256-yMfWFTXV1gXPqo2OOAN/Fkym9UiHjXDX0tAJOCF2p4U=";
+  cargoHash = "sha256-91S7XMbNClc349AvXixQdBnPV5+3G1RA5fpfNUfFmwk=";
   __structuredAttrs = true;
   # `Result::unwrap()` on an `Err` value: Network(reqwest::Error { kind: Builder, source: General("No CA certificates were loaded from the system") })
   nativeCheckInputs = [ cacert ];

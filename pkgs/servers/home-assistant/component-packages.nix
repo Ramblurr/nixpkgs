@@ -2,7 +2,7 @@
 # Do not edit!
 
 {
-  version = "2026.6.4";
+  version = "2026.7.1";
   components = {
     "3_day_blinds" =
       ps: with ps; [
@@ -41,10 +41,6 @@
     "accuweather" =
       ps: with ps; [
         accuweather
-      ];
-    "acer_projector" =
-      ps: with ps; [
-        serialx
       ];
     "acmeda" =
       ps: with ps; [
@@ -245,10 +241,6 @@
     "amp_motorization" =
       ps: with ps; [
       ];
-    "ampio" =
-      ps: with ps; [
-        asmog
-      ];
     "analytics" =
       ps: with ps; [
         aiohasupervisor
@@ -369,6 +361,10 @@
       ps: with ps; [
         sharp-aquos-rc
       ];
+    "aqvify" =
+      ps: with ps; [
+        pyaqvify
+      ];
     "aranet" =
       ps: with ps; [
         aioesphomeapi
@@ -422,7 +418,7 @@
       ps: with ps; [
         aiohasupervisor
         paho-mqtt
-      ];
+      ]; # missing inputs: arwn-client
     "aseko_pool_live" =
       ps: with ps; [
         aioaseko
@@ -453,10 +449,6 @@
     "atag" =
       ps: with ps; [
         pyatag
-      ];
-    "aten_pe" =
-      ps: with ps; [
-        atenpdu
       ];
     "atlanticcityelectric" =
       ps: with ps; [
@@ -551,9 +543,8 @@
         serialx
         zeroconf
       ];
-    "avion" =
+    "avosdim" =
       ps: with ps; [
-        avion
       ];
     "awair" =
       ps: with ps; [
@@ -642,10 +633,6 @@
     "bbox" =
       ps: with ps; [
         pybbox
-      ];
-    "beewi_smartclim" =
-      ps: with ps; [
-        beewi-smartclim
       ];
     "bge" =
       ps: with ps; [
@@ -905,6 +892,9 @@
     "button" =
       ps: with ps; [
       ];
+    "bwt" =
+      ps: with ps; [
+      ];
     "caldav" =
       ps: with ps; [
         caldav
@@ -1005,6 +995,32 @@
       ps: with ps; [
         pychannels
       ];
+    "chef_iq" =
+      ps: with ps; [
+        aioesphomeapi
+        aiohasupervisor
+        aioruuvigateway
+        aioshelly
+        aiousbwatcher
+        bleak
+        bleak-esphome
+        bleak-retry-connector
+        bluetooth-adapters
+        bluetooth-auto-recovery
+        bluetooth-data-tools
+        dbus-fast
+        esphome-dashboard-api
+        ha-ffmpeg
+        habluetooth
+        hassil
+        home-assistant-intents
+        ifaddr
+        mutagen
+        pymicro-vad
+        pyspeex-noise
+        serialx
+        zeroconf
+      ]; # missing inputs: chefiq-ble
     "chess_com" =
       ps: with ps; [
         chess-com-api
@@ -1028,10 +1044,6 @@
     "citybikes" =
       ps: with ps; [
         python-citybikes
-      ];
-    "clementine" =
-      ps: with ps; [
-        python-clementine-remote
       ];
     "clickatell" =
       ps: with ps; [
@@ -1114,7 +1126,7 @@
       ];
     "command_line" =
       ps: with ps; [
-        jsonpath
+        jsonpath-python
       ];
     "compensation" =
       ps: with ps; [
@@ -1567,6 +1579,10 @@
       ps: with ps; [
         aioecowitt
       ];
+    "edifier_infrared" =
+      ps: with ps; [
+        infrared-protocols
+      ];
     "edimax" =
       ps: with ps; [
         pyedimax
@@ -1614,10 +1630,6 @@
     "elgato" =
       ps: with ps; [
         elgato
-      ];
-    "eliqonline" =
-      ps: with ps; [
-        eliqonline
       ];
     "elkm1" =
       ps: with ps; [
@@ -1675,6 +1687,9 @@
     "energie_vanons" =
       ps: with ps; [
       ];
+    "energieleser" =
+      ps: with ps; [
+      ]; # missing inputs: energieleser
     "energy" =
       ps: with ps; [
         fnv-hash-fast
@@ -1707,6 +1722,9 @@
       ps: with ps; [
         enturclient
       ];
+    "envertech_evt800" =
+      ps: with ps; [
+      ]; # missing inputs: pyenvertechevt800
     "environment_canada" =
       ps: with ps; [
         env-canada
@@ -2276,7 +2294,6 @@
       ];
     "gitter" =
       ps: with ps; [
-        gitterpy
       ];
     "glances" =
       ps: with ps; [
@@ -2441,13 +2458,14 @@
       ps: with ps; [
         greenplanet-energy-api
       ];
+    "greencell" =
+      ps: with ps; [
+        aiohasupervisor
+        paho-mqtt
+      ]; # missing inputs: greencell_client
     "greeneye_monitor" =
       ps: with ps; [
         greeneye-monitor
-      ];
-    "greenwave" =
-      ps: with ps; [
-        greenwavereality
       ];
     "group" =
       ps: with ps; [
@@ -2531,6 +2549,9 @@
     "heiwa" =
       ps: with ps; [
       ];
+    "helty" =
+      ps: with ps; [
+      ]; # missing inputs: pyhelty
     "heos" =
       ps: with ps; [
         pyheos
@@ -2977,6 +2998,9 @@
       ps: with ps; [
         aioimmich
       ];
+    "imou" =
+      ps: with ps; [
+      ]; # missing inputs: pyimouapi
     "improv_ble" =
       ps: with ps; [
         aioesphomeapi
@@ -3120,6 +3144,9 @@
       ps: with ps; [
         ha-iotawattpy
       ];
+    "iotorero" =
+      ps: with ps; [
+      ];
     "iotty" =
       ps: with ps; [
         iottycloud
@@ -3212,8 +3239,7 @@
       ];
     "itach" =
       ps: with ps; [
-        pyitachip2ir
-      ];
+      ]; # missing inputs: pyitachip2ir2
     "itunes" =
       ps: with ps; [
       ];
@@ -3358,6 +3384,10 @@
       ps: with ps; [
         kiwiki-client
       ];
+    "klik_aan_klik_uit" =
+      ps: with ps; [
+        rf-protocols
+      ];
     "kmtronic" =
       ps: with ps; [
         pykmtronic
@@ -3367,12 +3397,16 @@
         knocki
       ];
     "knx" =
-      ps: with ps; [
+      ps:
+      with ps;
+      [
         home-assistant-frontend
         knx-frontend
+        knx-telegram-store
         xknx
         xknxproject
-      ];
+      ]
+      ++ knx-telegram-store.optional-dependencies.sqlite;
     "kodi" =
       ps: with ps; [
         pykodi
@@ -3723,9 +3757,6 @@
         psutil-home-assistant
         sqlalchemy
       ];
-    "logentries" =
-      ps: with ps; [
-      ];
     "logger" =
       ps: with ps; [
       ];
@@ -3945,6 +3976,9 @@
       ps: with ps; [
         python-melcloud
       ];
+    "melcloud_home" =
+      ps: with ps; [
+      ]; # missing inputs: aiomelcloudhome
     "melissa" =
       ps: with ps; [
         py-melissa-climate
@@ -4022,18 +4056,6 @@
     "microsoft" =
       ps: with ps; [
         pycsspeechtts
-      ];
-    "microsoft_face" =
-      ps: with ps; [
-        pyturbojpeg
-      ];
-    "microsoft_face_detect" =
-      ps: with ps; [
-        pyturbojpeg
-      ];
-    "microsoft_face_identify" =
-      ps: with ps; [
-        pyturbojpeg
       ];
     "miele" =
       ps: with ps; [
@@ -4245,7 +4267,7 @@
       ];
     "mpd" =
       ps: with ps; [
-        mpd2
+        python-mpd2
       ];
     "mqtt" =
       ps: with ps; [
@@ -4274,7 +4296,6 @@
       ];
     "msteams" =
       ps: with ps; [
-        pymsteams
       ];
     "mta" =
       ps: with ps; [
@@ -4417,6 +4438,9 @@
     "neurio_energy" =
       ps: with ps; [
         neurio
+      ];
+    "nexen" =
+      ps: with ps; [
       ];
     "nexia" =
       ps: with ps; [
@@ -4886,6 +4910,7 @@
         universal-silabs-flasher
         zeroconf
         zha
+        zha-quirks
       ];
     "otp" =
       ps: with ps; [
@@ -4900,9 +4925,12 @@
         ourgroceries
       ];
     "overkiz" =
-      ps: with ps; [
+      ps:
+      with ps;
+      [
         pyoverkiz
-      ];
+      ]
+      ++ pyoverkiz.optional-dependencies.nexity;
     "overseerr" =
       ps: with ps; [
         aiohasupervisor
@@ -5504,7 +5532,11 @@
     "raspberry_pi" =
       ps: with ps; [
         aiohasupervisor
+        aiousbwatcher
+        ha-silabs-firmware-client
         psutil-home-assistant
+        serialx
+        universal-silabs-flasher
       ];
     "raspyrfm" =
       ps: with ps; [
@@ -5592,7 +5624,7 @@
       ];
     "rest" =
       ps: with ps; [
-        jsonpath
+        jsonpath-python
         xmltodict
       ];
     "rest_command" =
@@ -5807,7 +5839,7 @@
     "scrape" =
       ps: with ps; [
         beautifulsoup4
-        jsonpath
+        jsonpath-python
         lxml
         xmltodict
       ];
@@ -5820,10 +5852,6 @@
       ];
     "script" =
       ps: with ps; [
-      ];
-    "scsgate" =
-      ps: with ps; [
-        scsgate
       ];
     "search" =
       ps: with ps; [
@@ -6297,6 +6325,9 @@
       ];
     "srp_energy" =
       ps: with ps; [
+        fnv-hash-fast
+        psutil-home-assistant
+        sqlalchemy
         srpenergy
       ];
     "ssdp" =
@@ -6406,7 +6437,7 @@
       ];
     "swisscom" =
       ps: with ps; [
-      ];
+      ]; # missing inputs: python-swisscom-internet-box
     "switch" =
       ps: with ps; [
       ];
@@ -6446,6 +6477,29 @@
       ];
     "switchbot_cloud" =
       ps: with ps; [
+        aiohasupervisor
+        aiousbwatcher
+        bleak
+        bleak-retry-connector
+        bluetooth-adapters
+        bluetooth-auto-recovery
+        bluetooth-data-tools
+        cronsim
+        dbus-fast
+        ha-ffmpeg
+        habluetooth
+        hass-nabucasa
+        hassil
+        home-assistant-intents
+        matter-ble-proxy
+        matter-python-client
+        mutagen
+        openai
+        pymicro-vad
+        pyspeex-noise
+        pyturbojpeg
+        securetar
+        serialx
         switchbot-api
       ];
     "switcher_kis" =
@@ -6717,10 +6771,6 @@
         psutil-home-assistant
         pytibber
         sqlalchemy
-      ];
-    "tikteck" =
-      ps: with ps; [
-        tikteck
       ];
     "tile" =
       ps: with ps; [
@@ -7018,10 +7068,6 @@
       ps: with ps; [
         unifi-discovery
       ];
-    "unifiled" =
-      ps: with ps; [
-        unifiled
-      ];
     "unifiprotect" =
       ps: with ps; [
         uiprotect
@@ -7314,6 +7360,9 @@
       ps: with ps; [
         aiowatttime
       ];
+    "wattwaechter" =
+      ps: with ps; [
+      ]; # missing inputs: aio-wattwaechter
     "waze_travel_time" =
       ps: with ps; [
         pywaze
@@ -7686,6 +7735,7 @@
         serialx
         universal-silabs-flasher
         zha
+        zha-quirks
       ];
     "zhong_hong" =
       ps: with ps; [
@@ -7792,6 +7842,8 @@
     "aprs"
     "apsystems"
     "aquacell"
+    "aqualogic"
+    "aqvify"
     "aranet"
     "arcam_fmj"
     "arve"
@@ -7947,6 +7999,7 @@
     "econet"
     "ecovacs"
     "ecowitt"
+    "edifier_infrared"
     "edl21"
     "efergy"
     "egauge"
@@ -7974,6 +8027,7 @@
     "enocean"
     "enphase_envoy"
     "environment_canada"
+    "envisalink"
     "epic_games_store"
     "epion"
     "epson"
@@ -8213,6 +8267,7 @@
     "kiosker"
     "kira"
     "kitchen_sink"
+    "klik_aan_klik_uit"
     "kmtronic"
     "knocki"
     "knx"
@@ -8259,7 +8314,6 @@
     "locative"
     "lock"
     "logbook"
-    "logentries"
     "logger"
     "lojack"
     "london_air"
@@ -8305,9 +8359,6 @@
     "mfi"
     "microbees"
     "microsoft"
-    "microsoft_face"
-    "microsoft_face_detect"
-    "microsoft_face_identify"
     "miele"
     "mikrotik"
     "mill"
@@ -8559,6 +8610,7 @@
     "ruuvitag_ble"
     "rympro"
     "sabnzbd"
+    "saj"
     "samsung_infrared"
     "samsungtv"
     "sanix"
@@ -8748,6 +8800,7 @@
     "ukraine_alarm"
     "unifi"
     "unifi_access"
+    "unifi_direct"
     "unifi_discovery"
     "unifiprotect"
     "universal"
