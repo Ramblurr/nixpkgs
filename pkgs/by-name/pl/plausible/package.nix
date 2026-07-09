@@ -1,7 +1,6 @@
 {
   lib,
   beam27Packages,
-  elixir_1_18,
   buildNpmPackage,
   rustPlatform,
   fetchFromGitHub,
@@ -130,7 +129,7 @@ let
           $out/lazy_html/_build/c/third_party/lexbor/${lexborCommit}
       '';
 
-  beamPackages = beam27Packages.extend (self: super: { elixir = elixir_1_18; });
+  beamPackages = beam27Packages.extend (self: super: { elixir = self.elixir_1_18; });
 
 in
 beamPackages.mixRelease rec {
@@ -161,9 +160,7 @@ beamPackages.mixRelease rec {
   '';
 
   passthru = {
-    tests = {
-      inherit (nixosTests) plausible;
-    };
+    tests = nixosTests.plausible;
     updateScript = nix-update-script {
       extraArgs = [
         "-s"
@@ -218,7 +215,10 @@ beamPackages.mixRelease rec {
     changelog = "https://github.com/plausible/analytics/blob/${src.rev}/CHANGELOG.md";
     description = "Simple, open-source, lightweight (< 1 KB) and privacy-friendly web analytics alternative to Google Analytics";
     mainProgram = "plausible";
-    maintainers = [ ];
+    maintainers = with lib.maintainers; [
+      stepbrobd
+      nh2
+    ];
     platforms = lib.platforms.unix;
   };
 }

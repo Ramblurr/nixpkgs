@@ -2,7 +2,7 @@
 # Do not edit!
 
 {
-  version = "2026.6.3";
+  version = "2026.6.4";
   components = {
     "3_day_blinds" =
       ps: with ps; [
@@ -4245,7 +4245,7 @@
       ];
     "mpd" =
       ps: with ps; [
-        mpd2
+        python-mpd2
       ];
     "mqtt" =
       ps: with ps; [

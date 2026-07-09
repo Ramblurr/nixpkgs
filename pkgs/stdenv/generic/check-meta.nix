@@ -49,6 +49,7 @@ let
   inherit (import ./problems.nix { inherit lib; })
     problemsType
     genCheckProblems
+    completeMetaProblems
     ;
   checkProblems = genCheckProblems config;
 
@@ -300,7 +301,7 @@ let
 
   metaType =
     let
-      types = import ./meta-types.nix { inherit lib; };
+      types = import ../../../lib/meta-types.nix { inherit lib; };
       inherit (types)
         str
         union
@@ -494,7 +495,7 @@ let
     let
       values = attrValues cpeParts;
     in
-    (length values == 11) && !any isNull values;
+    (length values == 11) && !any (v: v == null) values;
   makeCPE =
     {
       part,
@@ -670,6 +671,8 @@ let
       unsupported = hasUnsupportedPlatform' attrs;
       insecure = isMarkedInsecure attrs;
 
+      problems = completeMetaProblems config attrs;
+
       available =
         validity.valid != "no"
         && ((config.checkMetaRecursively or false) -> all (d: d.meta.available or true) references);
@@ -684,7 +687,7 @@ let
     }:
     let
       withError =
-        if isNull error then
+        if error == null then
           true
         else
           let
@@ -722,15 +725,15 @@ let
       invalid = checkValidity' attrs;
       problems = checkProblems attrs;
     in
-    if isNull invalid then
-      if isNull problems then
+    if invalid == null then
+      if problems == null then
         {
           valid = "yes";
           handled = true;
         }
       else
         {
-          valid = if isNull problems.error then "warn" else "no";
+          valid = if problems.error == null then "warn" else "no";
           handled = handle {
             inherit attrs meta;
             inherit (problems) error warnings;

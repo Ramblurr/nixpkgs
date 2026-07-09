@@ -68,11 +68,8 @@ with lib.maintainers;
 
   bazel = {
     members = [
-      mboes
       cbley
       groodt
-      aherrmann
-      ylecornec
       boltzmannrain
     ];
     scope = "Bazel build tool & related tools https://bazel.build/";
@@ -509,12 +506,12 @@ with lib.maintainers;
   matrix = {
     members = [
       ma27
-      mguentner
-      dandellion
       nickcao
       teutat3s
+      transcaffeine
+      skowalak
     ];
-    scope = "Maintain the ecosystem around Matrix, a decentralized messenger.";
+    scope = "Maintain the foundational packages of the Matrix ecosystem.";
     shortName = "Matrix";
   };
 
@@ -566,7 +563,6 @@ with lib.maintainers;
       ethancedwards8
       phanirithvij
       prince213
-      wegank
     ];
     scope = "Maintain NGI-supported software.";
     shortName = "NGI";
@@ -689,6 +685,10 @@ with lib.maintainers;
     github = "radicle";
   };
 
+  redis = {
+    github = "redis";
+  };
+
   rocm = {
     github = "rocm";
   };
@@ -737,7 +737,6 @@ with lib.maintainers;
       dduan
       samasaur
       stephank
-      trepetti
     ];
     scope = "Maintain Swift compiler suite for NixOS.";
     shortName = "Swift";
@@ -748,10 +747,8 @@ with lib.maintainers;
     enableFeatureFreezePing = true;
   };
 
-  tests = {
-    members = [ tfc ];
-    scope = "Maintain the NixOS VM test runner.";
-    shortName = "NixOS tests";
+  test-driver = {
+    github = "test-driver";
     enableFeatureFreezePing = true;
   };
 

@@ -50,6 +50,11 @@ buildPythonPackage (finalAttrs: {
     setuptools
   ];
 
+  env = {
+    # Skip the most intensive tests
+    CI = true;
+  };
+
   pythonRelaxDeps = [
     "e3nn"
   ];
@@ -81,6 +86,10 @@ buildPythonPackage (finalAttrs: {
     pytestCheckHook
     writableTmpDirAsHomeHook
   ];
+
+  preCheck = ''
+    export OMP_NUM_THREADS=1
+  '';
 
   disabledTests = [
     # _pickle.PickleError: ScriptFunction cannot be pickled

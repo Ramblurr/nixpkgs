@@ -19,6 +19,7 @@
   cargo,
   rustc,
   rustPlatform,
+  rust-bindgen,
   makeWrapper,
   nix-update-script,
   versionCheckHook,
@@ -30,18 +31,18 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "bcachefs-tools";
-  version = "1.38.5";
+  version = "1.38.8";
 
   src = fetchFromGitHub {
     owner = "koverstreet";
     repo = "bcachefs-tools";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-EXd+BOTAFUddK/4Vwi7GqRqndi2x4bb5gs7IIkMX6HU=";
+    hash = "sha256-9sDE7ua3WMCfV9ZbwQdAbpatv2IhvcwHzzPr+/l2au0=";
   };
 
   cargoDeps = rustPlatform.fetchCargoVendor {
     inherit (finalAttrs) src;
-    hash = "sha256-6uwvwOVPYtegXTPwz2SEeQPC6OrKoFWZrH4Nx+ZVa5A=";
+    hash = "sha256-F1+FeAlYSqOxeWJI8vHShpXrOZqYXjNGvty/s6f6u8w=";
   };
 
   postPatch = ''
@@ -58,6 +59,7 @@ stdenv.mkDerivation (finalAttrs: {
     rustc
     rustPlatform.cargoSetupHook
     rustPlatform.bindgenHook
+    rust-bindgen
     makeWrapper
     installShellFiles
   ];

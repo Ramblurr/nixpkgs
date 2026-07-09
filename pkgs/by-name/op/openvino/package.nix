@@ -56,24 +56,28 @@ in
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "openvino";
-  version = "2026.2.0";
+  version = "2026.2.1";
 
   src = fetchFromGitHub {
     owner = "openvinotoolkit";
     repo = "openvino";
     tag = finalAttrs.version;
     fetchSubmodules = true;
-    hash = "sha256-/JbaWeW4MgIylhEhA///febE9OCooONKgz1zTn0tb90=";
+    hash = "sha256-66g+v+L0BPNW6HvmWMHAHoNEFn9SUPrmZDyDjES6K1I=";
   };
 
   outputs = [
     "out"
+    "dev"
+    "lib"
     "python"
   ];
 
   nativeBuildInputs = [
-    addDriverRunpath
+    # order matters here: autoAddDriverRunpath must run after autoPatchelfHook, otherwise the RUNPATH will end up being wrong
     autoPatchelfHook
+    addDriverRunpath
+
     cmake
     git
     libarchive
@@ -85,6 +89,11 @@ stdenv.mkDerivation (finalAttrs: {
   ]
   ++ lib.optionals cudaSupport [
     cudaPackages.cuda_nvcc
+  ];
+
+  patches = [
+    # https://aur.archlinux.org/cgit/aur.git/tree/010-openvino-change-install-paths.patch?h=openvino
+    ./cmake-install-paths.patch
   ];
 
   dontUseSconsCheck = true;
@@ -161,16 +170,14 @@ stdenv.mkDerivation (finalAttrs: {
   enableParallelBuilding = true;
 
   postInstall = ''
-    mkdir -p $python
-    mv $out/python/* $python/
-    rmdir $out/python
+    mkdir -p $python/lib
+    mv $lib/lib/python* $python/lib/
   '';
 
   postFixup = ''
-    # Link to OpenCL
-    find $out -type f \( -name '*.so' -or -name '*.so.*' \) | while read lib; do
-      addDriverRunpath "$lib"
-    done
+    substituteInPlace $dev/lib/pkgconfig/openvino.pc \
+      --replace-fail "include_prefix=\''${prefix}/" "include_prefix=" \
+      --replace-fail "exec_prefix=\''${prefix}/" "exec_prefix="
   '';
 
   meta = {

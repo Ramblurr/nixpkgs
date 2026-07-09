@@ -11,14 +11,14 @@
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "cosmic-applibrary";
-  version = "1.0.16";
+  version = "1.1.0";
 
   # nixpkgs-update: no auto update
   src = fetchFromGitHub {
     owner = "pop-os";
-    repo = "cosmic-applibrary";
+    repo = "cosmic-app-library";
     tag = "epoch-${finalAttrs.version}";
-    hash = "sha256-mzHSLZK6HienbPRPetSj+XbPWCnpihEvMx9W9lJWpbA=";
+    hash = "sha256-TZncRQer4lXunUwdQ2xDP3DmF5B7UmfhSQvEwVodc98=";
   };
 
   cargoHash = "sha256-qGx/3w78mgIMqRo1wJA+ULFHWdNW2LKe2Sej4f9KbVs=";
@@ -62,7 +62,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
   };
 
   meta = {
-    homepage = "https://github.com/pop-os/cosmic-applibrary";
+    homepage = "https://github.com/pop-os/cosmic-app-library";
     description = "Application Template for the COSMIC Desktop Environment";
     license = lib.licenses.gpl3Only;
     teams = [ lib.teams.cosmic ];

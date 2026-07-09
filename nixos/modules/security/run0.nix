@@ -11,21 +11,22 @@ let
     mkIf
     mkMerge
     mkOption
+    mkPackageOption
+    mkAliasOptionModule
+    optionalString
     ;
 
   cfg = config.security.run0;
-
-  sudoAlias = pkgs.writeShellScriptBin "sudo" ''
-    if [[ "$1" == -* ]]; then
-      echo "This script is a sudo-alias to systemd's run0 and does not support any sudo parameters."
-      exit 1
-    fi
-    exec run0 "$@"
-  '';
 in
 {
   options.security.run0 = {
     enable = mkEnableOption "support for run0";
+
+    persistentAuth.enable = mkEnableOption ''
+      persistent authentication for sessions.
+      Timeout configurable via {option}`security.polkit.settings.Polkitd.ExpirationSeconds`
+    '';
+    persistentAuth.enableRemote = mkEnableOption "persistent authentication for remote sessions";
 
     wheelNeedsPassword = mkOption {
       type = lib.types.bool;
@@ -36,8 +37,16 @@ in
       '';
     };
 
-    enableSudoAlias = mkEnableOption "make {command}`sudo` an alias to {command}`run0`.";
+    sudo-shim.enable = mkEnableOption "make {command}`sudo` an alias to {command}`run0`.";
+    sudo-shim.package = mkPackageOption pkgs "run0-sudo-shim" { };
   };
+
+  imports = [
+    (mkAliasOptionModule
+      [ "security" "run0" "enableSudoAlias" ]
+      [ "security" "run0" "sudo-shim" "enable" ]
+    )
+  ];
 
   config = mkMerge [
     {
@@ -58,23 +67,42 @@ in
       assertions = [
         {
           assertion =
-            cfg.enableSudoAlias -> (!config.security.sudo.enable && !config.security.sudo-rs.enable);
-          message = "`security.run0.enableSudoAlias` cannot be enabled if `security.sudo` or `security.sudo-rs` are enabled.";
+            cfg.sudo-shim.enable -> (!config.security.sudo.enable && !config.security.sudo-rs.enable);
+          message = "`security.run0.sudo-shim.enable` cannot be enabled if `security.sudo` or `security.sudo-rs` are enabled.";
         }
       ];
 
       security.polkit = {
         enable = true;
-        extraConfig = mkIf (!cfg.wheelNeedsPassword) ''
-          polkit.addRule(function(action, subject) {
-            if (action.id == "org.freedesktop.systemd1.manage-units" && subject.isInGroup("wheel")) {
-              return polkit.Result.YES;
-            }
-          });
-        '';
+        extraConfig = lib.concatLines [
+          (optionalString (!cfg.wheelNeedsPassword) ''
+            polkit.addRule(function(action, subject) {
+              if (action.id == "org.freedesktop.systemd1.manage-units" && subject.isInGroup("wheel")) {
+                return polkit.Result.YES;
+              }
+            });
+          '')
+          (optionalString cfg.persistentAuth.enable ''
+            polkit.addRule(function(action, subject) {
+              if (action.id == "org.freedesktop.systemd1.manage-units" && subject.active ${
+                optionalString (!cfg.persistentAuth.enableRemote) "&& subject.local"
+              }) {
+                return polkit.Result.AUTH_ADMIN_KEEP;
+              }
+            });
+          '')
+        ];
       };
 
-      environment.systemPackages = lib.optional cfg.enableSudoAlias sudoAlias;
+      environment.systemPackages = lib.optional cfg.sudo-shim.enable cfg.sudo-shim.package;
     })
   ];
+
+  meta = {
+    maintainers = with lib.maintainers; [
+      zimward
+      grimmauld
+      kuflierl
+    ];
+  };
 }

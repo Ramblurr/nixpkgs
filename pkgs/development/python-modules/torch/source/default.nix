@@ -385,6 +385,15 @@ buildPythonPackage.override { inherit stdenv; } (finalAttrs: {
   # until https://github.com/pytorch/pytorch/issues/76082 is addressed
   + lib.optionalString cudaSupport ''
     rm cmake/Modules/FindCUDAToolkit.cmake
+  ''
+  # Otherwise, torch compile will fail at runtime if openmp is not available
+  #   torch._inductor.exc.InductorError: CppCompileError: C++ compile error
+  #   fatal error: 'omp.h' file not found
+  + lib.optionalString stdenv.cc.isClang ''
+    substituteInPlace torch/csrc/inductor/cpp_prefix.h \
+      --replace-fail \
+        "#include <omp.h>" \
+        '#include "${lib.getInclude llvmPackages.openmp}/include/omp.h"'
   '';
 
   # NOTE(@connorbaker): Though we do not disable Gloo or MPI when building with CUDA support, caution should be taken
@@ -550,7 +559,7 @@ buildPythonPackage.override { inherit stdenv; } (finalAttrs: {
   ++ lib.optionals cudaSupport (
     with cudaPackages;
     [
-      cuda_cccl # <thrust/*>
+      cccl # <thrust/*>
       cuda_cudart # cuda_runtime.h and libraries
       cuda_cupti # For kineto
       cuda_nvcc # crt/host_config.h; even though we include this in nativeBuildInputs, it's needed here too

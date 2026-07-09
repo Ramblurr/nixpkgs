@@ -73,16 +73,22 @@ let
 in
 buildGoModule (finalAttrs: {
   pname = "netbird-${componentName}";
-  version = "0.72.4";
+  version = "0.74.2";
 
   src = fetchFromGitHub {
     owner = "netbirdio";
     repo = "netbird";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-YRXXuaqnQBLODcz/FNpIG9Ht+6VGRknE2Q6Q5ZaAIus=";
+    hash = "sha256-+BGWZzw6a8Fp8NlhtbX81OA3hCTcQ9r6nLuXTsbXCZ8=";
   };
 
-  vendorHash = "sha256-6FN7l+e75Pw2+v0sktomlck+7daro1i6c4ZV53SRePI=";
+  overrideModAttrs = final: prev: {
+    # override output name so that we don't download the same modules every time
+    # for every component of the monorepo
+    name = "netbird-${finalAttrs.version}-go-modules";
+  };
+
+  vendorHash = "sha256-5dZu6lmfwaUHusAlFS1qqorFbpa4anCUQDtg4Tv5mxw=";
 
   nativeBuildInputs = [ installShellFiles ] ++ lib.optional (componentName == "ui") pkg-config;
 

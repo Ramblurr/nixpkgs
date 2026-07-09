@@ -16,13 +16,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "p2pool";
-  version = "4.16";
+  version = "4.17.1";
 
   src = fetchFromGitHub {
     owner = "SChernykh";
     repo = "p2pool";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-PXJT+hFLD4LSy11/FvzDhi3RdsDYuzcxqr3nYn5XzDk=";
+    hash = "sha256-a08ER4PARZ3sHhmRwnQSd6Grhprj1jvFDIZGcZMExpg=";
     fetchSubmodules = true;
   };
 

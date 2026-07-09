@@ -6,13 +6,13 @@
 
 buildGoModule (finalAttrs: {
   pname = "cdncheck";
-  version = "1.2.40";
+  version = "1.2.42";
 
   src = fetchFromGitHub {
     owner = "projectdiscovery";
     repo = "cdncheck";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-awlLfO9YvsRwLRguCB+qDBYuqRkQb2Z+8gdTvzwDQYs=";
+    hash = "sha256-nZo7TUbd3uy78HoD4HPm34R8fBwRjByJ0wI/vJmNoCU=";
   };
 
   vendorHash = "sha256-iJ1agL7sZ3ZKbW1wMA+qi8FgHdPa6gZLQ5BBPKJTNaQ=";

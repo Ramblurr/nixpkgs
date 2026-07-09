@@ -82,7 +82,9 @@ rustPlatform.buildRustPackage {
 
   postPatch = ''
     substituteInPlace crates/openconnect/src/vpn_utils.rs \
+      --replace-fail /usr/local/libexec/gpclient/vpnc-script $out/libexec/gpclient/vpnc-script \
       --replace-fail /usr/libexec/gpclient/vpnc-script $out/libexec/gpclient/vpnc-script \
+      --replace-fail /usr/local/libexec/gpclient/hipreport.sh $out/libexec/gpclient/hipreport.sh \
       --replace-fail /usr/libexec/gpclient/hipreport.sh $out/libexec/gpclient/hipreport.sh
 
     substituteInPlace crates/common/src/constants.rs \
@@ -99,7 +101,9 @@ rustPlatform.buildRustPackage {
     cp -r packaging/files/usr/libexec $out/libexec
 
     substituteInPlace $out/libexec/gpclient/hipreport.sh \
-      --replace-fail /usr/bin/gpclient $out/bin/gpclient
+      --replace-fail /usr/bin/gpclient $out/bin/gpclient \
+      --replace-fail /opt/homebrew/bin/gpclient $out/bin/gpclient \
+      --replace-fail /usr/local/bin/gpclient $out/bin/gpclient
   ''
   + lib.optionalString stdenv.hostPlatform.isLinux ''
     substituteInPlace $out/libexec/gpclient/vpnc-script \
@@ -130,6 +134,11 @@ rustPlatform.buildRustPackage {
   + lib.optionalString stdenv.hostPlatform.isLinux ''
     cp -r packaging/files/usr/lib $out/lib
     substituteInPlace $out/lib/NetworkManager/dispatcher.d/pre-down.d/gpclient.down \
+      --replace-fail /usr/bin/gpclient $out/bin/gpclient
+
+    install -Dm644 packaging/files/usr/share/applications/gpgui.desktop \
+      $out/share/applications/gpgui.desktop
+    substituteInPlace $out/share/applications/gpgui.desktop \
       --replace-fail /usr/bin/gpclient $out/bin/gpclient
   '';
 

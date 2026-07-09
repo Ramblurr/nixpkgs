@@ -288,6 +288,8 @@ let
 
         cohttp-lwt-unix = callPackage ../development/ocaml-modules/cohttp/lwt-unix.nix { };
 
+        cohttp-server-lwt-unix = callPackage ../development/ocaml-modules/cohttp/server-lwt-unix.nix { };
+
         cohttp-top = callPackage ../development/ocaml-modules/cohttp/top.nix { };
 
         coin = callPackage ../development/ocaml-modules/coin { };
@@ -767,6 +769,8 @@ let
         gnuplot = callPackage ../development/ocaml-modules/gnuplot {
           inherit (pkgs) gnuplot;
         };
+
+        grace = callPackage ../development/ocaml-modules/grace { };
 
         graphics =
           if lib.versionOlder "4.09" ocaml.version then
@@ -1721,6 +1725,10 @@ let
 
         pbrt = callPackage ../development/ocaml-modules/pbrt { };
 
+        pbrt_services = callPackage ../development/ocaml-modules/pbrt/services.nix { };
+
+        pbrt_yojson = callPackage ../development/ocaml-modules/pbrt/yojson.nix { };
+
         pcre2 = callPackage ../development/ocaml-modules/pcre2 {
           inherit (pkgs) pcre2;
         };
@@ -2260,6 +2268,8 @@ let
         webbrowser = callPackage ../development/ocaml-modules/webbrowser { };
 
         webmachine = callPackage ../development/ocaml-modules/webmachine { };
+
+        windtrap = callPackage ../development/ocaml-modules/windtrap { };
 
         wtf8 = callPackage ../development/ocaml-modules/wtf8 { };
 

@@ -12,16 +12,16 @@
 }:
 buildNpmPackage (finalAttrs: {
   pname = "pi-coding-agent";
-  version = "0.79.1";
+  version = "0.80.3";
 
   src = fetchFromGitHub {
     owner = "earendil-works";
     repo = "pi";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-MvH8e21GVfzRQ9vsxFNC1GHJfB9GZpqY1Z2t8GCUaiQ=";
+    hash = "sha256-wQTrWKsb2HCGwzSAFEk8NWSDpqxSY/lv1/R6ghcmbaA=";
   };
 
-  npmDepsHash = "sha256-ZWdfDDs+Hv+GWTmsNmpWNlUDBOMALw7H4lwo7CJHVCM=";
+  npmDepsHash = "sha256-geh8LH88OZybFXkR/jDeTdew6TNMdFM6jhCSYKn//dU=";
 
   npmWorkspace = "packages/coding-agent";
 
@@ -76,12 +76,16 @@ buildNpmPackage (finalAttrs: {
       "$nm/@anthropic-ai/sandbox-runtime/vendor/seccomp"
   '';
 
-  postFixup = "wrapProgram $out/bin/pi --prefix PATH : ${
-    lib.makeBinPath [
-      ripgrep
-      fd
-    ]
-  }";
+  postFixup = ''
+    wrapProgram $out/bin/pi --prefix PATH : ${
+      lib.makeBinPath [
+        ripgrep
+        fd
+      ]
+    } \
+      --set-default PI_SKIP_VERSION_CHECK 1 \
+      --set-default PI_TELEMETRY 0
+  '';
 
   doInstallCheck = true;
   nativeInstallCheckInputs = [
