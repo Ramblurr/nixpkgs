@@ -24,6 +24,8 @@ let
 
         aeneas = callPackage ../development/ocaml-modules/aeneas { };
 
+        alcobar = callPackage ../development/ocaml-modules/alcobar { };
+
         alcotest = callPackage ../development/ocaml-modules/alcotest { };
 
         alcotest-lwt = callPackage ../development/ocaml-modules/alcotest/lwt.nix { };
@@ -50,11 +52,15 @@ let
 
         angstrom-unix = callPackage ../development/ocaml-modules/angstrom-unix { };
 
+        ansi = callPackage ../development/ocaml-modules/ansi { };
+
         ansiterminal = callPackage ../development/ocaml-modules/ansiterminal { };
 
         ao = callPackage ../development/ocaml-modules/ao { };
 
         apron = callPackage ../development/ocaml-modules/apron { };
+
+        apronext = callPackage ../development/ocaml-modules/apronext { };
 
         argon2 = callPackage ../development/ocaml-modules/argon2 { };
 
@@ -242,6 +248,8 @@ let
         carton-lwt = callPackage ../development/ocaml-modules/carton/lwt.nix {
           git-binary = pkgs.git;
         };
+
+        cascade = callPackage ../development/ocaml-modules/cascade { };
 
         cbor = callPackage ../development/ocaml-modules/cbor { };
 
@@ -706,6 +714,10 @@ let
 
         functory = callPackage ../development/ocaml-modules/functory { };
 
+        fuse3 = callPackage ../development/ocaml-modules/fuse3 {
+          inherit (pkgs) fuse3;
+        };
+
         ### G ###
 
         gapi-ocaml = callPackage ../development/ocaml-modules/gapi-ocaml { };
@@ -1116,6 +1128,8 @@ let
         letsencrypt-mirage = callPackage ../development/ocaml-modules/letsencrypt/mirage.nix { };
 
         letters = callPackage ../development/ocaml-modules/letters { };
+
+        libabsolute = callPackage ../development/ocaml-modules/libabsolute { };
 
         libc = callPackage ../development/ocaml-modules/libc { };
 
@@ -1755,6 +1769,8 @@ let
 
         piaf = callPackage ../development/ocaml-modules/piaf { };
 
+        picasso = callPackage ../development/ocaml-modules/picasso { };
+
         piqi = callPackage ../development/ocaml-modules/piqi { };
 
         piqi-ocaml = callPackage ../development/ocaml-modules/piqi-ocaml { };
@@ -2187,6 +2203,8 @@ let
 
         tuntap = callPackage ../development/ocaml-modules/tuntap { };
 
+        tw = callPackage ../development/ocaml-modules/tw { };
+
         twt = callPackage ../development/ocaml-modules/twt { };
 
         type_eq = callPackage ../development/ocaml-modules/type_eq { };
@@ -2404,7 +2422,9 @@ rec {
 
   ocamlPackages_5_4 = mkOcamlPackages (callPackage ../development/compilers/ocaml/5.4.nix { });
 
-  ocamlPackages_latest = ocamlPackages_5_4;
+  ocamlPackages_5_5 = mkOcamlPackages (callPackage ../development/compilers/ocaml/5.5.nix { });
+
+  ocamlPackages_latest = ocamlPackages_5_5;
 
   ocamlPackages = ocamlPackages_5_4;
 

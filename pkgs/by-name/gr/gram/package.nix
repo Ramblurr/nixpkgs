@@ -65,6 +65,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
   ]
   ++ lib.optionals stdenv.hostPlatform.isDarwin [
     cargo-bundle
+    rustPlatform.bindgenHook
   ];
 
   dontUseCmakeConfigure = true;
@@ -79,6 +80,9 @@ rustPlatform.buildRustPackage (finalAttrs: {
     fontconfig
     libxcb
     libxkbcommon
+  ]
+  ++ lib.optionals stdenv.hostPlatform.isDarwin [
+    git
   ];
 
   cargoBuildFlags = [
