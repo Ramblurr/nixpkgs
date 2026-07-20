@@ -2,7 +2,7 @@
 # Do not edit!
 
 {
-  version = "2026.7.1";
+  version = "2026.7.2";
   components = {
     "3_day_blinds" =
       ps: with ps; [
@@ -417,8 +417,9 @@
     "arwn" =
       ps: with ps; [
         aiohasupervisor
+        arwn-client
         paho-mqtt
-      ]; # missing inputs: arwn-client
+      ];
     "aseko_pool_live" =
       ps: with ps; [
         aioaseko
@@ -1008,6 +1009,7 @@
         bluetooth-adapters
         bluetooth-auto-recovery
         bluetooth-data-tools
+        chefiq-ble
         dbus-fast
         esphome-dashboard-api
         ha-ffmpeg
@@ -1020,7 +1022,7 @@
         pyspeex-noise
         serialx
         zeroconf
-      ]; # missing inputs: chefiq-ble
+      ];
     "chess_com" =
       ps: with ps; [
         chess-com-api
@@ -1689,7 +1691,8 @@
       ];
     "energieleser" =
       ps: with ps; [
-      ]; # missing inputs: energieleser
+        energieleser
+      ];
     "energy" =
       ps: with ps; [
         fnv-hash-fast
@@ -1724,7 +1727,8 @@
       ];
     "envertech_evt800" =
       ps: with ps; [
-      ]; # missing inputs: pyenvertechevt800
+        pyenvertechevt800
+      ];
     "environment_canada" =
       ps: with ps; [
         env-canada
@@ -2461,8 +2465,9 @@
     "greencell" =
       ps: with ps; [
         aiohasupervisor
+        greencell-client
         paho-mqtt
-      ]; # missing inputs: greencell_client
+      ];
     "greeneye_monitor" =
       ps: with ps; [
         greeneye-monitor
@@ -2551,7 +2556,8 @@
       ];
     "helty" =
       ps: with ps; [
-      ]; # missing inputs: pyhelty
+        pyhelty
+      ];
     "heos" =
       ps: with ps; [
         pyheos
@@ -3000,7 +3006,8 @@
       ];
     "imou" =
       ps: with ps; [
-      ]; # missing inputs: pyimouapi
+        pyimouapi
+      ];
     "improv_ble" =
       ps: with ps; [
         aioesphomeapi
@@ -3239,7 +3246,8 @@
       ];
     "itach" =
       ps: with ps; [
-      ]; # missing inputs: pyitachip2ir2
+        pyitachip2ir2
+      ];
     "itunes" =
       ps: with ps; [
       ];
@@ -3978,7 +3986,8 @@
       ];
     "melcloud_home" =
       ps: with ps; [
-      ]; # missing inputs: aiomelcloudhome
+        aiomelcloudhome
+      ];
     "melissa" =
       ps: with ps; [
         py-melissa-climate
@@ -6437,7 +6446,8 @@
       ];
     "swisscom" =
       ps: with ps; [
-      ]; # missing inputs: python-swisscom-internet-box
+        python-swisscom-internet-box
+      ];
     "switch" =
       ps: with ps; [
       ];
@@ -7362,7 +7372,8 @@
       ];
     "wattwaechter" =
       ps: with ps; [
-      ]; # missing inputs: aio-wattwaechter
+        aio-wattwaechter
+      ];
     "waze_travel_time" =
       ps: with ps; [
         pywaze
@@ -7847,6 +7858,7 @@
     "aranet"
     "arcam_fmj"
     "arve"
+    "arwn"
     "aseko_pool_live"
     "assist_pipeline"
     "assist_satellite"
@@ -7914,6 +7926,7 @@
     "centriconnect"
     "cert_expiry"
     "chacon_dio"
+    "chef_iq"
     "chess_com"
     "cielo_home"
     "citybikes"
@@ -8020,12 +8033,14 @@
     "emulated_kasa"
     "emulated_roku"
     "energenie_power_sockets"
+    "energieleser"
     "energy"
     "energyid"
     "energyzero"
     "enigma2"
     "enocean"
     "enphase_envoy"
+    "envertech_evt800"
     "environment_canada"
     "envisalink"
     "epic_games_store"
@@ -8141,6 +8156,7 @@
     "graphite"
     "gree"
     "green_planet_energy"
+    "greencell"
     "greeneye_monitor"
     "group"
     "growatt_server"
@@ -8156,6 +8172,7 @@
     "hdfury"
     "hdmi_cec"
     "hegel"
+    "helty"
     "heos"
     "here_travel_time"
     "hikvision"
@@ -8218,6 +8235,7 @@
     "imeon_inverter"
     "imgw_pib"
     "immich"
+    "imou"
     "improv_ble"
     "incomfort"
     "indevolt"
@@ -8253,6 +8271,7 @@
     "iss"
     "ista_ecotrend"
     "isy994"
+    "itach"
     "ituran"
     "izone"
     "jellyfin"
@@ -8347,6 +8366,7 @@
     "media_player"
     "media_source"
     "melcloud"
+    "melcloud_home"
     "melissa"
     "melnor"
     "meraki"
@@ -8710,6 +8730,7 @@
     "sunweg"
     "surepetcare"
     "swiss_public_transport"
+    "swisscom"
     "switch"
     "switch_as_x"
     "switchbee"
@@ -8852,6 +8873,7 @@
     "watergate"
     "watts"
     "watttime"
+    "wattwaechter"
     "waze_travel_time"
     "weather"
     "weatherflow"
