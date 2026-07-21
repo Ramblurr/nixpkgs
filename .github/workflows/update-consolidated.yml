@@ -45,15 +45,8 @@ jobs:
           # Keep the generated branch usable as a channel, not as a literal history mirror.
           git checkout -B "${{ env.PERSONAL_MASTER_BRANCH }}" "origin/${{ env.PERSONAL_MASTER_BRANCH }}"
 
-          deleted_paths="$(git diff --no-renames --name-only --diff-filter=D HEAD..upstream/master || true)"
-
-          git checkout upstream/master -- .
+          git read-tree --reset -u upstream/master
           rm -rf .github/workflows
-
-          while IFS= read -r path; do
-            [[ -z "$path" || "$path" == .github/workflows* ]] && continue
-            git rm -r --ignore-unmatch -- "$path"
-          done <<< "$deleted_paths"
 
           git add -A
           if ! git diff --cached --quiet; then
