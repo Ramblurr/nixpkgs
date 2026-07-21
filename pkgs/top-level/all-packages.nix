@@ -2358,8 +2358,6 @@ with pkgs;
 
   matrix-synapse-plugins = recurseIntoAttrs matrix-synapse-unwrapped.plugins;
 
-  maubot = with python3Packages; toPythonApplication maubot;
-
   md2gemini = with python3.pkgs; toPythonApplication md2gemini;
 
   mdcat = callPackage ../tools/text/mdcat {
@@ -2498,8 +2496,6 @@ with pkgs;
   linux-gpib = callPackage ../applications/science/electronics/linux-gpib/user.nix { };
 
   liquidctl = with python3Packages; toPythonApplication liquidctl;
-
-  xz = callPackage ../tools/compression/xz { };
 
   madlang = haskell.lib.compose.justStaticExecutables haskellPackages.madlang;
 
