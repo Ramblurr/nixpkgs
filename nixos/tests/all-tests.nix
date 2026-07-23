@@ -730,7 +730,13 @@ in
   greetd-no-shadow = runTest ./greetd-no-shadow.nix;
   grocy = runTest ./grocy.nix;
   grow-partition = runTest ./grow-partition.nix;
-  grub = runTest ./grub.nix;
+  grub = {
+    basic = runTest ./grub/basic.nix;
+    efi = runTest ./grub/efi.nix;
+    graphical = runTest ./grub/graphical.nix;
+    hashed-password = runTest ./grub/hashed-password.nix;
+    mirrored-boots = runTest ./grub/mirrored-boots.nix;
+  };
   gs1200-exporter = runTest ./gs1200-exporter.nix;
   guacamole-server = runTest ./guacamole-server.nix;
   guix = handleTest ./guix { };
@@ -1226,9 +1232,9 @@ in
   nyxt = runTest ./nyxt.nix;
   nzbget = runTest ./nzbget.nix;
   nzbhydra2 = runTest ./nzbhydra2.nix;
-  ocis = handleTest ./ocis { };
   obs-studio = runTest ./obs-studio.nix;
   oci-containers = handleTestOn [ "aarch64-linux" "x86_64-linux" ] ./oci-containers.nix { };
+  ocis = runTest ./ocis.nix;
   ocsinventory-agent = handleTestOn [ "x86_64-linux" "aarch64-linux" ] ./ocsinventory-agent.nix { };
   octoprint = runTest ./octoprint.nix;
   oddjobd = handleTestOn [ "x86_64-linux" "aarch64-linux" ] ./oddjobd.nix { };

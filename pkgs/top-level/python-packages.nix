@@ -658,7 +658,7 @@ self: super: with self; {
 
   albucore = callPackage ../development/python-modules/albucore { };
 
-  albumentations = callPackage ../development/python-modules/albumentations { };
+  albumentationsx = callPackage ../development/python-modules/albumentationsx { };
 
   ale-py = callPackage ../development/python-modules/ale-py { };
 
@@ -2506,8 +2506,6 @@ self: super: with self; {
   block-io = callPackage ../development/python-modules/block-io { };
 
   blockbuster = callPackage ../development/python-modules/blockbuster { };
-
-  blockchain = callPackage ../development/python-modules/blockchain { };
 
   blockdiag = callPackage ../development/python-modules/blockdiag { };
 
@@ -17416,6 +17414,8 @@ self: super: with self; {
 
   rclone-python = callPackage ../development/python-modules/rclone-python { };
 
+  rcon = callPackage ../development/python-modules/rcon { };
+
   rcssmin = callPackage ../development/python-modules/rcssmin { };
 
   rctclient = callPackage ../development/python-modules/rctclient { };
@@ -18015,6 +18015,8 @@ self: super: with self; {
   runs = callPackage ../development/python-modules/runs { };
 
   runstats = callPackage ../development/python-modules/runstats { };
+
+  runtype = callPackage ../development/python-modules/runtype { };
 
   russound = callPackage ../development/python-modules/russound { };
 
@@ -19328,8 +19330,6 @@ self: super: with self; {
   sqlalchemy-utc = callPackage ../development/python-modules/sqlalchemy-utc { };
 
   sqlalchemy-utils = callPackage ../development/python-modules/sqlalchemy-utils { };
-
-  sqlalchemy_1_3 = callPackage ../development/python-modules/sqlalchemy/1_3.nix { };
 
   sqlalchemy_1_4 = callPackage ../development/python-modules/sqlalchemy/1_4.nix { };
 
