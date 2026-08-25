@@ -2,7 +2,7 @@
   lib,
   stdenv,
   fetchurl,
-  squashfsTools,
+  squashfs-tools,
   makeWrapper,
   autoPatchelfHook,
   c-ares,
@@ -14,7 +14,7 @@
   libvpx,
   libxslt,
   libnotify,
-  libappindicator-gtk3,
+  libappindicator,
   libxkbcommon,
   libGL,
   wrapGAppsHook3,
@@ -57,7 +57,7 @@ let
     libvpx
     libxslt
     libnotify
-    libappindicator-gtk3
+    libappindicator
     libxkbcommon
     libGL
     atk
@@ -101,7 +101,7 @@ stdenv.mkDerivation (finalAttrs: {
   };
 
   nativeBuildInputs = [
-    squashfsTools
+    squashfs-tools
     makeWrapper
     autoPatchelfHook
     wrapGAppsHook3

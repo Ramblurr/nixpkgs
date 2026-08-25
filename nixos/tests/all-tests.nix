@@ -20,8 +20,12 @@ let
     isFunction
     mapAttrs
     elem
+    meta
     recurseIntoAttrs
     ;
+
+  callSupportedTest =
+    test: if meta.availableOn pkgs.stdenv.hostPlatform test then callTest test else { };
 
   # TODO: remove when handleTest is gone (make sure nixosTests and nixos/release.nix#tests are unaffected)
   # TODO: when removing, also deprecate `test` attribute in ../lib/testing/run.nix
@@ -29,7 +33,7 @@ let
     val:
     if isAttrs val then
       if (val ? test) then
-        callTest val
+        callSupportedTest val
       else
         mapAttrs (n: s: if n == "passthru" then s else discoverTests s) val
     else if isFunction val then
@@ -120,7 +124,7 @@ let
         if tree ? recurseForDerivations && tree.recurseForDerivations then
           mapAttrs (k: findTests) (removeAttrs tree [ "recurseForDerivations" ])
         else
-          callTest tree;
+          callSupportedTest tree;
 
       runTest =
         arg:
@@ -328,6 +332,7 @@ in
   calibre-server = import ./calibre-server.nix { inherit pkgs runTest; };
   calibre-web = runTest ./calibre-web.nix;
   canaille = runTest ./canaille.nix;
+  cardwire = runTest ./cardwire.nix;
   cassandra = runTest {
     imports = [ ./cassandra.nix ];
     _module.args.getPackage = pkgs: pkgs.cassandra;
@@ -689,7 +694,10 @@ in
   ghostunnel = runTest ./ghostunnel.nix;
   ghostunnel-modular = runTest ./ghostunnel-modular.nix;
   gitdaemon = runTest ./gitdaemon.nix;
-  gitea = handleTest ./gitea.nix { giteaPackage = pkgs.gitea; };
+  gitea = import ./gitea.nix {
+    inherit pkgs runTest;
+    inherit (pkgs) lib;
+  };
   github-runner = runTest ./github-runner.nix;
   gitlab = import ./gitlab {
     inherit runTest;
@@ -793,7 +801,8 @@ in
   hibernate-systemd-stage-1 = handleTestOn [ "x86_64-linux" ] ./hibernate.nix {
     systemdStage1 = true;
   };
-  hitch = handleTest ./hitch { };
+  hister = runTest ./hister.nix;
+  hitch = runTest ./hitch;
   hledger-web = runTest ./hledger-web.nix;
   hockeypuck = runTest ./hockeypuck.nix;
   holo-daemon-modular-service = runTest ./holo-daemon-modular.nix;
@@ -804,11 +813,15 @@ in
   homer = handleTest ./homer { };
   honk = runTest ./honk.nix;
   hoogle = runTest ./hoogle.nix;
-  hostname = handleTest ./hostname.nix { };
+  hostname = import ./hostname.nix {
+    inherit pkgs runTest;
+    inherit (pkgs) lib;
+  };
   hound = runTest ./hound.nix;
   hub = runTest ./git/hub.nix;
   hydra = runTest ./hydra;
   i18n = runTest ./i18n.nix;
+  i2pd = runTest ./i2pd.nix;
   i3wm = runTest ./i3wm.nix;
   icecast = runTest ./icecast.nix;
   icingaweb2 = runTest ./icingaweb2.nix;
@@ -899,8 +912,14 @@ in
   keter = runTest ./keter.nix;
   kexec = runTest ./kexec.nix;
   keycloak = discoverTests (import ./keycloak.nix);
-  keyd = handleTest ./keyd.nix { };
-  keymap = handleTest ./keymap.nix { };
+  keyd = import ./keyd.nix {
+    inherit pkgs runTest;
+    inherit (pkgs) lib;
+  };
+  keymap = import ./keymap.nix {
+    inherit pkgs runTest;
+    inherit (pkgs) lib;
+  };
   kimai = runTest ./kimai.nix;
   kismet = runTest ./kismet.nix;
   kiwix-serve = runTest ./kiwix-serve;
@@ -911,6 +930,7 @@ in
   komga = runTest ./komga.nix;
   komodo-periphery = runTest ./komodo-periphery.nix;
   krb5 = discoverTests (import ./krb5);
+  krill = runTest ./krill.nix;
   ksm = runTest ./ksm.nix;
   kthxbye = runTest ./kthxbye.nix;
   kubernetes = handleTestOn [ "x86_64-linux" ] ./kubernetes { };
@@ -918,6 +938,7 @@ in
     inherit runTest;
     inherit (pkgs) lib;
   };
+  kvrocks = runTest ./kvrocks.nix;
   labgrid = runTest ./labgrid.nix;
   lact = runTest ./lact.nix;
   ladybird = runTest ./ladybird.nix;
@@ -967,7 +988,9 @@ in
   livekit = runTest ./networking/livekit.nix;
   lix = runTest ./lix.nix;
   lk-jwt-service = runTest ./matrix/lk-jwt-service.nix;
-  llama-swap = runTest ./web-servers/llama-swap.nix;
+  llama-swap = import ./web-servers/llama-swap.nix {
+    inherit pkgs runTest;
+  };
   lldap = runTest ./lldap.nix;
   local-content-share = runTest ./local-content-share.nix;
   locale = runTest ./locale.nix;
@@ -990,7 +1013,7 @@ in
   lomiri-mediaplayer-app = runTest ./lomiri-mediaplayer-app.nix;
   lomiri-music-app = runTest ./lomiri-music-app.nix;
   lomiri-system-settings = runTest ./lomiri-system-settings.nix;
-  lorri = handleTest ./lorri/default.nix { };
+  lorri = runTest ./lorri/default.nix;
   luks = runTest ./luks.nix;
   luks-suspend = runTest ./luks-suspend.nix;
   lvm2 = import ./lvm2 { inherit pkgs runTest; };
@@ -1057,6 +1080,7 @@ in
   modularService = pkgs.callPackage ../modules/system/service/systemd/test.nix {
     inherit evalSystem;
   };
+  moduleStateRevisions = pkgs.callPackage ./moduleStateRevisions.nix { };
   molly-brown = runTest ./molly-brown.nix;
   mollysocket = runTest ./mollysocket.nix;
   monado = runTest ./monado.nix;
@@ -1138,6 +1162,7 @@ in
   netbox-upgrade = runTest ./web-apps/netbox-upgrade.nix;
   netbox_4_4 = handleTest ./web-apps/netbox/default.nix { netbox = pkgs.netbox_4_4; };
   netbox_4_5 = handleTest ./web-apps/netbox/default.nix { netbox = pkgs.netbox_4_5; };
+  netbox_4_6 = handleTest ./web-apps/netbox/default.nix { netbox = pkgs.netbox_4_6; };
   netdata = runTest ./netdata.nix;
   netfoil = runTest ./netfoil.nix;
   netplan = runTest ./netplan.nix;
@@ -1160,6 +1185,7 @@ in
   nginx-etag = runTest ./nginx-etag.nix;
   nginx-etag-compression = runTest ./nginx-etag-compression.nix;
   nginx-globalredirect = runTest ./nginx-globalredirect.nix;
+  nginx-grpc-error-pages = runTest ./nginx-grpc-error-pages.nix;
   nginx-http3 = import ./nginx-http3.nix { inherit pkgs runTest; };
   nginx-lua = runTest ./nginx-lua.nix;
   nginx-mime = runTest ./nginx-mime.nix;
@@ -1232,6 +1258,7 @@ in
   ntfy-sh-migration = handleTest ./ntfy-sh-migration.nix { };
   ntpd = runTest ./ntpd.nix;
   ntpd-rs = runTest ./ntpd-rs.nix;
+  nullmailer = runTest ./nullmailer.nix;
   nushell = runTest ./nushell.nix;
   nvidia-container-toolkit = runTest ./nvidia-container-toolkit.nix;
   nvme-rs = runTest ./nvme-rs.nix;
@@ -1241,7 +1268,7 @@ in
   nzbhydra2 = runTest ./nzbhydra2.nix;
   obs-studio = runTest ./obs-studio.nix;
   oci-containers = handleTestOn [ "aarch64-linux" "x86_64-linux" ] ./oci-containers.nix { };
-  ocis = recurseIntoAttrs (import ./ocis { inherit evalSystem pkgs runTest; });
+  ocis = runTest ./ocis.nix;
   ocsinventory-agent = handleTestOn [ "x86_64-linux" "aarch64-linux" ] ./ocsinventory-agent.nix { };
   octoprint = runTest ./octoprint.nix;
   oddjobd = handleTestOn [ "x86_64-linux" "aarch64-linux" ] ./oddjobd.nix { };
@@ -1329,6 +1356,7 @@ in
   pantalaimon = runTest ./matrix/pantalaimon.nix;
   pantheon = runTest ./pantheon.nix;
   paperless = runTest ./paperless.nix;
+  papra = runTest ./papra.nix;
   paretosecurity = runTest ./paretosecurity.nix;
   parsedmarc = handleTest ./parsedmarc { };
   part-db = runTest ./web-apps/part-db.nix;
@@ -1513,6 +1541,8 @@ in
   rmfakecloud = runTest ./rmfakecloud.nix;
   rnsd = runTest ./networking/rnsd.nix;
   robustirc-bridge = runTest ./robustirc-bridge.nix;
+  romm = runTest ./romm.nix;
+  rosec = runTest ./rosec.nix;
   rosenpass = runTest ./rosenpass.nix;
   roundcube = runTest ./roundcube.nix;
   routinator = handleTest ./routinator.nix { };
@@ -1530,6 +1560,7 @@ in
   rsyslogd = handleTest ./rsyslogd.nix { };
   rtkit = runTest ./rtkit.nix;
   rtorrent = runTest ./rtorrent.nix;
+  rundeck = runTest ./rundeck.nix;
   rush = runTest ./rush.nix;
   rustfs = runTest ./rustfs.nix;
   rustical = runTest ./web-apps/rustical.nix;
@@ -1764,7 +1795,7 @@ in
   terminal-emulators = handleTest ./terminal-emulators.nix { };
   test-containers-bittorrent = runTest ./test-containers-bittorrent.nix;
   thanos = runTest ./thanos.nix;
-  thelounge = handleTest ./thelounge.nix { };
+  thelounge = runTest ./thelounge.nix;
   tiddlywiki = runTest ./tiddlywiki.nix;
   tigervnc = handleTest ./tigervnc.nix { };
   tika = runTest ./tika.nix;
@@ -1813,6 +1844,7 @@ in
   ucarp = runTest ./ucarp.nix;
   udisks2 = runTest ./udisks2.nix;
   udp-over-tcp = runTest ./udp-over-tcp.nix;
+  udp514-journal = runTest ./udp514-journal.nix;
   ulogd = runTest ./ulogd/ulogd.nix;
   umami = runTest ./web-apps/umami.nix;
   umurmur = runTest ./umurmur.nix;
@@ -1834,11 +1866,16 @@ in
   userborn = runTest ./userborn.nix;
   userborn-immutable-etc = runTest ./userborn-immutable-etc.nix;
   userborn-immutable-users = runTest ./userborn-immutable-users.nix;
+  userborn-migration = runTest ./userborn-migration.nix;
   userborn-mutable-etc = runTest ./userborn-mutable-etc.nix;
   userborn-mutable-users = runTest ./userborn-mutable-users.nix;
   userborn-static = runTest ./userborn-static.nix;
+  userborn-subids = runTest ./userborn-subids.nix;
+  userborn-subids-immutable-etc = runTest ./userborn-subids-immutable-etc.nix;
+  userborn-subids-mutable-etc = runTest ./userborn-subids-mutable-etc.nix;
   ustreamer = runTest ./ustreamer.nix;
-  utils = import ./utils { inherit runTest; };
+  utils = pkgs.callPackage ./utils { inherit runTest; };
+  utmp = runTest ./utmp.nix;
   uwsgi = runTest ./uwsgi.nix;
   v2ray = runTest ./v2ray.nix;
   varnish80 = runTest {
@@ -1889,7 +1926,10 @@ in
     inherit pkgs runTest;
     inherit (pkgs) lib;
   };
-  wine = handleTest ./wine.nix { };
+  wine = import ./wine.nix {
+    inherit pkgs runTest;
+    inherit (pkgs) lib;
+  };
   wireguard = import ./wireguard {
     inherit pkgs runTest;
     inherit (pkgs) lib;

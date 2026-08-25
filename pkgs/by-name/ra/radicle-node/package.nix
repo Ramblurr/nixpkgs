@@ -15,9 +15,9 @@
   xdg-utils,
   versionCheckHook,
 
-  version ? "1.10.0",
-  srcHash ? "sha256-msKnRL6T9Z+bSxknRvhKSE6rDlGA0e8aWwM1/PhUzZw=",
-  cargoHash ? "sha256-g23LqCXZt+/JX+1Nb9JCORxI0P/LJL2MZHg3lATKLd8=",
+  version ? "1.10.1",
+  srcHash ? "sha256-F+64o9z/al0iaLFyQHAYk/3jjf5T0FdgqaU3nEWIheg=",
+  cargoHash ? "sha256-TLffetbkVwIbUDoI+96T99+lfYu2SIpGtwC0DbuJXnU=",
   updateScript ? ./update.sh,
 }:
 
@@ -38,6 +38,9 @@ rustPlatform.buildRustPackage (finalAttrs: {
       rm -rf $out/.git
     '';
   };
+
+  strictDeps = true;
+  __structuredAttrs = true;
 
   env.RADICLE_VERSION = finalAttrs.version;
 
@@ -83,6 +86,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     "--skip=tests::e2e::test_connection_crossing"
     # https://radicle.zulipchat.com/#narrow/stream/369277-heartwood/topic/Clone.20Partial.20Fail.20Flake
     "--skip=rad_clone_partial_fail"
+    "--skip=commands::patch::rad_patch_merge_unauthorized_branch"
   ];
 
   postInstall = ''

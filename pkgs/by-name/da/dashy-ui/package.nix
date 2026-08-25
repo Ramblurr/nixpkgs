@@ -17,16 +17,16 @@
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "dashy-ui";
-  version = "4.5.6";
+  version = "4.6.0";
   src = fetchFromGitHub {
     owner = "lissy93";
     repo = "dashy";
     tag = finalAttrs.version;
-    hash = "sha256-gj1U9w4GkY/CZ9tyXmONIQOUIYZAK0NhgKDek7zjRm4=";
+    hash = "sha256-fU8sbxaHs+j2Z/+xvE6w8qBF2cxKtRx+ARQlpfJ2n5Y=";
   };
   yarnOfflineCache = fetchYarnDeps {
     yarnLock = finalAttrs.src + "/yarn.lock";
-    hash = "sha256-UjcA3z3jnnDizjYIb1D76OWC7n9UcN0HhQnwfW7y8BU=";
+    hash = "sha256-EBtJW3atTgLeLn+PLxePmrnEG9Xl0R+9LIlTh+Vgw5g=";
   };
 
   passthru = {
@@ -40,7 +40,7 @@ stdenv.mkDerivation (finalAttrs: {
   # the way the client parses things
   # - Instead, we use `remarshal` to convert it to yaml
   # Config validation needs to happen after yarnConfigHook, since it's what sets the yarn offline cache
-  preBuild = lib.optional (settings != { }) ''
+  preBuild = lib.optionalString (settings != { }) ''
     echo "Writing settings override..."
     json2yaml '${builtins.toFile "conf.json" (builtins.toJSON settings)}' user-data/conf.yml
     yarn validate-config --offline

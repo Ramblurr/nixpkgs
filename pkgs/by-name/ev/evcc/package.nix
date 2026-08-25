@@ -17,16 +17,16 @@
 }:
 
 let
-  version = "0.313.1";
+  version = "0.314.3";
 
   src = fetchFromGitHub {
     owner = "evcc-io";
     repo = "evcc";
     tag = version;
-    hash = "sha256-P/NEP+gGS3Wni9j09NVujmdDYaAz7ntOtrPFZNKy/Bo=";
+    hash = "sha256-rGka5IaiKmcU2xS846Ej9S/GJuKbtWXWX77vLAuH4sY=";
   };
 
-  vendorHash = "sha256-QJsdBqa/JHaBig4bRtU3LqlYwh/BHnP3vg8YM3reuDY=";
+  vendorHash = "sha256-+EXNCUsgYJ3LKgcljX+VQriUYSghVTNLgwbrdZ2Htdc=";
 
   commonMeta = {
     license = lib.licenses.mit;
@@ -40,7 +40,7 @@ buildGo126Module rec {
 
   npmDeps = fetchNpmDeps {
     inherit src;
-    hash = "sha256-2BBHdp3WVJReXfKpM0Hl1AT4vx1584BFbqdPMBGNYB4=";
+    hash = "sha256-lTcZIFBEqB22N71y8Bl9J/5vUejbz8nEszzRhwyfGBI=";
   };
 
   nativeBuildInputs = [
@@ -74,6 +74,8 @@ buildGo126Module rec {
   ];
 
   preBuild = ''
+    export PATH="$PWD/node_modules/.bin:$PATH"
+    export SSL_CERT_FILE="${cacert}/etc/ssl/certs/ca-bundle.crt"
     make ui
   '';
 

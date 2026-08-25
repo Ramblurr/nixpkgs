@@ -1123,6 +1123,19 @@
     };
   };
 
+  hledger = {
+    version = "0-unstable-2026-03-11";
+    url = "github:chrislloyd/tree-sitter-hledger";
+    rev = "8ee65478cb941a8cdaa798ffa73bb4437d4c4d07";
+    hash = "sha256-92k6/0tcHGMp164VVZDtDiBopKCD+4tfBXGFLSOrUdQ=";
+    meta = {
+      license = lib.licenses.mit;
+      maintainers = with lib.maintainers; [
+        tomasrivera
+      ];
+    };
+  };
+
   hocon = {
     version = "0-unstable-2022-11-07";
     url = "github:antosha417/tree-sitter-hocon";
@@ -2287,9 +2300,13 @@
   };
 
   regex = {
-    version = "1.0.0";
+    # Note: if you see an attempt to update tree-sitter-regex to version 1.0.0,
+    # check if https://github.com/tree-sitter/tree-sitter-regex/tags is actually
+    # a recent version. After v1.0.0, tree-sitter-regex confusingly released
+    # v0.20.0, v0.21.0, etc.
+    version = "0.25.0";
     url = "github:tree-sitter/tree-sitter-regex";
-    hash = "sha256-3D+LOWRUamAdbegVfWD5yFcCjBucthPogOL/zWR78PY=";
+    hash = "sha256-bR0K6SR19QuQwDUic+CJ69VQTSGqry5a5IOpPTVJFlo=";
     meta = {
       license = lib.licenses.mit;
     };
@@ -2498,9 +2515,9 @@
   };
 
   sourcepawn = {
-    version = "0.7.8";
+    version = "0.8.0";
     url = "github:nilshelmig/tree-sitter-sourcepawn";
-    hash = "sha256-TfLCG2Ro3QnGStyCNqHwO54HQMR2fEOV6FjBv+0LjJ0=";
+    hash = "sha256-FmVOiJDOGDgw/Uju1PZZkG7hsy/6u3XTRUCycpbZ7M8=";
     meta = {
       license = lib.licenses.mit;
       maintainers = with lib.maintainers; [
@@ -2556,9 +2573,9 @@
   };
 
   sshclientconfig = rec {
-    version = "2026.7.30";
+    version = "2026.8.13";
     url = "github:metio/tree-sitter-ssh-client-config?ref=${version}";
-    hash = "sha256-pZcEtZ9PBpydW4iVLPmnYCgLyEsi/UqRs7Szc6oEwio=";
+    hash = "sha256-a4tkU01oJ7x9rfVJRB3F9y8O3gmCVy0gLV6RieTrLLc=";
     meta = {
       license = lib.licenses.cc0;
       maintainers = with lib.maintainers; [
@@ -2951,6 +2968,18 @@
       license = lib.licenses.lgpl21Only;
       maintainers = with lib.maintainers; [
         aciceri
+      ];
+    };
+  };
+
+  vcl = rec {
+    version = "0.4.0";
+    url = "github:ntsk/tree-sitter-vcl?ref=v${version}";
+    hash = "sha256-qV+Ww5pzUHxmv9R6zIJDcLZnHLHL6xi3EZoRlhzgISQ=";
+    meta = {
+      license = lib.licenses.mit;
+      maintainers = with lib.maintainers; [
+        ntsk
       ];
     };
   };

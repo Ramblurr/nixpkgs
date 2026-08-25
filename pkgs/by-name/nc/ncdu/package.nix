@@ -18,13 +18,13 @@ in
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "ncdu";
-  version = "2.11.0";
+  version = "2.11.1";
 
   src = fetchFromGitHub {
     owner = "BratishkaErik";
     repo = "ncdu";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-wKDo8f2PVXqFopnUgZ1mTJmsdzs6iUkzXFl3VpMkGIc=";
+    hash = "sha256-Fd7Drw+7vygY9t75B3O0inZPhiGAeUgmpLyq3ymbFSU=";
   };
 
   __structuredAttrs = true;
@@ -69,7 +69,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     homepage = "https://github.com/BratishkaErik/ncdu";
     description = "Disk usage analyzer with an ncurses interface";
-    changelog = "https://github.com/BratishkaErik/ncdu/releases";
+    changelog = "https://github.com/BratishkaErik/ncdu/releases/${finalAttrs.src.tag}";
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [
       pSub

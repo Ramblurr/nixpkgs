@@ -352,13 +352,6 @@ assertNoAdditions {
     };
   });
 
-  bitbake = super.bitbake.overrideAttrs (old: {
-    sourceRoot = "source/contrib/vim";
-    meta = old.meta // {
-      license = lib.licenses.gpl2Only;
-    };
-  });
-
   blink-calc = super.blink-calc.overrideAttrs {
     dependencies = [ self.blink-cmp ];
   };
@@ -2585,6 +2578,15 @@ assertNoAdditions {
     };
   });
 
+  mesone-nvim = super.mesone-nvim.overrideAttrs {
+    dependencies = with self; [
+      plenary-nvim
+      nvim-dap
+      telescope-nvim
+      fidget-nvim
+    ];
+  };
+
   mini-nvim = super.mini-nvim.overrideAttrs {
     # reduce closure size
     postInstall = ''
@@ -2729,6 +2731,14 @@ assertNoAdditions {
       license = lib.licenses.mit;
     };
   });
+
+  neo-tree-diagnostics-nvim = super.neo-tree-diagnostics-nvim.overrideAttrs {
+    dependencies = with self; [ neo-tree-nvim ];
+    checkInputs = with self; [
+      plenary-nvim
+      nui-nvim
+    ];
+  };
 
   neo-tree-nvim = super.neo-tree-nvim.overrideAttrs {
     checkInputs = [ git ];
@@ -4152,6 +4162,10 @@ assertNoAdditions {
       license = lib.licenses.mit;
     };
   });
+
+  slang-server-nvim = super.slang-server-nvim.overrideAttrs {
+    dependencies = [ self.nui-nvim ];
+  };
 
   slimline-nvim = super.slimline-nvim.overrideAttrs {
     nvimSkipModules = [

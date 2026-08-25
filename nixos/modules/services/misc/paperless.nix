@@ -70,7 +70,9 @@ let
     if [[ "$USER" != ${cfg.user} ]]; then
       ${
         if config.security.sudo.enable then
-          "sudo='exec ${config.security.wrapperDir}/sudo -u ${cfg.user} -E'"
+          "sudo='exec ${config.security.wrapperDir}/sudo -u ${cfg.user} -g ${cfg.group} ${
+            lib.optionalString enableRedis " -g " + redisServer.group
+          } -E'"
         else
           ">&2 echo 'Aborting, paperless-manage must be run as user `${cfg.user}`!'; exit 2"
       }
@@ -121,7 +123,7 @@ let
     RestrictNamespaces = true;
     RestrictRealtime = true;
     RestrictSUIDSGID = true;
-    SupplementaryGroups = lib.optional enableRedis redisServer.user;
+    SupplementaryGroups = lib.optional enableRedis redisServer.group;
     SystemCallArchitectures = "native";
     SystemCallFilter = [
       "@system-service"
@@ -270,7 +272,29 @@ in
     user = lib.mkOption {
       type = lib.types.str;
       default = defaultUser;
-      description = "User under which Paperless runs.";
+      description = ''
+        User under which Paperless runs
+
+        ::: {.note}
+        If left as the default value this user will automatically be
+        created on system activation, otherwise you are responsible for
+        ensuring the group exists before the paperless service starts.
+        :::
+      '';
+    };
+
+    group = lib.mkOption {
+      type = lib.types.str;
+      default = defaultUser;
+      description = ''
+        Primary group under which Paperless runs
+
+        ::: {.note}
+        If left as the default value this group will automatically be
+        created on system activation, otherwise you are responsible for
+        ensuring the group exists before the redis service starts.
+        :::
+      '';
     };
 
     package = lib.mkPackageOption pkgs "paperless-ngx" { } // {
@@ -574,7 +598,7 @@ in
               # and automatically migrates when needed (e.g. with v2 -> v3 swapping from Whoosh to Tantivy)
               ${lib.getExe cfg.package} document_index reindex --if-needed --no-progress-bar
 
-            if ${lib.boolToString (cfg.passwordFile != null)} || [[ -n $PAPERLESS_ADMIN_PASSWORD ]]; then
+            if ${lib.boolToString (cfg.passwordFile != null)} || [[ -n ''${PAPERLESS_ADMIN_PASSWORD-} ]]; then
               export PAPERLESS_ADMIN_USER="''${PAPERLESS_ADMIN_USER:-admin}"
               if [[ -e $CREDENTIALS_DIRECTORY/PAPERLESS_ADMIN_PASSWORD ]]; then
                 PAPERLESS_ADMIN_PASSWORD=$(cat "$CREDENTIALS_DIRECTORY/PAPERLESS_ADMIN_PASSWORD")

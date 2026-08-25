@@ -11,6 +11,7 @@
   wayland-scanner,
   makeBinaryWrapper,
   autoAddDriverRunpath,
+  installShellFiles,
 
   # libraries
   cairo,
@@ -65,13 +66,13 @@ stdenv.mkDerivation (finalAttrs: {
   __structuredAttrs = true;
 
   pname = "noctalia";
-  version = "5.0.0-beta.7";
+  version = "5.0.0-beta.9";
 
   src = fetchFromGitHub {
     owner = "noctalia-dev";
     repo = "noctalia";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-9RlJNIy2DFVm9SB2vwGEBsbHc1r3dIB+K+b+nd6Bdho=";
+    hash = "sha256-O07tHqxugZ/XE/90kx/UCZ0YCbHSI88v2ct2ezuCKi4=";
   };
 
   strictDeps = true;
@@ -83,6 +84,7 @@ stdenv.mkDerivation (finalAttrs: {
     wayland-scanner
     makeBinaryWrapper
     autoAddDriverRunpath
+    installShellFiles
   ];
 
   buildInputs = [
@@ -119,7 +121,18 @@ stdenv.mkDerivation (finalAttrs: {
     wireplumber
   ];
 
+  mesonFlags = [
+    (lib.mesonEnable "tests" false)
+  ];
+
   mesonBuildType = "release";
+
+  postInstall = lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
+    installShellCompletion --cmd noctalia \
+      --bash <($out/bin/noctalia completions bash) \
+      --fish <($out/bin/noctalia completions fish) \
+      --zsh <($out/bin/noctalia completions zsh)
+  '';
 
   # plugins are installed by cloning their repos
   postFixup = ''

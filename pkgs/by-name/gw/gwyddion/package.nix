@@ -14,7 +14,6 @@
   libxml2,
   libwebpSupport ? true,
   libwebp,
-  # libxmu is not used if libunique is.
   libXmuSupport ? false,
   libxmu,
   libxsltSupport ? true,
@@ -23,8 +22,6 @@
   cfitsio,
   zlibSupport ? true,
   zlib,
-  libuniqueSupport ? true,
-  libunique,
   libpngSupport ? true,
   libpng,
   openglSupport ? !stdenv.hostPlatform.isDarwin,
@@ -34,10 +31,10 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "gwyddion";
-  version = "2.70";
+  version = "2.71";
   src = fetchurl {
     url = "mirror://sourceforge/gwyddion/gwyddion-${finalAttrs.version}.tar.xz";
-    hash = "sha256-lC9OBBlFqFC8MtBRk6EVrIpRGKb4Qa+m1N6lEPmRP1k=";
+    hash = "sha256-LfchvvzL5NXuK6Vksy5pNB+M4d5jfiBFg4oJotRrXbo=";
   };
 
   nativeBuildInputs = [
@@ -61,7 +58,6 @@ stdenv.mkDerivation (finalAttrs: {
   ++ lib.optional libxml2Support libxml2
   ++ lib.optional libwebpSupport libwebp
   ++ lib.optional zlibSupport zlib
-  ++ lib.optional libuniqueSupport libunique
   ++ lib.optional libzipSupport libzip;
 
   # This patch corrects problems with python support, but should apply cleanly

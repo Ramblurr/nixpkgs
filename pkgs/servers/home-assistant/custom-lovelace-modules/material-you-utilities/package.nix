@@ -6,16 +6,16 @@
 
 buildNpmPackage rec {
   pname = "material-you-utilities";
-  version = "2.1.23";
+  version = "2.1.25";
 
   src = fetchFromGitHub {
     owner = "Nerwyn";
     repo = "material-you-utilities";
     tag = version;
-    hash = "sha256-LXnFPWPJ8DF//QZ9/55gwmKQlrAydChK4ABzdPQ+1rk=";
+    hash = "sha256-ZILlzOmWeYOKQZh0nUtApc6i8i+uOxcQzBXFsQNTxTk=";
   };
 
-  npmDepsHash = "sha256-Any4XiECizCr8oyfw9EwXesBQP0DWOGhqjnBS8zl53c=";
+  npmDepsHash = "sha256-/TAuyi15hqjX5nUqZC/wqikTZ/pmDymakfQe/ggx1EM=";
 
   installPhase = ''
     runHook preInstall
