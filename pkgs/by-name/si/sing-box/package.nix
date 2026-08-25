@@ -18,7 +18,8 @@ assert lib.assertMsg (
 ) "Dynamic linking to cronet-go is only available on Linux.";
 buildGoModule (finalAttrs: {
   pname = "sing-box";
-  version = "1.13.16";
+  # NOTE: also update cronet-go
+  version = "1.13.19";
 
   __structuredAttrs = true;
 
@@ -27,10 +28,10 @@ buildGoModule (finalAttrs: {
     owner = "SagerNet";
     repo = "sing-box";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-GAIU0SRvxU92E40zCkMsiSPuIEIUZM5vORN2u2XIhqs=";
+    hash = "sha256-gXl4fW7iwWylxFBdipU2fKM4yYtfPjI/Hv/19XxkuXA=";
   };
 
-  vendorHash = "sha256-ZUEpYfgb/iflImVCdLIgUzfp4QY9ho1gYkIAJV1tXrg=";
+  vendorHash = "sha256-nNFqDOvM8bwCRNG399dU24XO+mmal+YAE7EoPghUaZo=";
 
   tags = [
     "with_gvisor"
@@ -84,6 +85,9 @@ buildGoModule (finalAttrs: {
       --subst-var out
     popd
   '';
+
+  # no tests
+  doCheck = false;
 
   postInstall = ''
     installShellCompletion release/completions/sing-box.{bash,fish,zsh}

@@ -6,7 +6,6 @@
   copyDesktopItems,
   makeDesktopItem,
   gradle_9,
-  openjdk21,
   nix-update-script,
   libGL,
   libx11,
@@ -19,8 +18,6 @@
 }:
 
 let
-  gradle = gradle_9.override { java = openjdk21; };
-
   runtimeLibs = [
     libGL
     libx11
@@ -37,13 +34,13 @@ stdenv.mkDerivation (finalAttrs: {
   strictDeps = true;
 
   pname = "rush-lyrics";
-  version = "6.5.1";
+  version = "6.5.3";
 
   src = fetchFromGitHub {
     owner = "shub39";
     repo = "Rush";
     tag = finalAttrs.version;
-    hash = "sha256-6cIgClRAQg7yVLyr00Qg/VD7WybraLEraa47WPjvCZo=";
+    hash = "sha256-LuI3i87ufGAm1hxrC8UdH7xfnubSRUIOoO9CVq5c6T4=";
   };
 
   patches = [
@@ -51,12 +48,12 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   nativeBuildInputs = [
-    gradle
+    gradle_9
     makeWrapper
     copyDesktopItems
   ];
 
-  mitmCache = gradle.fetchDeps {
+  mitmCache = gradle_9.fetchDeps {
     inherit (finalAttrs) pname;
     data = ./deps.json;
   };

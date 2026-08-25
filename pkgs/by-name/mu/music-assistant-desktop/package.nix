@@ -23,7 +23,8 @@
   atk,
   dbus,
   glib-networking,
-  libappindicator-gtk3,
+  gst_all_1,
+  libappindicator,
   llvmPackages,
   pulseaudio,
   gtk3,
@@ -85,7 +86,10 @@ rustPlatform.buildRustPackage (finalAttrs: {
     atk
     dbus
     glib-networking
-    libappindicator-gtk3
+    gst_all_1.gstreamer
+    gst_all_1.gst-plugins-base
+    gst_all_1.gst-plugins-good
+    libappindicator
     pulseaudio
     gtk3
     webkitgtk_4_1
@@ -93,7 +97,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   preFixup = lib.optionalString stdenv.hostPlatform.isLinux ''
     gappsWrapperArgs+=(
-      --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath [ libappindicator-gtk3 ]}"
+      --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath [ libappindicator ]}"
     )
   '';
 

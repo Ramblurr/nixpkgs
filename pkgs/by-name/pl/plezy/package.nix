@@ -27,13 +27,13 @@
 
 let
   pname = "plezy";
-  version = "2.12.1";
+  version = "2.16.0";
 
   src = fetchFromGitHub {
     owner = "edde746";
     repo = "plezy";
     tag = version;
-    hash = "sha256-Ib1ZBKbuan8GfkxKVytQ5Bn0sPKtDR3o4em4h8p78Xk=";
+    hash = "sha256-i4QJ8o8zOivUKarXgEmKJeX5XyYTyaqxjevD6nwMjII=";
   };
 
   simdutf = fetchurl {
@@ -48,7 +48,7 @@ let
   '';
 
   meta = {
-    description = "Modern cross-platform Plex & Jellyfin client built with Flutter";
+    description = "Modern cross-platform Emby, Plex & Jellyfin client built with Flutter";
     homepage = "https://github.com/edde746/plezy";
     mainProgram = "plezy";
     license = lib.licenses.gpl3Only;
@@ -146,7 +146,7 @@ let
 
     src = fetchurl {
       url = "https://github.com/edde746/plezy/releases/download/${version}/plezy-macos.dmg";
-      hash = "sha256-el4w0SXVo3kQi/aRrozl4q8KGs+Y7kCJeQmpV26+Pvk=";
+      hash = "sha256-h1aBFYEP1ie6v9BZZ/vH0b+fQL047tMZz3tASwnkcWI=";
     };
 
     nativeBuildInputs = [

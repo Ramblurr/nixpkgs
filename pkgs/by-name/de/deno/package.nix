@@ -43,6 +43,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
   outputs = [
     "out"
     "denort"
+    "libdenort"
   ];
 
   src = fetchFromGitHub {
@@ -101,6 +102,8 @@ rustPlatform.buildRustPackage (finalAttrs: {
   # The v8 package will try to download a `librusty_v8.a` release at build time to our read-only filesystem
   # To avoid this we pre-download the file and export it via RUSTY_V8_ARCHIVE
   env.RUSTY_V8_ARCHIVE = librusty_v8;
+  # Workaround for riscv64 because it has no pre-generated bindings.
+  env.RUSTY_V8_SRC_BINDING_PATH = librusty_v8.binding;
 
   # de-vendor SQLite
   env.LIBSQLITE3_SYS_USE_PKG_CONFIG = true;
@@ -134,6 +137,8 @@ rustPlatform.buildRustPackage (finalAttrs: {
           "aarch64"
         else if stdenv.hostPlatform.isx86_64 then
           "x64"
+        else if stdenv.hostPlatform.isRiscV64 then
+          "riscv64"
         else
           throw "Unsupported architecture";
     in
@@ -236,14 +241,15 @@ rustPlatform.buildRustPackage (finalAttrs: {
   preInstall = ''
     # Delete generated shared libraries that aren't needed in the final package
     find ./target \
-      -name "libswc_common${stdenv.hostPlatform.extensions.sharedLibrary}" -o \
+      \( -name "libswc_common${stdenv.hostPlatform.extensions.sharedLibrary}" -o \
       -name "libtest_ffi${stdenv.hostPlatform.extensions.sharedLibrary}" -o \
-      -name "libtest_napi${stdenv.hostPlatform.extensions.sharedLibrary}" \
+      -name "libtest_napi${stdenv.hostPlatform.extensions.sharedLibrary}" \) \
       -delete
   '';
 
   postInstall = ''
     moveToOutput "bin/denort" "$denort"
+    moveToOutput "lib/libdenort${stdenv.hostPlatform.extensions.sharedLibrary}" "$libdenort"
 
     # Remove non-essential binaries like test_server
     find $out/bin/* -not -name "deno" -delete
@@ -305,6 +311,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     platforms = [
       "x86_64-linux"
       "aarch64-linux"
+      "riscv64-linux"
       "aarch64-darwin"
     ];
   };

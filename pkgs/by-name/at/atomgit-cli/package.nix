@@ -1,9 +1,12 @@
 {
+  _experimental-update-script-combinators,
   lib,
   stdenv,
   buildGoModule,
   fetchgit,
   gitMinimal,
+  gitUpdater,
+  nix-update-script,
   makeWrapper,
   versionCheckHook,
   writableTmpDirAsHomeHook,
@@ -14,15 +17,15 @@ buildGoModule (finalAttrs: {
   __structuredAttrs = true;
 
   pname = "atomgit-cli";
-  version = "0.6.0";
+  version = "0.7.2";
 
   src = fetchgit {
     url = "https://atomgit.com/hust-open-atom-club/atomgit-cli.git";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-LBkozdOmNs3SbyUrwgim0pw4v3Irg44hH2lAsRdRpWk=";
+    hash = "sha256-E1T093LkccgLPPNs5OokxY5tw4HEMmRy+ulaROnuSCE=";
   };
 
-  vendorHash = "sha256-7K17JaXFsjf163g5PXCb5ng2gYdotnZ2IDKk8KFjNj0=";
+  vendorHash = "sha256-YuAY+CBO+YAMEfrJuUJ/EMnmR9pfRkL+qMhOr1LPKck=";
 
   subPackages = [ "cmd/ag" ];
 
@@ -41,6 +44,11 @@ buildGoModule (finalAttrs: {
 
   nativeBuildInputs = [ makeWrapper ];
 
+  passthru.updateScript = _experimental-update-script-combinators.sequence [
+    (gitUpdater { rev-prefix = "v"; }).command
+    (nix-update-script { extraArgs = [ "--version=skip" ]; })
+  ];
+
   postFixup = ''
     wrapProgram $out/bin/ag \
       --prefix PATH : ${
@@ -49,6 +57,7 @@ buildGoModule (finalAttrs: {
   '';
 
   nativeInstallCheckInputs = [
+    gitMinimal
     versionCheckHook
     writableTmpDirAsHomeHook
   ];

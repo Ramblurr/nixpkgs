@@ -1,7 +1,7 @@
 # Do not edit manually, run ./update-providers.py
 
 {
-  version = "2.9.10";
+  version = "2.9.13";
   builtins = [
     "builtin"
     "coverartarchive"
@@ -32,8 +32,10 @@
       ps: with ps; [
         alexapy
       ];
-    apple_music = ps: [
-    ]; # missing pywidevine
+    apple_music =
+      ps: with ps; [
+        pywidevine
+      ];
     ard_audiothek =
       ps: with ps; [
         gql
