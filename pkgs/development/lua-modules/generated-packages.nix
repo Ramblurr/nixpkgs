@@ -811,15 +811,15 @@ final: prev: {
     }:
     buildLuarocksPackage {
       pname = "dkjson";
-      version = "2.10-1";
+      version = "2.11-1";
       knownRockspec =
         (fetchurl {
-          url = "mirror://luarocks/dkjson-2.10-1.rockspec";
-          sha256 = "0h49fv93h6n32xwwgwvrhb6w5rzvgjzyls6m9xhmcd94pbkih8v2";
+          url = "mirror://luarocks/dkjson-2.11-1.rockspec";
+          sha256 = "0fkgsqfd0k7pq9j3d1hrhsiha7dc145fbf7hqw0r7lzmp03vjfai";
         }).outPath;
       src = fetchurl {
-        url = "https://dkolf.de/dkjson-lua/dkjson-2.10.tar.gz";
-        sha256 = "092v9m13h7zl89qfgywbs22wdvniwr2lr3shjqrn91f4nl39xiz8";
+        url = "https://dkolf.de/dkjson-lua/dkjson-2.11.tar.gz";
+        sha256 = "16725vrd5apdxapj641cc0x218vp0ylfcf0z24wfffxwh7v9l5ks";
       };
 
       disabled = luaOlder "5.1" || luaAtLeast "5.6";
@@ -2632,17 +2632,17 @@ final: prev: {
     }:
     buildLuarocksPackage {
       pname = "lua-resty-session";
-      version = "4.1.5-1";
+      version = "4.2.0-1";
       knownRockspec =
         (fetchurl {
-          url = "mirror://luarocks/lua-resty-session-4.1.5-1.rockspec";
-          sha256 = "1mapndwa260pk18v4nwnmz4bncqizfn1zc8k8aj1557pc1fj5ii6";
+          url = "mirror://luarocks/lua-resty-session-4.2.0-1.rockspec";
+          sha256 = "1xps6j9ddz4xqminhl56s3gvx2nbbnc9k3bzhjpkz4x6f39ciabf";
         }).outPath;
       src = fetchFromGitHub {
         owner = "bungle";
         repo = "lua-resty-session";
-        tag = "v4.1.5";
-        hash = "sha256-qwXNEWU0i3PUJK5cUChkcH43HnBCz4EEVPDQQ10Je+Q=";
+        tag = "v4.2.0";
+        hash = "sha256-wRAd6AGcSkhZcA4Cm9cGetEUt1TfABtYpU2avrK1Hdw=";
       };
 
       disabled = luaOlder "5.1";
