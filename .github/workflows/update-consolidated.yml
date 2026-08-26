@@ -16,6 +16,7 @@ env:
   FEATURE_BRANCHES: |
     init/ocis_7-bin
     fix/babashka-deps-tools
+    fix/jet-native-image
     update/antora
 
 jobs:
