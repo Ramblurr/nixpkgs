@@ -8,14 +8,14 @@
 
 buildPythonPackage (finalAttrs: {
   pname = "ttp-templates";
-  version = "0.5.9";
+  version = "0.6.4";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "dmulyalin";
     repo = "ttp_templates";
     tag = finalAttrs.version;
-    hash = "sha256-AWEEwvrNap+XivFKi1XubXmPLQMaOifT/e+mk3wXoNc=";
+    hash = "sha256-MKa1kfo+fw5VTrXaZu5NWD9t3DoJqliMsw1qureO70A=";
   };
 
   build-system = [ poetry-core ];

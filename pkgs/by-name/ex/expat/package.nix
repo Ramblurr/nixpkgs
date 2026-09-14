@@ -23,13 +23,13 @@ in
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "expat";
-  version = "2.8.2";
+  version = "2.8.4";
 
   src = fetchurl {
     url =
       with finalAttrs;
       "https://github.com/libexpat/libexpat/releases/download/${tagFor version}/${pname}-${version}.tar.xz";
-    hash = "sha256-OtibhYjmZEvU5JmBSA1IshKJ7rvNTwoaSvscKfmbarQ=";
+    hash = "sha256-ZWrhzI2jtOpRO7TiVPM+YkOTgITA7GI52oczdrCZhac=";
   };
 
   strictDeps = true;
@@ -71,6 +71,8 @@ stdenv.mkDerivation (finalAttrs: {
       package = finalAttrs.finalPackage;
     };
   };
+
+  __structuredAttrs = true;
 
   meta = {
     changelog = "https://github.com/libexpat/libexpat/blob/${tagFor finalAttrs.version}/expat/Changes";
