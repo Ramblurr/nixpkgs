@@ -235,10 +235,10 @@
   };
 
   cairo = {
-    version = "0-unstable-2026-06-14";
+    version = "0-unstable-2026-07-23";
     url = "github:starkware-libs/tree-sitter-cairo";
-    rev = "b04ffb8c10a1a9faaea71a6757753fed4e1fcbfb";
-    hash = "sha256-XMv3E/QVL3JroaHUc+ao7bfINB+q1J78hfttXk3GtS4=";
+    rev = "638b096f276196e0e201970f39f665c2e4613b0d";
+    hash = "sha256-96ez0mUvbnKqs/ciI4sg7FryXd7w+FXxTI07fmPpZwo=";
     meta = {
       license = lib.licenses.asl20;
       maintainers = with lib.maintainers; [
@@ -516,9 +516,9 @@
   };
 
   diff = {
-    version = "0.1.0";
+    version = "0.2.0";
     url = "github:the-mikedavis/tree-sitter-diff";
-    hash = "sha256-8rYLNGgoZSvvfqO2++nAgFKmvbkKJ3m+9B8bTXp6Us4=";
+    hash = "sha256-5HCBFE/99DJ9AYWSk18WRF3RGQpgpYAYA37bT54F0DI=";
     meta = {
       license = lib.licenses.mit;
       maintainers = with lib.maintainers; [
@@ -625,7 +625,7 @@
   };
 
   ebnf = {
-    version = "0-unstable-2023-02-06";
+    version = "0.1.1-unstable-2023-02-06";
     url = "github:RubixDev/ebnf";
     rev = "8e635b0b723c620774dfb8abf382a7f531894b40";
     hash = "sha256-Cch6WCYq9bsWGypzDGapxBLJ0ZB432uAl6YjEjBJ5yg=";
@@ -907,10 +907,10 @@
   };
 
   ghostty = {
-    version = "1.3.1-unstable-2026-07-07";
+    version = "1.3.1-unstable-2026-08-23";
     url = "github:bezhermoso/tree-sitter-ghostty";
-    rev = "1f47dfd4da0faab5321b47518ce2faa4be163580";
-    hash = "sha256-tpTm4e3f+hjy9Mi91fSm1qojJLB6A8KsN/iEsiOdxsw=";
+    rev = "a2075c3761a41449bb4faf69794c902dfef6d70e";
+    hash = "sha256-p1zAClid50miSiBHur9NvCCUWjgiDvrhN75sREkRLHs=";
     meta = {
       license = lib.licenses.mit;
       maintainers = with lib.maintainers; [
@@ -2024,10 +2024,10 @@
   };
 
   nu = {
-    version = "0-unstable-2026-04-22";
+    version = "0-unstable-2026-07-01";
     url = "github:nushell/tree-sitter-nu";
-    rev = "348b787d8b0409091d85fe9d4eb007fe9f3406bb";
-    hash = "sha256-OL3fqHjimJ9VrR2UoeIdLxKKcsA1J80A9T8GSBO9KwE=";
+    rev = "d694570aa26b53d0d642460a0430e8aa07dcbea0";
+    hash = "sha256-eWHAcV8bPCnL9y4PtPn6cJRylGQ2KMxCUoUGwDVigkg=";
     meta = {
       license = lib.licenses.mit;
     };
@@ -2619,9 +2619,9 @@
   };
 
   robot = {
-    version = "1.4.0";
+    version = "1.5.0";
     url = "github:Hubro/tree-sitter-robot";
-    hash = "sha256-U89K9S7zkUZ0CoT2FgvKIvQ3ApjRe59YoWrks/iQ0FM=";
+    hash = "sha256-LRVkqtEAYO3jHQTGTgO6I4ZNlYRrMRK8+FCd0expFK0=";
     meta = {
       license = lib.licenses.isc;
       maintainers = with lib.maintainers; [
@@ -2635,6 +2635,18 @@
     url = "github:opa-oz/tree-sitter-robots-txt";
     hash = "sha256-fQq5agJ/xHsWxEJAydGxED4Z0bmREfXJ1t/EspBkYC8=";
     meta.license = lib.licenses.mit;
+  };
+
+  rocq = {
+    version = "0.2.0";
+    url = "github:aruzdh/tree-sitter-rocq";
+    hash = "sha256-RZ7BGoBrHi+2Sn727L/6LEt/jh4+WphFIh1DP4Ul1Jo=";
+    meta = {
+      license = lib.licenses.mit;
+      maintainers = with lib.maintainers; [
+        stepbrobd
+      ];
+    };
   };
 
   ron = {
@@ -2713,9 +2725,9 @@
   };
 
   scala = {
-    version = "0.26.0";
+    version = "0.26.2";
     url = "github:tree-sitter/tree-sitter-scala";
-    hash = "sha256-CnTcQFqYp60rGkLVLRHokUwBenqtWV4hw8boFYNRkbw=";
+    hash = "sha256-PRyNcsiGeGfKtHvbLaGtiog/P8QEs117rqoBZZOXbeE=";
     meta = {
       license = lib.licenses.mit;
     };
@@ -2898,9 +2910,9 @@
   };
 
   sshclientconfig = rec {
-    version = "2026.8.13";
+    version = "2026.8.27";
     url = "github:metio/tree-sitter-ssh-client-config?ref=${version}";
-    hash = "sha256-a4tkU01oJ7x9rfVJRB3F9y8O3gmCVy0gLV6RieTrLLc=";
+    hash = "sha256-yTdEinKdEmWPiw6+fBq15tXe8GsoC7PFk2pVaDSFCYA=";
     meta = {
       license = lib.licenses.cc0;
       maintainers = with lib.maintainers; [
@@ -2910,9 +2922,9 @@
   };
 
   ssh-client-config = rec {
-    version = "2026.7.9";
+    version = "2026.8.20";
     url = "github:metio/tree-sitter-ssh-client-config?ref=${version}";
-    hash = "sha256-La1h6uJC5gUA84OAr3zBbQiR+AnrhcUhNf6r4HUpwhg=";
+    hash = "sha256-uwiDL2Rc2kW7TiRqtjmAocceLJOFT/9yDtR4c1IU7PI=";
     meta.license = lib.licenses.cc0;
   };
 
@@ -3006,9 +3018,9 @@
   };
 
   systemverilog = {
-    version = "0.3.1";
+    version = "0.4.0";
     url = "github:gmlarumbe/tree-sitter-systemverilog";
-    hash = "sha256-wzsjHDn6ZdGfOlufARurxCTwT8HqMvyfsnIIpXzRUYs=";
+    hash = "sha256-ig4mpzN/bvnD5e5MN11a7YkONDeJ3R8kz/AbS0GDreI=";
     meta.license = lib.licenses.mit;
   };
 
@@ -3200,9 +3212,9 @@
   };
 
   tql = {
-    version = "1.1.0";
+    version = "1.2.0";
     url = "github:tenzir/tree-sitter-tql";
-    hash = "sha256-2XbSwUKSNcODT2GIQ/k4w+4DSbV8dH689DrYBnWhPfU=";
+    hash = "sha256-lfrEKZSHFA4JYjDQ98bVTORPlgSV2veGcGwYbspaYaA=";
     meta.license = lib.licenses.mit;
   };
 
@@ -3384,10 +3396,10 @@
   };
 
   vhdl = {
-    version = "1.5.0-unstable-2026-06-06";
+    version = "1.5.0-unstable-2026-08-10";
     url = "github:jpt13653903/tree-sitter-vhdl";
-    rev = "e97406d6ddfbed73dd8cdfcc3cf4c7b200b4211d";
-    hash = "sha256-2vSkL8DetMtTRpvujg4tzxW2AbAhz56qBWRmgA8u3qk=";
+    rev = "68dc07f69d9571c2ebea6b32f995925905d09741";
+    hash = "sha256-TWn6KXkn+FTIATpATrMTCWk8HknZCUEK0dllkljP/z4=";
     meta = {
       license = lib.licenses.mit;
       maintainers = with lib.maintainers; [
@@ -3410,10 +3422,10 @@
   };
 
   vim = {
-    version = "0.8.1-unstable-2026-02-26";
+    version = "0.8.1-unstable-2026-07-12";
     url = "github:tree-sitter-grammars/tree-sitter-vim";
-    rev = "3092fcd99eb87bbd0fc434aa03650ba58bd5b43b";
-    hash = "sha256-MnLBFuJCJbetcS07fG5fkCwHtf/EcNP+Syf0Gn0K39c=";
+    rev = "039c8d0aa1deae00ddeb0374dd70bcc0ec56938d";
+    hash = "sha256-i+CfSWLRXhR2g98cGlfW4iRhNb3nt8O+WJ1Bjf2tnEM=";
     meta = {
       license = lib.licenses.mit;
     };
