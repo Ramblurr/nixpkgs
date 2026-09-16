@@ -372,16 +372,6 @@ with pkgs;
 
   deviceTree = callPackage ../os-specific/linux/device-tree { };
 
-  inherit (callPackage ../servers/ocis-bin { })
-    ocis_5-bin
-    ocis_70-bin
-    ocis_71-bin
-    ocis_72-bin
-    ocis_73-bin
-    ocis_80-bin
-    ocis_81-bin
-    ;
-
   octodns-providers = octodns.providers;
 
   oletools = with python3.pkgs; toPythonApplication oletools;
@@ -2133,10 +2123,6 @@ with pkgs;
 
   gdown = with python3Packages; toPythonApplication gdown;
 
-  gpt4all-cuda = gpt4all.override {
-    cudaSupport = true;
-  };
-
   gprof2dot = with python3Packages; toPythonApplication gprof2dot;
 
   grails = callPackage ../development/web/grails { jdk = null; };
@@ -2774,8 +2760,6 @@ with pkgs;
   mpi = openmpi; # this attribute should used to build MPI applications
 
   quota = if stdenv.hostPlatform.isLinux then linuxquota else unixtools.quota;
-
-  rainbowstream = with python3.pkgs; toPythonApplication rainbowstream;
 
   rapidgzip = with python3Packages; toPythonApplication rapidgzip;
 
@@ -6838,11 +6822,6 @@ with pkgs;
   go_latest = go_1_27;
   buildGoLatestModule = buildGo127Module;
 
-  go_1_25 = callPackage ../development/compilers/go/1.25.nix { };
-  buildGo125Module = callPackage ../build-support/go/module.nix {
-    go = buildPackages.go_1_25;
-  };
-
   go_1_26 = callPackage ../development/compilers/go/1.26.nix { };
   buildGo126Module = callPackage ../build-support/go/module.nix {
     go = buildPackages.go_1_26;
@@ -9087,7 +9066,6 @@ with pkgs;
   ringboard-wayland = callPackage ../by-name/ri/ringboard/package.nix { displayServer = "wayland"; };
 
   inherit (callPackage ../applications/networking/cluster/rke2 { })
-    rke2_1_33
     rke2_1_34
     rke2_1_35
     rke2_1_36
