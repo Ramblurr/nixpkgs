@@ -52,8 +52,8 @@ let
       nixosTests,
       clientOnly ? !stdenv.hostPlatform.isLinux,
       symlinkJoin,
-      withSystemd ? lib.meta.availableOn stdenv.hostPlatform systemd,
-      systemd,
+      withSystemd ? lib.meta.availableOn stdenv.hostPlatform systemdLibs,
+      systemdLibs,
       withBtrfs ? stdenv.hostPlatform.isLinux,
       btrfs-progs,
       withLvm ? stdenv.hostPlatform.isLinux,
@@ -64,6 +64,8 @@ let
       versionCheckHook,
     }:
     let
+      systemdLibs' = systemdLibs.override { withCompression = true; };
+
       docker-meta = {
         license = lib.licenses.asl20;
         maintainers = with lib.maintainers; [
@@ -188,7 +190,7 @@ let
           ++ lib.optionals (lib.versionAtLeast version "29.0.0") [ nftables ]
           ++ lib.optionals withLvm [ lvm2 ]
           ++ lib.optionals withBtrfs [ btrfs-progs ]
-          ++ lib.optionals withSystemd [ systemd ]
+          ++ lib.optionals withSystemd [ systemdLibs' ]
           ++ lib.optionals withSeccomp [ libseccomp ];
 
           postPatch = ''
@@ -424,18 +426,18 @@ in
 
   docker_29 =
     let
-      version = "29.8.0";
+      version = "29.8.2";
     in
     callPackage dockerGen {
       inherit version;
       cliRev = "v${version}";
-      cliHash = "sha256-HV4rdWGDtPoYIaGBnHZbYNKr2D6zk6sb9sA0tNbQce4=";
+      cliHash = "sha256-d8wZ9F1bsmS4rwQP3KDi65bZQiybpaKcXFdKGwhgavk=";
       mobyRev = "docker-v${version}";
-      mobyHash = "sha256-V8p+MDEEMERGqQ9sWKPE/jkUw43UcO0x3Z1XZ8DWM2E=";
-      runcRev = "v1.5.1";
-      runcHash = "sha256-N059CtWkenSXYksVu5Uh+sGodC+JHc91R56b+VoC96k=";
-      containerdRev = "v2.3.4";
-      containerdHash = "sha256-IGgToUpkbqtjGJD+GtCPSeHW9ZRnSS8NMfECok9HgjU=";
+      mobyHash = "sha256-SRMl6jRWIznKYpb+Hw8uvfB26LgUBh9qRGHbPTueMl4=";
+      runcRev = "v1.5.2";
+      runcHash = "sha256-DOEnEK/1KlMCzJHW5bWCVChfBUzWOgbgPJn7GMatwAc=";
+      containerdRev = "v2.3.6";
+      containerdHash = "sha256-kpX4c/K3UM0uFvxPvoA0oKTNel4WpjYb09XuYxStT2A=";
       tiniRev = "369448a167e8b3da4ca5bca0b3307500c3371828";
       tiniHash = "sha256-jCBNfoJAjmcTJBx08kHs+FmbaU82CbQcf0IVjd56Nuw=";
     };

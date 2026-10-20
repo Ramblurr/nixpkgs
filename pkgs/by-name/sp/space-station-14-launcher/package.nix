@@ -1,7 +1,6 @@
 {
   lib,
   stdenv,
-  config,
   nix-update-script,
   buildDotnetModule,
   dotnetCorePackages,
@@ -32,14 +31,14 @@
   alsaSupport ? stdenv.hostPlatform.isLinux,
   jackSupport ? stdenv.hostPlatform.isLinux,
   pipewireSupport ? stdenv.hostPlatform.isLinux,
-  pulseaudioSupport ? config.pulseaudio or stdenv.hostPlatform.isLinux,
+  pulseaudioSupport ? stdenv.hostPlatform.isLinux,
   soundfont-fluid,
 
   # Path to set ROBUST_SOUNDFONT_OVERRIDE to, essentially the default soundfont used.
   soundfont-path ? "${soundfont-fluid}/share/soundfonts/FluidR3_GM2-2.sf2",
 }:
 let
-  version = "0.40.1";
+  version = "0.40.2";
   buildType = "Release";
 in
 buildDotnetModule {
@@ -51,7 +50,7 @@ buildDotnetModule {
     owner = "space-wizards";
     repo = "SS14.Launcher";
     tag = "v${version}";
-    hash = "sha256-d+pkz2N7yejZxDDh+w/EpL91zKb7ADR+wYQtO1sjKI0=";
+    hash = "sha256-EjB38B77nrkNkkj2h/wAvLxvozTxLrsL1VB/pXMZwQI=";
     fetchSubmodules = true;
   };
 

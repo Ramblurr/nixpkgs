@@ -9,7 +9,7 @@
   libjpeg,
   openssl,
   libopus,
-  ffmpeg_6,
+  ffmpeg,
   openh264,
   crc32c,
   libvpx,
@@ -33,13 +33,13 @@
 
 stdenv.mkDerivation {
   pname = "tg_owt";
-  version = "0-unstable-2026-08-03";
+  version = "0-unstable-2026-10-07";
 
   src = fetchFromGitHub {
     owner = "desktop-app";
     repo = "tg_owt";
-    rev = "19d51d3c19632a63fdbe17c62f10332d978cb940";
-    hash = "sha256-Cb1XWnryZEKTyvhBeOsYX5KZG88zUOAlSRhfyIh06g4=";
+    rev = "d1cf250ea73de26c4c1f0a3c8173eb2648efbb04";
+    hash = "sha256-jqa1X5xdkrYhjjztVaouZfmC3CRiRxD8Vk7O7WJJkHM=";
     fetchSubmodules = true;
   };
 
@@ -70,7 +70,7 @@ stdenv.mkDerivation {
     libjpeg
     openssl
     libopus
-    ffmpeg_6
+    ffmpeg
     openh264
     crc32c
     libvpx

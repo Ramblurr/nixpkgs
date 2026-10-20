@@ -112,12 +112,12 @@ in
 # Note: when upgrading this package, please run the list-missing-tools.sh script as described below!
 python.pkgs.buildPythonApplication rec {
   pname = "diffoscope";
-  version = "329";
+  version = "333";
   pyproject = true;
 
   src = fetchurl {
     url = "https://diffoscope.org/archive/diffoscope-${version}.tar.bz2";
-    hash = "sha256-UPe+Mko9r4qoSTPbDurF64aZgmPLizV8iK2UlCfyfxk=";
+    hash = "sha256-KHjYLCd2f5DRQRhG0L97Og8b20dZUyJq4BtWShVKFos=";
   };
 
   outputs = [
@@ -154,9 +154,7 @@ python.pkgs.buildPythonApplication rec {
   # otool
   # Other tools:
   # docx2txt (needs Debian's package called this, not the python package)
-  # radare2
-  # > FAILED tests/comparators/test_elf_decompiler.py::test_radare2_diff - KeyError: 'offset'
-  # > FAILED tests/comparators/test_macho_decompiler.py::test_radare2_diff - KeyError: 'offset'
+  # radare2 (the exact output of the r2 version debian ships is expected, and our more recent version has a slightly different one)
   #
   # We filter automatically all packages for the host platform (some dependencies are not supported on Darwin, aarch64, etc.).
   # Packages which are marked broken for a platform are not automatically filtered to avoid accidentally removing them without noticing it.
@@ -279,10 +277,16 @@ python.pkgs.buildPythonApplication rec {
 
   makeWrapperArgs = lib.optionals enableBloat (
     [
-      "--prefix PATH : ${lib.makeBinPath [ hdf5 ]}"
+      "--prefix"
+      "PATH"
+      ":"
+      (lib.makeBinPath [ hdf5 ])
     ]
     ++ lib.optionals stdenv.hostPlatform.isDarwin [
-      "--prefix DYLD_LIBRARY_PATH : ${lib.makeLibraryPath [ hdf5 ]}"
+      "--prefix"
+      "DYLD_LIBRARY_PATH"
+      ":"
+      (lib.makeLibraryPath [ hdf5 ])
     ]
   );
 

@@ -2,13 +2,16 @@
   lib,
   stdenvNoCC,
   fetchFromGitHub,
-  python3Packages,
+  gftools,
   installFonts,
 }:
 
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "jetbrains-mono";
   version = "2.304";
+
+  strictDeps = true;
+  __structuredAttrs = true;
 
   src = fetchFromGitHub {
     owner = "jetbrains";
@@ -20,7 +23,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   env."PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION" = "python";
 
   nativeBuildInputs = [
-    python3Packages.gftools
+    gftools
     installFonts
   ];
 

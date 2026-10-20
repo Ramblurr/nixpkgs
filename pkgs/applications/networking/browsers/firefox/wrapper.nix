@@ -22,6 +22,7 @@
   alsa-lib,
   libpulseaudio,
   libcanberra-gtk3,
+  libdbusmenu-gtk3,
   libglvnd,
   libnotify,
   opensc,
@@ -113,6 +114,7 @@ let
             libva
             libgbm
             libnotify
+            libdbusmenu-gtk3
             libxscrnsaver
             cups
             pciutils
@@ -134,7 +136,7 @@ let
           alsa-lib
           zlib
         ]
-        ++ lib.optional (config.pulseaudio or (!isDarwin)) libpulseaudio
+        ++ lib.optional (!isDarwin) libpulseaudio
         ++ lib.optional withALSA alsa-lib
         ++ lib.optional withSndio sndio
         ++ lib.optional withJACK libjack2

@@ -8,13 +8,13 @@
 }:
 let
   pname = "open-webui";
-  version = "0.11.3";
+  version = "0.12.3";
 
   src = fetchFromGitHub {
     owner = "open-webui";
     repo = "open-webui";
     tag = "v${version}";
-    hash = "sha256-bnbH2oHDV2ntjOS+4SkICvuRgQi9UQrewJgmi3WFmRE=";
+    hash = "sha256-UQhaXOJhgP8icVLX0Uctloq6mSMzy7pQhcIZTV162vk=";
   };
 
   # we need datasets_3 for SpeechT5 embeddings
@@ -35,7 +35,7 @@ let
       url = "https://github.com/pyodide/pyodide/releases/download/${pyodideVersion}/pyodide-${pyodideVersion}.tar.bz2";
     };
 
-    npmDepsHash = "sha256-QzS+m8bt/4j3uVI9ox4gHkgX2X4Kpj84+jHcr+WqKh8=";
+    npmDepsHash = "sha256-AhZ6y7BExh7+CpCEo0gDeeu0eJ78SXzYG7HkqkCb0+s=";
 
     npmFlags = [ "--force" ];
 
@@ -122,6 +122,7 @@ python3Packages.buildPythonApplication (finalAttrs: {
       google-auth-oauthlib
       google-cloud-storage
       google-genai
+      google-re2
       googleapis-common-protos
       hiredis
       httpx
@@ -141,6 +142,8 @@ python3Packages.buildPythonApplication (finalAttrs: {
       onnxruntime
       openai
       opencv-python-headless
+      openpyxl
+      opensearch-py
       opentelemetry-api
       opentelemetry-exporter-otlp
       opentelemetry-instrumentation
@@ -152,8 +155,6 @@ python3Packages.buildPythonApplication (finalAttrs: {
       opentelemetry-instrumentation-requests
       opentelemetry-instrumentation-sqlalchemy
       opentelemetry-sdk
-      openpyxl
-      opensearch-py
       orjson
       pandas
       pillow
@@ -166,6 +167,7 @@ python3Packages.buildPythonApplication (finalAttrs: {
       pyjwt
       pymdown-extensions
       pymysql
+      pyotp
       pypandoc
       pypdf
       python-docx
@@ -177,6 +179,7 @@ python3Packages.buildPythonApplication (finalAttrs: {
       pytube
       pytz
       pyxlsb
+      qrcode
       rank-bm25
       rapidocr
       redis
@@ -253,7 +256,8 @@ python3Packages.buildPythonApplication (finalAttrs: {
     # License history is complex: originally MIT, then a potentially problematic
     # relicensing to a modified BSD-3 clause occurred around v0.5.5/v0.6.6.
     # Due to these concerns and non-standard terms, it's treated as custom non-free.
-    license = {
+    license = lib.licenses.mkLicense {
+      shortName = "openWebUI";
       fullName = "Open WebUI License";
       url = "https://github.com/open-webui/open-webui/blob/0cef844168e97b70de2abee4c076cc30ffec6193/LICENSE";
       # Marked non-free due to concerns over the MIT -> modified BSD-3 relicensing process,

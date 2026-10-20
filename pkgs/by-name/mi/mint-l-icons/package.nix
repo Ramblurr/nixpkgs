@@ -9,14 +9,14 @@
 
 stdenvNoCC.mkDerivation {
   pname = "mint-l-icons";
-  version = "1.8.2";
+  version = "1.8.5";
 
   src = fetchFromGitHub {
     owner = "linuxmint";
     repo = "mint-l-icons";
     # They don't really do tags, this is just a named commit.
-    rev = "5f5957bc87af839ffdcaa779d099b217bb6825a2";
-    hash = "sha256-9CwO0x9+hcUSZDviysn5EvH48oJuO6QhsfeNqWakm9M=";
+    rev = "dbf96f024f7d06905d35edb40a7f127b8e54af65";
+    hash = "sha256-upUgtJ9JA0CbULSPApTemeRI/+Fz2ATXvMwb8OFs7ho=";
   };
 
   propagatedBuildInputs = [

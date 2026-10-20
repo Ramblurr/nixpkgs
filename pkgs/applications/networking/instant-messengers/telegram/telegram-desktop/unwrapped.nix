@@ -30,12 +30,12 @@
   ada,
   pango,
   tlottie,
-  cmark-gfm,
   libfido2,
   libavif,
   libheif,
   libjxl,
   libicns,
+  wallet-engine,
   apple-sdk_15,
   nix-update-script,
 }:
@@ -49,14 +49,14 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "telegram-desktop-unwrapped";
-  version = "7.2.8";
+  version = "7.3.1";
 
   src = fetchFromGitHub {
     owner = "telegramdesktop";
     repo = "tdesktop";
     rev = "v${finalAttrs.version}";
     fetchSubmodules = true;
-    hash = "sha256-Hhx65dqKlsoLvh7lEWYxnIiXFFd0qrDKpYYsHdhzqnk=";
+    hash = "sha256-QoIfRLlNljoINAN28YgyP/6+E65bghNYD+H0U5lPQhs=";
   };
 
   nativeBuildInputs = [
@@ -85,21 +85,17 @@ stdenv.mkDerivation (finalAttrs: {
     microsoft-gsl
     boost
     ada
-    cmark-gfm
     libfido2
     (tdlib.override { tde2eOnly = true; })
+    tlottie
+    wallet-engine
   ]
   ++ lib.optionals stdenv.hostPlatform.isLinux [
     protobuf
     qtwayland
     kcoreaddons
     hunspell
-  ]
-  ++ lib.optionals (finalAttrs.pname == "telegram-desktop-unwrapped" && stdenv.hostPlatform.isLinux) [
     pango
-  ]
-  ++ lib.optionals (finalAttrs.pname == "telegram-desktop-unwrapped") [
-    tlottie
   ]
   ++ lib.optionals stdenv.hostPlatform.isDarwin [
     apple-sdk_15

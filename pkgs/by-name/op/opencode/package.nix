@@ -77,14 +77,14 @@ let
       # NOTE: Required else we get errors that our fixed-output derivation references store paths
       dontFixup = true;
 
-      outputHash = "sha256-38HGR+n9I7QrE4i+CmRViX4/3TEQjLgU81LbEDBzj7Y=";
+      outputHash = "sha256-RLHrfyBM6fMglKyEkdkW+Mmfzzr6q/U7R38goaQcIhA=";
       outputHashAlgo = "sha256";
       outputHashMode = "recursive";
     };
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "opencode";
-  version = "1.18.30";
+  version = "1.19.0";
 
   __structuredAttrs = true;
   strictDeps = true;
@@ -93,7 +93,7 @@ stdenv.mkDerivation (finalAttrs: {
     owner = "anomalyco";
     repo = "opencode";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-G4qRDwJ6i5SpsiHoej31HRPLOHpkLc66B+UmdzOY1+o=";
+    hash = "sha256-XL76Qpm4GEFEn7Pt7g84sx+djEKnlpTTZXRgXJF3NRs=";
   };
 
   postPatch =
@@ -110,6 +110,11 @@ stdenv.mkDerivation (finalAttrs: {
         --replace-fail \
         'if (item.os === process.platform && item.arch === process.arch && !item.abi)' \
         'if (false)'
+    ''
+    # Bun 1.4.x regressed compiled executable code splitting.
+    + ''
+      substituteInPlace packages/opencode/script/build.ts \
+        --replace-fail 'splitting: true,' 'splitting: false,'
     '';
 
   nativeBuildInputs = [
@@ -156,16 +161,8 @@ stdenv.mkDerivation (finalAttrs: {
 
     install -Dm755 dist/opencode-*/bin/opencode $out/bin/opencode
     wrapProgram $out/bin/opencode \
-     --prefix PATH : ${
-       lib.makeBinPath (
-         [
-           ripgrep
-         ]
-         ++ lib.optionals stdenv.hostPlatform.isDarwin [
-           sysctl
-         ]
-       )
-     } \
+     --suffix PATH : ${lib.makeBinPath [ ripgrep ]} \
+     ${lib.optionalString stdenv.hostPlatform.isDarwin "--prefix PATH : ${lib.makeBinPath [ sysctl ]}"} \
     --set OPENCODE_DISABLE_AUTOUPDATE true \
     --run '
       # NOTE: Once this workaround is removed we should switch back to using

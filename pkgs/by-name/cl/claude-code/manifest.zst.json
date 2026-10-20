@@ -1,91 +1,78 @@
 {
-  "version": "2.1.270",
+  "version": "2.1.301",
   "manifestSignatureEnforcement": "flag",
-  "commit": "97ecbf7abeb4170dcfd26c4d4b397afd9015030e",
-  "modsCommit": "536a2e23d9e28586f81f17b3535281b5f2995a70",
-  "buildDate": "2026-09-12T18:18:59Z",
+  "commit": "12a1baed117fbcc7e0695ab8aa6d2a4c6bd00cbb",
+  "buildDate": "2026-10-15T14:02:29Z",
   "platforms": {
     "darwin-arm64": {
       "binary": "claude.zst",
-      "checksum": "1b67468576dfe09f1975c5ddf2e10898e7632124995d68fb8b94545422cd8588",
-      "size": 68224840,
+      "checksum": "499703a087a5395ed31e96e5cb19a6d3257cfeffbf812e5dba97347a33c84c5a",
+      "size": 83877124,
       "bundle": {
-        "checksum": "00e61c22a32dda2f56adcde562ea868e650abfd1b6af996a166d7a9896ec26ef",
-        "size": 68228599
+        "checksum": "491300b6499480e9240856191ad45b750f2cd90d1c9d00e1d4d37ba15c7d2f41",
+        "size": 83879655
       }
     },
     "darwin-x64": {
       "binary": "claude.zst",
-      "checksum": "9e40f35e95a1abc6e4e42405bfd98cfceaab644488c69240b59b6955144115f5",
-      "size": 72355319,
+      "checksum": "157e1ad1310d96edcbadc7308debdec4cd5a40ea92b7e6e487ba88d056c3e934",
+      "size": 88633774,
       "bundle": {
-        "checksum": "95daa6cb8a9612d9ef35f71891dc10330fc86fc1e83e4eb778b8e76609c79ca5",
-        "size": 72351007
+        "checksum": "5a9d4ca1a59dadb842467cd863ceb8cfe453f28dea02557e7a909d4edf0b8dea",
+        "size": 88642019
       }
     },
     "linux-arm64": {
       "binary": "claude.zst",
-      "checksum": "606c2f83c39682f6b4a6ff474b496de5911065951e5a72bcd951469e25dd811d",
-      "size": 77422861
+      "checksum": "b94d6bca4549db066a3ffdbdb3d0f64083aa11d4557f672fd1eb77173b665d0f",
+      "size": 93160808
     },
     "linux-x64": {
       "binary": "claude.zst",
-      "checksum": "59c056cd321c131eb211f6e90f4b9812dd24820357169f2ec9ca6a4b51d89d9c",
-      "size": 78038652
+      "checksum": "7121db492db6a44a756ae9581890613d914f78abba35cd57fa3bb4ed5e873e39",
+      "size": 93994767
     },
     "linux-arm64-musl": {
       "binary": "claude.zst",
-      "checksum": "040a816864ab8059ef75e6929464cb6ba15545a47f7ee7ed3f8d4a4618e17823",
-      "size": 75885941
+      "checksum": "d60d859afeb94325c2603934b8e9514227d87c1802eb6021c1d572db7456a908",
+      "size": 91515582
     },
     "linux-x64-musl": {
       "binary": "claude.zst",
-      "checksum": "953773d54d4e7381830104821e120967e0b96254e78f28315f672368b59505a7",
-      "size": 76529820
+      "checksum": "8b131b3cb1d9dbf753edb003e66d49c91b2e58e0411906803694d8f4b1b9ede2",
+      "size": 92405915
     },
     "win32-x64": {
       "binary": "claude.exe.zst",
-      "checksum": "2afb47ea1b1fe0bb224ddded3ddccf6303baac06f0f76c2921706c8bb9506d64",
-      "size": 80423657
+      "checksum": "825816dcf3b81a989bfb8c931ed02485f3e2014fe954326710607f7af0f10c4d",
+      "size": 96514855
     },
     "win32-arm64": {
       "binary": "claude.exe.zst",
-      "checksum": "065bef2eb62e52e36ee80856ff03bcf542d71deac88a598c3fa10f5b46c9ba66",
-      "size": 77193327
+      "checksum": "e85bee152b8e0e2216a97e3494708b66935e0279f05cc00ff32fea04a19cfe4a",
+      "size": 92454500
     }
   },
   "sdkCompat": {
     "testedWrapperVersions": [
-      "0.3.229",
-      "0.3.231",
-      "0.3.232",
-      "0.3.233",
-      "0.3.234",
-      "0.3.235",
-      "0.3.236",
-      "0.3.237",
-      "0.3.238",
-      "0.3.239",
-      "0.3.240",
-      "0.3.241",
-      "0.3.242",
-      "0.3.243",
-      "0.3.245",
-      "0.3.246",
-      "0.3.247",
-      "0.3.248",
-      "0.3.250",
-      "0.3.251",
-      "0.3.252",
-      "0.3.258",
-      "0.3.259",
-      "0.3.260",
-      "0.3.261",
-      "0.3.263",
-      "0.3.266",
       "0.3.267",
       "0.3.268",
-      "0.3.269"
+      "0.3.269",
+      "0.3.270",
+      "0.3.271",
+      "0.3.272",
+      "0.3.273",
+      "0.3.274",
+      "0.3.275",
+      "0.3.276",
+      "0.3.277",
+      "0.3.278",
+      "0.3.280",
+      "0.3.281",
+      "0.3.282",
+      "0.3.283",
+      "0.3.284",
+      "0.3.285"
     ],
     "harnessSchema": 1
   }

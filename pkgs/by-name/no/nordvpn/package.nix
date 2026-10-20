@@ -4,6 +4,7 @@
   lib,
   nix-update-script,
   symlinkJoin,
+  _experimental-update-script-combinators,
 }:
 let
   version = "5.4.0";
@@ -24,7 +25,6 @@ let
       changelog = "${homepage}/releases/tag/${version}";
       license = lib.licenses.gpl3Only;
       maintainers = with lib.maintainers; [
-        different-error
         novalkun
       ];
       platforms = lib.platforms.linux;
@@ -54,14 +54,22 @@ symlinkJoin {
   passthru = {
     cli = callPackage ./cli.nix common;
     gui = callPackage ./gui.nix common;
-    updateScript = nix-update-script {
-      extraArgs = [
-        "--subpackage"
-        "cli"
-        "--subpackage"
-        "gui"
-      ];
-    };
+    updateScript = _experimental-update-script-combinators.sequence [
+      (nix-update-script {
+        extraArgs = [
+          "--subpackage"
+          "cli"
+          "--subpackage"
+          "gui"
+        ];
+      })
+      (
+        (_experimental-update-script-combinators.copyAttrOutputToFile "nordvpn.gui.pubspecSource" ./pubspec.lock.json)
+        // {
+          supportedFeatures = [ ];
+        }
+      )
+    ];
   };
 
   meta = common.meta // {

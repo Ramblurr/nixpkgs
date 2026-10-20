@@ -23,8 +23,8 @@ let
       [ ];
 in
 buildNodejs {
-  version = "26.8.2";
-  sha256 = "36b37bf5ee4d092b9d9dff2d1a90b1444f8b453eddf6ff96cabdebb97d32f41d";
+  version = "26.12.0";
+  sha256 = "ce59f9038dda0e637656fb1c36cf52c07c637922fd81d419dbba2ec129afbd35";
   patches =
     (lib.optional (!(stdenv.hostPlatform.emulatorAvailable buildPackages)) (fetchpatch2 {
       url = "https://raw.githubusercontent.com/buildroot/buildroot/2f0c31bffdb59fb224387e35134a6d5e09a81d57/package/nodejs/nodejs-src/0003-include-obj-name-in-shared-intermediate.patch";
@@ -48,7 +48,11 @@ buildNodejs {
       ./bin-sh-node-run-v22.patch
       ./use-nix-codesign.patch
 
-      ./fix-temporal-integration-with-shared-icu.patch
+      # TODO: remove once support for libuv 1.53+ has landed upstream
+      ./fix-libuv-1.53-support.patch
+
+      # TODO: remove once https://github.com/nodejs/node/pull/66735 in included in a release
+      ./gtest-integration-fix.patch
     ]
     ++ gypPatches;
 }

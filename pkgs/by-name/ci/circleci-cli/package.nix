@@ -2,24 +2,24 @@
   lib,
   stdenv,
   fetchFromGitHub,
-  buildGoModule,
+  buildGo127Module,
   buildPackages,
   installShellFiles,
   writableTmpDirAsHomeHook,
 }:
 
-buildGoModule (finalAttrs: {
+buildGo127Module (finalAttrs: {
   pname = "circleci-cli";
-  version = "1.0.48571";
+  version = "1.5.0";
 
   src = fetchFromGitHub {
     owner = "CircleCI-Public";
     repo = "circleci-cli";
     rev = "v${finalAttrs.version}";
-    sha256 = "sha256-doBByvNJG3BIF/+zepBeOm+ZcB+g/nx6W7A8zovJToc=";
+    sha256 = "sha256-UzstpYb1YJ9LRk4FzL43suIUSJbZkUo9KlOb1h2CNhk=";
   };
 
-  vendorHash = "sha256-YYyHAGWMiCzjjW1wY9f8IKs0ZICOnA7RWVpruhR9dI8=";
+  vendorHash = "sha256-JhQkQi9JLHqo6gW9gvdwPqb0XRBw0XH/b3oUcZC5giw=";
 
   subPackages = [ "cmd/circleci" ];
 

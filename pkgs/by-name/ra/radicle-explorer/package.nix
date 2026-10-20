@@ -10,16 +10,16 @@
 
 buildNpmPackage (finalAttrs: {
   pname = "radicle-explorer";
-  version = "0-unstable-2026-09-03";
+  version = "0-unstable-2026-10-05";
 
   src = fetchFromRadicle {
     seed = "seed.radicle.dev";
     repo = "z4V1sjrXqjvFdnCUbxPFqd5p4DtH5";
-    rev = "fb11e4d9c2c758468b9dca5c615f2392fb011c6e";
-    hash = "sha256-X8YRmyK8VyhmRMnKEiIhbiNyQ/fy4U9FgcIARDz+MfI=";
+    rev = "244c5711df12d21d70eadde4b5a4d425306d7971";
+    hash = "sha256-rE8XJrJogtKJkiP+9WMFJLMkXC8MJCVPUYQzs01BjiQ=";
   };
 
-  npmDepsHash = "sha256-m+md3XIjn4SpZ3vp5STDFAKU3QSs0maFUm3Ll5DLghc=";
+  npmDepsHash = "sha256-juF44uY1zLwajEprmMWCSyGlOTet76AcXhA+O9Em4Lg=";
 
   preBuild = ''
     if [[ $configFile ]]; then

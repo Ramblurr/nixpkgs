@@ -154,8 +154,10 @@ mapAliases {
   bumpfontversion = throw "'bumpfontversion' has been removed as its no longer used"; # added 2026-08-09
   bunch = throw "bunch has been removed as it is unmaintained since inception"; # added 2025-05-31
   bz2file = throw "'bz2file' has beem removed, as it was not longed maintained upstream since 2020"; # added 2025-08-26
+  caldav_2 = throw "'caldav_2' has been removed, use 'caldav' instead."; # added 2026-10-07
   calysto-scheme = throw "'calysto-scheme' has been removed as it is no longer maintained upstream"; # Added 2026-01-31
   can = throw "'can' has been renamed to/replaced by 'python-can'"; # Converted to throw 2025-10-29
+  capa = flare-capa; # added 2026-09-29
   casbin = pycasbin; # added 2025-06-12
   cchardet = throw "'cchardet' has been renamed to/replaced by 'faust-cchardet'"; # Converted to throw 2025-10-29
   chai = throw "'chai' has been removed as it is no longer maintained upstream and the repository was archived"; # Added 2026-06-08
@@ -177,6 +179,7 @@ mapAliases {
   cx_oracle = throw "'cx_oracle' has been renamed to/replaced by 'cx-oracle'"; # Converted to throw 2025-10-29
   dalle-mini = throw "'dalle-mini' has been removed due to lack of upstream maintenance"; # added 2026-02-26
   dask-yarn = throw "'dask-yarn' has been removed due to lack of upstream maintenance"; # added 2026-07-06
+  databricks-cli = throw "'databricks-cli' has been removed from the Python package set. Use 'pkgs.databricks-cli' instead."; # Added 2026-09-04
   dataclasses-serialization = throw "'dataclasses-serialization' has been removed due to lack of upstream maintenance."; # added 2026-07-14
   datashape = throw "'datashape' has been removed as it was unmaintained upstream"; # Added 2026-03-22
   datatable = throw "'datatable' has been removed due to lack of upstream maintenance"; # added 2026-02-02
@@ -185,6 +188,7 @@ mapAliases {
   debian = throw "'debian' has been renamed to/replaced by 'python-debian'"; # Converted to throw 2025-10-29
   dedupe-pylbfgs = pylbfgs; # added 2026-06-28
   deepsearch-glm = throw "'deepsearch-glm' has been removed due to lack of upstream maintenance"; # Added 2025-03-04
+  deezer-python-async = throw "'deezer-python-async' has been removed because Music-Assistant moved to deezer-python-gql"; # Added 2026-08-21
   derpconf = throw "'derpconf' has been removed because it is unmaintained upstream"; # Added 2026-09-05
   detectron2 = throw "'detectron2' has been removed because it is unmaintained upstream"; # Added 2026-09-06
   dictionaries = throw "'dictionaries' has been removed as it was archived upstream"; # Added 2026-07-20
@@ -194,6 +198,7 @@ mapAliases {
   discogs_client = throw "'discogs_client' has been renamed to/replaced by 'discogs-client'"; # Converted to throw 2025-10-29
   distutils_extra = throw "'distutils_extra' has been renamed to/replaced by 'distutils-extra'"; # Converted to throw 2025-10-29
   dj-stripe = throw "dj-stripe has been removed because it is unused and broken"; # added 2025-07-21
+  django-admin-datta = throw "django-admin-datta has been removed because it is unmaintained"; # added 2026-09-19
   django-crispy-bootstrap3 = crispy-bootstrap3; # added 2025-06-11
   django-crispy-bootstrap4 = crispy-bootstrap4; # added 2025-06-11
   django-crispy-bootstrap5 = crispy-bootstrap5; # added 2025-06-11
@@ -229,6 +234,7 @@ mapAliases {
   docker_pycreds = throw "'docker_pycreds' has been renamed to/replaced by 'docker-pycreds'"; # Converted to throw 2025-10-29
   dogpile_cache = throw "'dogpile_cache' has been renamed to/replaced by 'dogpile-cache'"; # Converted to throw 2025-10-29
   duckduckgo-search = throw "duckduckgo-search was renamed to ddgs, use ddgs instead"; # added 2025-10-20
+  duct-py = duct; # added 2026-10-13
   dukpy = throw "'dukpy' was removed as the only consumer pyload-ng was removed"; # added 2026-03-21
   dynd = throw "'dynd' has been removed due to lack of maintenance"; # added 2026-03-24
   easyeda2ato = throw "easyeda2ato as been removed in favor of atopile-easyda2kicad"; # added 2025-06-08
@@ -255,6 +261,7 @@ mapAliases {
   fasttext-predict = throw "'fasttext-predict' has been removed as the only consumer searxng removed its usage"; # Added 2026-03-11
   fb-re2 = throw "fb-re2 has been removed since it is unmaintained upstream, consider google-re2 instead"; # added 2025-10-18
   fenics = throw "fenics has been removed, use fenics-dolfinx instead"; # added 2025-08-07
+  fhir-py = fhirpy; # added 2026-10-13
   filebrowser_safe = throw "'filebrowser_safe' has been renamed to/replaced by 'filebrowser-safe'"; # Converted to throw 2025-10-29
   filesplit = throw "filesplit has been removed, since it is unmaintained"; # added 2025-08-20
   fints_4 = throw "fints_4 has been removed, migrate to fints"; # added 2026-06-04
@@ -298,6 +305,8 @@ mapAliases {
   gpgme = gpg; # added 2026-06-26
   gplaycli = throw "'gplaycli' has been removed as it was broken and lacked maintenance"; # Added 2025-11-09
   gpy = throw "'gpy' has been removed as it is based on 'paramz', which was removed"; # added 2025-11-10
+  gradient = throw "'gradient' has been removed because it was archived upstream. Upstream strongly recommends to migrate to pydo."; # Added 2026-10-15
+  gradient-utils = throw "'gradient-utils' has been removed because it was archived upstream and unused in tree."; # Added 2026-10-15
   gradient_statsd = throw "'gradient_statsd' has been renamed to/replaced by 'gradient-statsd'"; # Converted to throw 2025-10-29
   grapheme = throw "'grapheme' has been removed as it is unmaintained upstream. Consider using 'graphemeu' instead."; # Converted to throw 2025-12-22
   grappelli_safe = throw "'grappelli_safe' has been renamed to/replaced by 'grappelli-safe'"; # Converted to throw 2025-10-29
@@ -316,6 +325,7 @@ mapAliases {
   holistic-trace-analysis = throw "'holistic-trace-analysis' was removed because there is no such package on PyPI"; # added 2026-02-28
   hologram = throw "'hologram' has been removed as it was unmaintained upstream"; # Added 2026-03-22
   homeassistant-bring-api = throw "'homeassistant-bring-api' has been renamed to/replaced by 'bring-api'"; # Converted to throw 2025-10-29
+  homeassistant-stubs = throw "'homeassistant-stubs' has been archived upstream. Use the full 'home-assistant' package instead for typing information."; # added 2026-10-07"
   homepluscontrol = throw "'homepluscontrol' has been removed as it was unmaintained upstream"; # Added 2026-03-22
   howdoi = throw "'howdoi' has been removed as it was unmaintained upstream"; # Added 2026-04-19
   HTSeq = throw "'HTSeq' has been renamed to/replaced by 'htseq'"; # Converted to throw 2025-10-29
@@ -328,6 +338,7 @@ mapAliases {
   iotawattpy = ha-iotawattpy; # added 2025-07-06
   ipython_genutils = throw "'ipython_genutils' has been renamed to/replaced by 'ipython-genutils'"; # Converted to throw 2025-10-29
   itanium_demangler = throw "'itanium_demangler' has been renamed to/replaced by 'itanium-demangler'"; # Converted to throw 2025-10-29
+  j2cli = throw "'j2cli' has been removed as it is unmaintained upstream"; # Added 2026-05-24
   jaraco_classes = throw "'jaraco_classes' has been renamed to/replaced by 'jaraco-classes'"; # Converted to throw 2025-10-29
   jaraco_collections = throw "'jaraco_collections' has been renamed to/replaced by 'jaraco-collections'"; # Converted to throw 2025-10-29
   jaraco_functools = throw "'jaraco_functools' has been renamed to/replaced by 'jaraco-functools'"; # Converted to throw 2025-10-29
@@ -421,7 +432,7 @@ mapAliases {
   monkeytype = throw "'monkeytype' has been removed as it was unmaintained upstream"; # Added 2026-04-19
   more-properties = throw "'more-properties' has been removed to due lack of upstream maintenance"; # Added 2026-07-14
   moretools = throw "'moretools' has been removed because it is unmaintained"; # Added 2026-01-19
-  mpd2 = warnAlias "'mpd2' has been renamed to 'python-mpd2'"; # Added 2026-06-14
+  mpd2 = warnAlias "'mpd2' has been renamed to 'python-mpd2'" python-mpd2; # Added 2026-06-14
   mpire = throw "'mpire' has been removed because it is unused in Nixpkgs"; # Added 2026-06-22
   msldap-bad = throw "'msldap-bad' has been renamed to/replaced by 'badldap'"; # added 2025-11-06
   mullvad-closest = throw "'mullvad-closest' has been removed as it was unmaintained. Consider using 'mullvad-compass' instead."; # Added 2026-01-13
@@ -453,10 +464,13 @@ mapAliases {
   nonbloat-db = throw "nonbloat-db has been removed because the upstream project was archived."; # added 2025-05-16
   nptyping = throw "nptyping has been removed because it was broken, unmaintained upstream, and unused."; # added 2025-08-29
   Nuitka = throw "'Nuitka' has been renamed to/replaced by 'nuitka'"; # Converted to throw 2025-10-29
+  numpy_1 = throw "'numpy_1' has been deprecated in favor of 'numpy', as an old unmaintained version."; # added 2026-10-06
+  numpy_2 = warnAlias "'numpy_2' has been renamed to 'numpy'"; # added 2026-10-06
   oauth2 = throw "oauth2 has been removed as it is unmaintained"; # added 2025-05-16
   oauth = throw "oauth has been removed as it is unmaintained"; # added 2025-05-16
   objax = throw "objax has been removed because the upstream project was archived."; # Added 2025-10-04
   ocrmypdf_16 = throw "'ocrmypdf_16' was removed because paperless-ngx no longer uses it"; # Added 2026-07-23
+  ofxclient = throw "ofxclient has been removed as upstream has been unmaintained for 6 years"; # Added 2025-08-26
   openai-triton = throw "'openai-triton' has been renamed to/replaced by 'triton'"; # Converted to throw 2025-10-29
   openai-triton-bin = throw "'openai-triton-bin' has been renamed to/replaced by 'triton-bin'"; # Converted to throw 2025-10-29
   openai-triton-cuda = throw "'openai-triton-cuda' has been renamed to/replaced by 'triton-cuda'"; # Converted to throw 2025-10-29
@@ -474,12 +488,15 @@ mapAliases {
   pam = throw "'pam' has been renamed to/replaced by 'python-pam'"; # Converted to throw 2025-10-29
   pandas-ta = throw "pandas-ta has been removed: abandoned upstream"; # added 2026-07-20
   paramz = throw "'paramz' has been removed as it is incompatible with Numpy 2"; # added 2025-11-10
+  paranoid-crypto = throw "'paranoid-crypto' has been removed because Google archived the unmaintained project."; # Added 2026-09-02
   parselmouth = praat-parselmouth; # added 2026-07-26
   password-entropy = warnAlias "'password-entropy' has been renamed to 'data-password-entropy'" data-password-entropy; # Added 2026-07-26
   PasteDeploy = throw "'PasteDeploy' has been renamed to/replaced by 'pastedeploy'"; # Converted to throw 2025-10-29
   patator = throw "'patator' has been removed as it was dependant on removed packages and broken"; # Added 2025-12-30
   pathpy = throw "'pathpy' has been renamed to/replaced by 'path'"; # Converted to throw 2025-10-29
+  pbar = pbar2; # added 2026-10-08
   pcbnew-transition = throw "'pcbnew-transition' has been renamed to/replaced by 'pcbnewtransition'"; # Converted to throw 2025-10-29
+  pcbnewtransition = throw "'pcbnewtransition' has been removed as it is unmaintained and incompatible with KiCad 10+"; # Added 2026-08-30
   pdfminer = throw "'pdfminer' has been renamed to/replaced by 'pdfminer-six'"; # Converted to throw 2025-10-29
   peakrdl = throw "'peakrdl' has been renamed to/replaced by 'peakrdl-cli'"; # added 2026-07-14
   pep257 = throw "'pep257' has been renamed to/replaced by 'pydocstyle'"; # Converted to throw 2025-10-29
@@ -517,6 +534,7 @@ mapAliases {
   py-multiaddr = multiaddr; # added 2026-06-27
   py-scrypt = scrypt; # added 2025-08-07
   py_stringmatching = throw "'py_stringmatching' has been renamed to/replaced by 'py-stringmatching'"; # Converted to throw 2025-10-29
+  pyacaia-async = throw "'pyacaia-async' has been renamed to/replaced by 'aioacaia'"; # added 2026-08-26
   pybind11-protobuf = throw "'pybind11-protobuf' was only used by or-tools, and with some overrides, so vendored in there until it's used in other places."; # Converted to throw 2025-11-06
   pycategories = throw "'pycategories' has been removed as it was broken and unmaintained"; # added 2025-11-08
   PyChromecast = throw "'PyChromecast' has been renamed to/replaced by 'pychromecast'"; # Converted to throw 2025-10-29
@@ -524,10 +542,12 @@ mapAliases {
   pydns = throw "'pydns' has been renamed to/replaced by 'py3dns'"; # Converted to throw 2025-10-29
   pyechonest = throw "pyechonest was removed because it was broken and unmaintained"; # added 2025-08-26
   pyeiscp = throw "'pyeiscp' was removed because it was an unmaintained leaf package."; # added 2026-01-22
+  pyembroidery = throw "'pyembroidery' was removed because the only consumer Ink/Stitch switched to 'pystitch'"; # added 2026-09-19
   pyezviz = throw "pyeziz has been removed in favor of pyevizapi, where development continues"; # added 2025-06-11
   pyfantom = throw "pyfantom has been removed because it does not work with python3 and has not been updated for 12 years"; # added 2025-03-25
   pyflick = throw "pyflick was removed because Flick Electric no longer exists"; # added 2025-12-03
   pyflunearyou = throw "'pyflunearyou' has been renamed to/replaced by 'pyoutbreaksnearme'"; # Converted to throw 2025-10-29
+  pyfribidi = throw "'pyfribidi' has been removed because it is unmaintained upstream"; # added 2026-09-27
   pygame_sdl2 = throw "'pygame_sdl2' has been renamed to/replaced by 'pygame-sdl2'"; # Converted to throw 2025-10-29
   PyGithub = throw "'PyGithub' has been renamed to/replaced by 'pygithub'"; # Converted to throw 2025-10-29
   pygls_2 = pygls; # added 2026-01-05
@@ -553,9 +573,11 @@ mapAliases {
   pynslookup = throw "'pynslookup' has been renamed to 'nslookup'"; # Added 2026-08-10
   pyobject = throw "'pyobject' has been removed because it was only supporting python 2"; # Added 2026-01-24
   pyosmium = warnAlias "'pyosmium' has been renamed to 'osmium'" osmium; # Added 2026-07-27
+  pyosohotwaterapi = throw "'pyosohotwaterapi' has been renamed to 'pyosoenergyapi'"; # Added 2026-09-29
   pyownet = throw "pyownet was removed because Home Assistant switched to aio-ownet"; # added 2025-10-31
   pypcap = throw "pypcap has been removed because it is broken and unmaintained upstream."; # added 2025-06-18
   pyqldb = throw "pyqldb has been removed, because the underlying service is reaching end of support"; # added 2025-07-30
+  pyqt3d = throw "'pyqt3d' has been removed because it was unmaintained upstream and broken"; # added 2026-10-12
   pyqt5-stubs = throw "'pyqt5-stubs' has been removed as it was unused and depended on vulnerable qt5 webengine"; # Added 2026-01-15
   pyqt5-webkit = throw "'pyqt5-webkit' has been removed as it depended on insecure&unmaintained qtwebkit"; # Added 2026-04-26
   pyqt5_sip = throw "'pyqt5_sip' has been renamed to/replaced by 'pyqt5-sip'"; # Converted to throw 2025-10-29
@@ -650,6 +672,7 @@ mapAliases {
   radian = throw "radian has been promoted to a top-level attribute name: `pkgs.radian`"; # added 2025-05-02
   radicale_infcloud = throw "'radicale_infcloud' has been renamed to/replaced by 'radicale-infcloud'"; # Converted to throw 2025-10-29
   radio_beam = throw "'radio_beam' has been renamed to/replaced by 'radio-beam'"; # Converted to throw 2025-10-29
+  rainbowstream = throw "'rainbowstream' has been removed because the Twitter streaming API it depends on was retired"; # Added 2026-09-06
   random-user-agent = throw "random-user-agent has been removed as it was abandoned upstream in 2018; use fake-useragent instead"; # Added 2025-10-17
   raylib-python-cffi = raylib; # added 2026-09-07
   readme_renderer = throw "'readme_renderer' has been renamed to/replaced by 'readme-renderer'"; # Converted to throw 2025-10-29
@@ -697,6 +720,7 @@ mapAliases {
   slackclient = throw "'slackclient' has been renamed to/replaced by 'slack-sdk'"; # Converted to throw 2025-10-29
   sleekxmpp = throw "'sleekxmpp' has been removed because it was deprecated in favor of 'slixmpp'"; # added 2026-01-19
   slicedimage = throw "'slicedimage' has been removed because it was unused"; # Added 2026-08-14
+  slugid = throw "'slugid' has been removed as it was deprecated upstream."; # Added 2026-09-04
   smart_open = throw "'smart_open' has been renamed to/replaced by 'smart-open'"; # Converted to throw 2025-10-29
   smpp_pdu = throw "'smpp_pdu' has been renamed to/replaced by 'smpp-pdu'"; # Converted to throw 2025-10-29
   sorl_thumbnail = throw "'sorl_thumbnail' has been renamed to/replaced by 'sorl-thumbnail'"; # Converted to throw 2025-10-29
@@ -719,8 +743,11 @@ mapAliases {
   sqlalchemy-views = throw "'sqlalchemy-views' has been removed as it was broken and unmaintained upstream"; # Added 2025-11-09
   sqlalchemy_1_3 = throw "'sqlalchemy_1_3' has been removed because it was actually version 1.4.54"; # added 2026-07-20
   sqlalchemy_migrate = throw "'sqlalchemy_migrate' has been renamed to/replaced by 'sqlalchemy-migrate'"; # Converted to throw 2025-10-29
+  statistics = throw "'statistics' has been removed because it is unmaintained upstream"; # Added 2026-09-05
   steamship = throw "'steamship' has been removed because it is broken and unmaintained upstream"; # Added 2026-05-06
+  steamworkspy = warnAlias "'steamworkspy' has been renamed to 'steamworks' to match the upstream distribution name" steamworks; # Added 2026-09-19
   stookalert = throw "'stookalert' has been removed because it is unmaintained upstream"; # Added 2026-08-04
+  stopit = throw "'stopit' has been removed because it is unused and broken"; # Added 2026-08-28
   strawberry-django = strawberry-graphql-django; # Added 2026-07-14
   subunit2sql = throw "subunit2sql has been removed because it has been marked as broken since at least November 2024."; # Added 2025-10-04
   subunit = python-subunit; # added 2026-06-21
@@ -728,6 +755,7 @@ mapAliases {
   supervise_api = throw "'supervise_api' has been renamed to/replaced by 'supervise-api'"; # Converted to throw 2025-10-29
   swh-perfecthash = throw "'swh-perfecthash' has been renamed to/replaced by 'swh-shard'"; # added 2025-11-13
   synologydsm-api = throw "'synologydsm-api' has been renamed to/replaced by 'py-synologydsm-api'"; # Converted to throw 2025-10-29
+  syrupy_6 = syrupy; # added 2026-10-16
   systembridge = throw "systembridge has been removed because it is unmaintained upstream"; # Added 2025-11-23
   systemd = throw "systemd was removed because it was misnamed; use systemd-python instead"; # added 2025-11-09
   sysv_ipc = throw "'sysv_ipc' has been renamed to/replaced by 'sysv-ipc'"; # Converted to throw 2025-10-29
@@ -736,7 +764,8 @@ mapAliases {
   tbats = throw "'tbats' has been removed due to lack of upstream maintenance"; # Added 2026-05-11
   tbm-utils = throw "'tbm-utils' has been removed as it is unmaintained since 2020"; # Added 2026-03-12
   tensorflow-bin_2 = throw "'tensorflow-bin_2' has been renamed to/replaced by 'tensorflow-bin'"; # Converted to throw 2025-10-29
-  tensorflow-build_2 = throw "'tensorflow-build_2' has been renamed to/replaced by 'tensorflow-build'"; # Converted to throw 2025-10-29
+  tensorflow-build = throw "'tensorflow-build' has been removed as it was broken for years and unmaintained. Use 'tensorflow-bin' instead"; # Added 2026-10-07
+  tensorflow-build_2 = throw "'tensorflow-build_2' has been removed as it was broken for years and unmaintained. Use 'tensorflow-bin' instead"; # Converted to throw 2025-10-29
   tensorflow-estimator = throw "'tensorflow-estimator' has been renamed to/replaced by 'tensorflow-estimator-bin'"; # Converted to throw 2025-10-29
   tensorflow-estimator_2 = throw "'tensorflow-estimator_2' has been renamed to/replaced by 'tensorflow-estimator'"; # Converted to throw 2025-10-29
   tensorflow-tensorboard = throw "'tensorflow-tensorboard' has been renamed to/replaced by 'tensorboard'"; # Converted to throw 2025-10-29
@@ -754,12 +783,14 @@ mapAliases {
   torchtnt-nightly = throw "'torchtnt-nightly' was only needed as a test dependency for 'torcheval', but these tests are no longer run"; # added 2025-11-12
   torchtune = throw "'torchtune' was removed because it is unmaintained upstream."; # added 2026-07-02
   torrent_parser = throw "'torrent_parser' has been renamed to/replaced by 'torrent-parser'"; # Converted to throw 2025-10-29
+  tqdm-multiprocess = throw "'tqdm-multiprocess' has been removed because it was unused"; # Added 2026-10-08
   tracing = throw "'tracing' has been removed because its source code has been removed"; # Added 2025-12-17
   treeo = throw "treeo has been removed because it has been marked as broken since 2023."; # Added 2025-10-11
   treex = throw "treex has been removed because it has transitively been marked as broken since 2023."; # Added 2025-10-11
   trezor_agent = throw "'trezor_agent' has been renamed to/replaced by 'trezor-agent'"; # Converted to throw 2025-10-29
   tvdb_api = throw "'tvdb_api' has been renamed to/replaced by 'tvdb-api'"; # Converted to throw 2025-10-29
   tweedledum = throw "'tweedledum' has been removed due to lack of upstream maintenance."; # Added 2025-11-22
+  twitter = throw "'twitter' has been removed because it was archived upstream"; # Added 2026-09-06
   typed-ast = throw "typed-ast was removed because it went end of life in July 2023"; # added 2025-05-24
   typedmonarchmoney = throw "'typedmonarchmoney' was removed because Home Assistant switched to 'monarchmoneycommunity'"; # added 2026-08-05
   typer-slim = warnAlias "typer-slim was an alias package of typer that only depended on it and has been removed." typer; # added 2026-02-16

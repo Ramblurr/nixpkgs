@@ -8,16 +8,15 @@
 }:
 buildGoModule (finalAttrs: {
   pname = "dms-greeter";
-  version = "1.6.1";
+  version = "1.6.2";
 
   __structuredAttrs = true;
-  strictDeps = true;
 
   src = fetchFromGitHub {
     owner = "AvengeMedia";
     repo = "dank-greeter";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-Tt4/VvShpkHNbgXQedAsTzN2GbwIaQj0l9rOjqpRU+M=";
+    hash = "sha256-kON8+yjGeCwjvULWNoaHlPmC5OglqL+IejtVlzsvqv4=";
     fetchSubmodules = true;
   };
 

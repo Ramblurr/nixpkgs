@@ -14,16 +14,16 @@ let
 in
 rustPlatform.buildRustPackage.override { inherit stdenv; } (finalAttrs: {
   pname = "pgdog";
-  version = "0.1.58";
+  version = "0.1.60";
 
   src = fetchFromGitHub {
     owner = "pgdogdev";
     repo = "pgdog";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-Hw9U2WHMJEiC0gQGJmUr8/xehsYe9jr8cxFnbdgTWKw=";
+    hash = "sha256-agjK3Ng3haFoxcFy+H5v4dqYOQyF+uIm9K+S6wLJLeo=";
   };
 
-  cargoHash = "sha256-znrpe09PhC3Vn5iUP39/TBwCeYseBE5cLTxhrb02qps=";
+  cargoHash = "sha256-clq0rz7yi0XSXPzFjOGDcCwwndRq29KgtvUwpvEZoYA=";
 
   # Hardcoded paths for C compiler and linker
   postPatch = ''
@@ -44,8 +44,6 @@ rustPlatform.buildRustPackage.override { inherit stdenv; } (finalAttrs: {
   buildInputs = [
     openssl
   ];
-
-  strictDeps = true;
 
   # Several tests rely on networking
   doCheck = false;

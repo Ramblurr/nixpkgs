@@ -108,7 +108,6 @@ with lib.maintainers;
     members = [
       lopsided98
       mic92
-      zowoq
     ];
     scope = "Maintain Buildbot CI framework";
     shortName = "Buildbot";
@@ -290,6 +289,10 @@ with lib.maintainers;
 
   freedesktop = {
     github = "freedesktop";
+  };
+
+  gaming = {
+    github = "gaming";
   };
 
   gcc = {
@@ -751,11 +754,13 @@ with lib.maintainers;
 
   swift = {
     members = [
+      reckenrode
       samasaur
       stephank
     ];
     scope = "Maintain Swift compiler suite for NixOS.";
     shortName = "Swift";
+    enableFeatureFreezePing = true;
   };
 
   systemd = {

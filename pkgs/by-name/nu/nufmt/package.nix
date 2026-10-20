@@ -7,20 +7,20 @@
 }:
 rustPlatform.buildRustPackage {
   pname = "nufmt";
-  version = "0-unstable-2026-09-03";
+  version = "0-unstable-2026-10-09";
 
   src = fetchFromGitHub {
     owner = "nushell";
     repo = "nufmt";
-    rev = "08f332ba7abe915575dd0588e7a528a774906b92";
-    hash = "sha256-klrQf+myTOUt4NwyF7T/8e01O1+fe7UeNgd6pQBE14g=";
+    rev = "ce67377fb9131218a9319e57ede252cec60bf033";
+    hash = "sha256-Mo+WA0xYK1tEn/+LcJMAIF711Yim8Z6tQ124Y411S8k=";
   };
 
   nativeBuildInputs = [
     rustPlatform.bindgenHook
   ];
 
-  cargoHash = "sha256-Fb2A9DcYCIdSWrFg4MqkZJ6ev4VQ/VwrBtZoJLEBOHc=";
+  cargoHash = "sha256-aabaORvy9HWlv+YFswqE9vm7OAqXrpN+PdFPYoFHD40=";
 
   # NOTE: Patch follows similar intention upstream https://github.com/nushell/nufmt/commit/074930a23bc89a5f720a0d46ac2853f3153817c2
   postPatch = ''

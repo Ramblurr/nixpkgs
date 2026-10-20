@@ -13,11 +13,12 @@
   buildPackages,
   versionCheckHook,
   nix-update-script,
+  nixosTests,
 }:
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "ty";
-  version = "0.0.80";
+  version = "0.0.87";
   __structuredAttrs = true;
 
   src = fetchFromGitHub {
@@ -25,7 +26,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     repo = "ty";
     tag = finalAttrs.version;
     fetchSubmodules = true;
-    hash = "sha256-Fr806UFsB9zLUsqjSeg31x2Gs5sl1G3QNLSLuolb0HI=";
+    hash = "sha256-AIO6qEnRSmaj/7ilTA+EBwaNyODOaOiFvqNH4wR0zmY=";
   };
 
   # For Darwin platforms, remove the integration test for file notifications,
@@ -39,7 +40,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   cargoBuildFlags = [ "--package=ty" ];
 
-  cargoHash = "sha256-pPILCWR81PQQrpq6PyFs4z8tQBHhg+WAqthAsfLbMIo=";
+  cargoHash = "sha256-Fv5SwPXdn9Ggo0Yy2Y2NSP2n6FP1mlRePIA2+vOmnjM=";
 
   nativeBuildInputs = [ installShellFiles ];
   buildInputs = [ rust-jemalloc-sys ];
@@ -95,6 +96,11 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   passthru = {
     updateScript = nix-update-script { };
+
+    # ensure that an update doesn't break the test-driver.
+    tests = lib.optionalAttrs stdenv.hostPlatform.isLinux {
+      nixos-test-driver-busybox = nixosTests.nixos-test-driver.busybox;
+    };
   };
 
   requiredSystemFeatures = [ "big-parallel" ];

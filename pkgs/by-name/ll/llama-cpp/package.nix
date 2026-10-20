@@ -3,7 +3,9 @@
   buildPackages,
   autoAddDriverRunpath,
   cmake,
+  ctestCheckHook,
   fetchFromGitHub,
+  fetchpatch,
   installShellFiles,
   stdenv,
 
@@ -34,6 +36,7 @@
   npmHooks,
 
   pkg-config,
+  python3,
   metalSupport ? stdenv.hostPlatform.isDarwin && !openclSupport,
   vulkanSupport ? false,
   rpcSupport ? false,
@@ -48,8 +51,8 @@
 let
   # Upstream reads these from git, which the release tarball does not ship.
   # They are purely informational: `llama-server --version`, `/props`, and the web UI.
-  buildNumber = "10809";
-  buildCommit = "5266f24";
+  buildNumber = "11429";
+  buildCommit = "d812350";
 
   # It's necessary to consistently use backendStdenv when building with CUDA support,
   # otherwise we get libstdc++ errors downstream.
@@ -87,7 +90,7 @@ let
 in
 effectiveStdenv.mkDerivation (finalAttrs: {
   pname = "llama-cpp";
-  version = "0.4.0";
+  version = "0.6.0";
 
   __structuredAttrs = true;
   strictDeps = true;
@@ -101,10 +104,17 @@ effectiveStdenv.mkDerivation (finalAttrs: {
     owner = "ggml-org";
     repo = "llama.cpp";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-WImZjO3U9EXZUNP/FMpxo8PaTjQW8X2SBTfGwwFlZIM=";
+    hash = "sha256-l6l6JIlIVTaVC6xh5M4fRHFtXsweQuugtkNTWHcZZF4=";
   };
 
-  patches = [ ];
+  patches = [
+    # Initialize dynamically loaded backends before generating test models.
+    # https://github.com/ggml-org/llama.cpp/pull/30034
+    (fetchpatch {
+      url = "https://github.com/ggml-org/llama.cpp/commit/07ccce23cf7fe3c84e13d810accff672b1d966bf.patch";
+      hash = "sha256-KtsPcveFM51fY1hDWntiqCW/KHoWLv05Gmnhd1U/9Zs=";
+    })
+  ];
 
   nativeBuildInputs = [
     cmake
@@ -137,7 +147,7 @@ effectiveStdenv.mkDerivation (finalAttrs: {
     ++ [ openssl ];
 
   npmRoot = "tools/ui";
-  npmDepsHash = "sha256-2Q7XhaLAArmviOLdQsNbYTfdyDE5pW9lR26cRHEVl9k=";
+  npmDepsHash = "sha256-a17M+L3nLdRnN6WMB6imPFmwqG2g8uv+gwN0XTAUrf8=";
   npmDeps = fetchNpmDeps {
     name = "${finalAttrs.pname}-${finalAttrs.version}-npm-deps";
     inherit (finalAttrs) src patches;
@@ -158,6 +168,7 @@ effectiveStdenv.mkDerivation (finalAttrs: {
     (cmakeBool "LLAMA_BUILD_EXAMPLES" false)
     (cmakeBool "LLAMA_BUILD_SERVER" true)
     (cmakeBool "LLAMA_BUILD_TESTS" (finalAttrs.finalPackage.doCheck or false))
+    (cmakeBool "LLAMA_TESTS_INSTALL" false)
     (cmakeBool "LLAMA_BUILD_IS_DEV" false)
     (cmakeBool "LLAMA_OPENSSL" true)
     (cmakeBool "BUILD_SHARED_LIBS" true)
@@ -182,6 +193,8 @@ effectiveStdenv.mkDerivation (finalAttrs: {
     # * https://github.com/ggml-org/llama.cpp/blob/b46812de78f8fbcb6cf0154947e8633ebc78d9ac/ggml/src/ggml-backend-reg.cpp#L480-L486
     (cmakeBool "GGML_CPU_ALL_VARIANTS" true)
     (cmakeBool "GGML_BACKEND_DL" true)
+    # Let libggml find the backends when it is loaded from another package.
+    (cmakeFeature "GGML_BACKEND_DIR" "${placeholder "out"}/bin")
   ]
   ++ optionals cudaSupport [
     (cmakeFeature "CMAKE_CUDA_ARCHITECTURES" cudaPackages.flags.cmakeCudaArchitecturesString)
@@ -202,15 +215,41 @@ effectiveStdenv.mkDerivation (finalAttrs: {
     installShellCompletion --cmd llama-server --bash <($out/bin/llama-server --completion-bash)
   '';
 
-  # the tests are failing as of 2025-08
-  doCheck = false;
+  doCheck = true;
 
-  passthru = {
+  # Use CTest to skip disabled tests.
+  dontUseNinjaCheck = true;
+
+  __darwinAllowLocalNetworking = true;
+
+  nativeCheckInputs = [
+    ctestCheckHook
+    (python3.withPackages (ps: [ ps.jinja2 ]))
+  ];
+
+  preCheck = optionalString metalSupport ''
+    export GGML_METAL_DEVICES=0
+  '';
+
+  disabledTests = [
+    # Network needed.
+    "test-tokenizers-ggml-vocabs"
+    "test-download-model"
+    "test-arg-parser"
+    "test-thread-safety"
+    "test-state-restore-fragmented"
+  ];
+
+  passthru = lib.optionalAttrs (!cudaSupport && !rocmSupport && !vulkanSupport) {
     updateScript = ./update.sh;
   };
 
   meta = {
-    description = "Inference of Meta's LLaMA model (and others) in pure C/C++";
+    description =
+      "Inference of Meta's LLaMA model (and others) in pure C/C++"
+      + optionalString cudaSupport ", with CUDA support"
+      + optionalString rocmSupport ", with ROCm support"
+      + optionalString vulkanSupport ", with Vulkan support";
     homepage = "https://github.com/ggml-org/llama.cpp";
     license = lib.licenses.mit;
     mainProgram = "llama";

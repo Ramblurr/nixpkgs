@@ -11,6 +11,7 @@
   wlroots_0_20,
   libxkbcommon,
   libinput,
+  libdisplay-info,
   pixman,
   cairo,
   pango,
@@ -30,7 +31,7 @@
 }:
 stdenv.mkDerivation {
   pname = "umbriel";
-  version = "0-unstable-2026-09-13";
+  version = "0-unstable-2026-10-16";
 
   strictDeps = true;
   __structuredAttrs = true;
@@ -39,8 +40,8 @@ stdenv.mkDerivation {
     owner = "noctalia-dev";
     repo = "umbriel";
     # No tagged releases yet
-    rev = "11c0c99b85c5aa579224cf0d2302f4f7356ac5c4";
-    hash = "sha256-Ot18ZKFwRSPzyXhSkDhLOI8nAXfeoFPuB04Jk5DkzV4=";
+    rev = "5cea311e7e7d6eba3ea41f5c4ca826971340f7cc";
+    hash = "sha256-gzJplsRdXQLosa6joO3jFHN18GivNcYHc1zsw/z2bCo=";
   };
 
   nativeBuildInputs = [
@@ -58,6 +59,7 @@ stdenv.mkDerivation {
     wlroots_0_20
     libxkbcommon
     libinput
+    libdisplay-info
     pixman
     tomlplusplus
     libGL

@@ -1,6 +1,6 @@
 {
   lib,
-  buildGoModule,
+  buildGo127Module,
   fetchFromGitHub,
   nix-update-script,
   nixosTests,
@@ -12,19 +12,18 @@
   withVmctl ? true, # vmctl is used to migrate time series
 }:
 
-buildGoModule (finalAttrs: {
+buildGo127Module (finalAttrs: {
   pname = "VictoriaMetrics";
-  version = "1.151.0";
+  version = "1.154.0";
 
   src = fetchFromGitHub {
     owner = "VictoriaMetrics";
     repo = "VictoriaMetrics";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-LMilqB2enkzZr3zLcwnDLojtFV/lcOsXA9EhjiFarqE=";
+    hash = "sha256-1c9hltpsAg7tHa+h0ROMql6Zc+Q2yTSULBtzf8RPlaE=";
   };
 
   vendorHash = null;
-  env.CGO_ENABLED = 0;
 
   subPackages =
     lib.optionals withServer [
