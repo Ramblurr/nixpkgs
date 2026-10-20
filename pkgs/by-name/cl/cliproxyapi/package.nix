@@ -3,6 +3,7 @@
   buildGoModule,
   fetchFromGitHub,
   nix-update-script,
+  nixosTests,
   versionCheckHook,
 }:
 
@@ -10,16 +11,16 @@ buildGoModule (finalAttrs: {
   __structuredAttrs = true;
 
   pname = "cliproxyapi";
-  version = "7.3.2";
+  version = "8.0.25";
 
   src = fetchFromGitHub {
     owner = "router-for-me";
     repo = "CLIProxyAPI";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-AgyWs2xkgkUqKKOSY1dAaN9BdEqo73BKmPpYMzSxVds=";
+    hash = "sha256-UsecrUdcp0usozQkyvwls3XHD4XD0vQu5CjS+PdnqaE=";
   };
 
-  vendorHash = "sha256-CrDp7MOr+AwJUhTovklXx3F1yaktQlvD7VYhYSY6VvY=";
+  vendorHash = "sha256-r3yWkdMcM40G9jV7MxW/qNv3E9WrHavFilW24quEf+8=";
 
   subPackages = [ "cmd/server" ];
 
@@ -39,7 +40,10 @@ buildGoModule (finalAttrs: {
   versionCheckProgramArg = "--version";
   doInstallCheck = true;
 
-  passthru.updateScript = nix-update-script { };
+  passthru = {
+    tests = { inherit (nixosTests) cliproxyapi; };
+    updateScript = nix-update-script { };
+  };
 
   meta = {
     description = "Proxy that provides OpenAI/Gemini/Claude/Codex/Grok compatible API interfaces";

@@ -22,8 +22,10 @@
   alsa-lib,
   libpulseaudio,
   libcanberra-gtk3,
+  libdbusmenu-gtk3,
   libglvnd,
   libnotify,
+  libsecret,
   opensc,
   adwaita-icon-theme,
   pipewire,
@@ -103,6 +105,9 @@ let
       withJACK = browser.withJACK or false;
       # PCSC-Lite daemon (services.pcscd) also must be enabled for firefox to access smartcards
       withPCSC = cfg.smartcardSupport or false;
+      # Loading libsecret selects Secret Service without checking for a provider
+      # or migrating existing OS key-store secrets from the profile's NSS store.
+      withLibsecret = cfg.libsecretSupport or false;
 
       allNativeMessagingHosts = map lib.getBin (lib.unique nativeMessagingHosts);
 
@@ -113,12 +118,14 @@ let
             libva
             libgbm
             libnotify
+            libdbusmenu-gtk3
             libxscrnsaver
             cups
             pciutils
             vulkan-loader
           ]
           ++ lib.optional (cfg.speechSynthesisSupport or true) speechd-minimal
+          ++ lib.optional withLibsecret libsecret
         )
         ++ lib.optional withPipewire pipewire
         ++ lib.optional withFFmpeg ffmpegPackage
@@ -134,7 +141,7 @@ let
           alsa-lib
           zlib
         ]
-        ++ lib.optional (config.pulseaudio or (!isDarwin)) libpulseaudio
+        ++ lib.optional (!isDarwin) libpulseaudio
         ++ lib.optional withALSA alsa-lib
         ++ lib.optional withSndio sndio
         ++ lib.optional withJACK libjack2

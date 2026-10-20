@@ -10,15 +10,15 @@
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "tranquil-pds";
-  version = "0.6.6";
+  version = "0.7.0";
 
   src = fetchFromTangled {
     did = "did:plc:jj6ajj6duxnlthwtnob4qyuv";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-cfTsjmK/IMqT5kMKOGpwwWbBlvtrCDOerUJJ8AVI3kY=";
+    hash = "sha256-QbncR2z9GhxKKbbCf6a5Ph4lLi4OYWjRN49s7+5q7Uc=";
   };
 
-  cargoHash = "sha256-5TcKzwcElPweuWqVh7qWvCkzA021AYRuRafNDlXbffw=";
+  cargoHash = "sha256-fjT0cAt7lPD0O2PGNT604dRIczerKjExJvU/L3Yul3c=";
 
   __structuredAttrs = true;
 

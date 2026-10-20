@@ -78,11 +78,6 @@ in
                 config.hardware.printers.ensurePrinters. Specifying a symblic
                 name here that does not match any of those printers is
                 considered a hard error.
-
-                ::: {.warning}
-                Print jobs to this class will quietly fail if there are no
-                printers in this class. CUPS reports them as pending
-                :::
               '';
             };
             classes = mkOption {
@@ -267,7 +262,14 @@ in
           '';
         }
       )
-    ];
+    ]
+    ++ map (class: {
+      assertion = cfg.ensureClasses.${class}.printers != [ ] || cfg.ensureClasses.${class}.classes != [ ];
+      message = ''
+        At least one of the lists `config.hardware.printers.ensureClasses.${class}.printers`
+        and `config.hardware.printers.ensureClasses.${class}.classes` has to be non-empty.
+      '';
+    }) (builtins.attrNames cfg.ensureClasses);
 
     systemd.services.cups = {
       postStart =
@@ -296,6 +298,14 @@ in
           lpadmin =
             args:
             let
+              toLpadminArgs =
+                # Not using toCommandLineShellGNU since it omits empty strings for short options.
+                lib.cli.toCommandLineShell (optionName: {
+                  option = "-${optionName}";
+                  sep = null;
+                  explicitBool = false;
+                });
+
               # -d, -p and -x are subcommands that must be specified at the start.
               argsDpx = lib.intersectAttrs {
                 d = true;
@@ -308,9 +318,10 @@ in
                 "x"
               ];
             in
-            "lpadmin ${lib.cli.toCommandLineShellGNU { } argsDpx} ${
-              lib.cli.toCommandLineShellGNU { } argsWoDpx
-            }";
+            ''
+              # shellcheck disable=SC2016
+              lpadmin ${toLpadminArgs argsDpx} ${toLpadminArgs argsWoDpx}
+            '';
 
         in
         ''
@@ -332,17 +343,6 @@ in
           ${lib.optionalString (cfg.ensureDefaultPrinter != null) (lpadmin {
             d = cfg.ensureDefaultPrinter;
           })}
-
-          #### CLASS DEFINITIONS ####
-          lpadmin -p _tmp -v file:/dev/null
-          ${lib.concatMapStringsSep "\n" (
-            className:
-            lpadmin {
-              p = "_tmp";
-              c = className;
-            }
-          ) classNames}
-          lpadmin -x _tmp
 
           #### ADDING PRINTERS TO CLASSES ####
           ${lib.concatMapStringsSep "\n" (

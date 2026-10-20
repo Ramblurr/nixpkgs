@@ -37,9 +37,9 @@
   polkit,
   readline,
   slang,
-  systemd,
+  systemdMinimal,
   udev,
-  withSystemd ? lib.meta.availableOn stdenv.hostPlatform systemd,
+  withSystemd ? lib.meta.availableOn stdenv.hostPlatform systemdMinimal,
 
   # external deps
   bluez5,
@@ -83,11 +83,11 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "networkmanager";
-  version = "1.58.0";
+  version = "1.58.1";
 
   src = fetchurl {
     url = "https://gitlab.freedesktop.org/NetworkManager/NetworkManager/-/releases/${finalAttrs.version}/downloads/NetworkManager-${finalAttrs.version}.tar.xz";
-    hash = "sha256-DG8nA6LJsBfNaPv+HS6KGl1/8FE3x1HsQhy6NulFRro=";
+    hash = "sha256-Jihkz9GYEj0+Xb6Rk3RBuX7pBZ1tcS4aW/uxxUZo0U0=";
   };
 
   outputs = [
@@ -222,7 +222,7 @@ stdenv.mkDerivation (finalAttrs: {
     ppp
     readline
     slang
-    (if withSystemd then systemd else udev)
+    (if withSystemd then systemdMinimal else udev)
   ]
   ++ lib.optionals withNbft [
     libnvme
@@ -246,7 +246,7 @@ stdenv.mkDerivation (finalAttrs: {
   ''
   + lib.optionalString withSystemd ''
     substituteInPlace data/NetworkManager.service.in \
-      --replace-fail /usr/bin/busctl ${lib.getExe' systemd "busctl"}
+      --replace-fail /usr/bin/busctl ${lib.getExe' systemdMinimal "busctl"}
   '';
 
   preBuild = ''

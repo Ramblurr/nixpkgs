@@ -1,14 +1,12 @@
 {
   lib,
   stdenv,
-  config,
   nix-update-script,
   buildDotnetModule,
   dotnetCorePackages,
   fetchFromGitHub,
   iconConvTools,
   copyDesktopItems,
-  makeDesktopItem,
   libx11,
   libice,
   libsm,
@@ -32,14 +30,14 @@
   alsaSupport ? stdenv.hostPlatform.isLinux,
   jackSupport ? stdenv.hostPlatform.isLinux,
   pipewireSupport ? stdenv.hostPlatform.isLinux,
-  pulseaudioSupport ? config.pulseaudio or stdenv.hostPlatform.isLinux,
+  pulseaudioSupport ? stdenv.hostPlatform.isLinux,
   soundfont-fluid,
 
   # Path to set ROBUST_SOUNDFONT_OVERRIDE to, essentially the default soundfont used.
   soundfont-path ? "${soundfont-fluid}/share/soundfonts/FluidR3_GM2-2.sf2",
 }:
 let
-  version = "0.40.1";
+  version = "0.40.3";
   buildType = "Release";
 in
 buildDotnetModule {
@@ -51,7 +49,7 @@ buildDotnetModule {
     owner = "space-wizards";
     repo = "SS14.Launcher";
     tag = "v${version}";
-    hash = "sha256-d+pkz2N7yejZxDDh+w/EpL91zKb7ADR+wYQtO1sjKI0=";
+    hash = "sha256-VFwL4OlEvtWDHvNP8meOlCWheK+J6jKyAwZlryMNRqg=";
     fetchSubmodules = true;
   };
 
@@ -118,17 +116,7 @@ buildDotnetModule {
     copyDesktopItems
   ];
 
-  desktopItems = [
-    (makeDesktopItem {
-      name = "SS14.Launcher";
-      exec = "SS14.Launcher";
-      icon = "SS14";
-      desktopName = "Space Station 14 Launcher";
-      comment = "A multiplayer disaster simulator";
-      categories = [ "Game" ];
-      startupWMClass = "SS14.Launcher";
-    })
-  ];
+  desktopItems = [ "PublishFiles/SS14.desktop" ];
 
   postInstall = ''
     mkdir -p $out/lib/SS14.Launcher/loader
@@ -144,5 +132,6 @@ buildDotnetModule {
     maintainers = [ lib.maintainers.coca ];
     platforms = [ "x86_64-linux" ];
     mainProgram = "SS14.Launcher";
+    teams = [ lib.teams.gaming ];
   };
 }

@@ -9,7 +9,6 @@
   withNvenc ? false,
   atk,
   cairo,
-  cudatoolkit,
   cudaPackages,
   ffmpeg,
   gdk-pixbuf,
@@ -23,9 +22,9 @@
   librsvg,
   libvpx,
   libwebp,
-  systemd,
+  systemdLibs,
   lz4,
-  nv-codec-headers-10,
+  nv-codec-headers-13,
   nvidia_x11 ? null,
   pam,
   pandoc,
@@ -57,10 +56,10 @@
   libxkbfile,
   xorg-server,
   xxhash,
-  clang,
   withHtml ? true,
   xpra-html5,
   udevCheckHook,
+  versionCheckHook,
 }:
 
 let
@@ -91,7 +90,7 @@ let
       }
       ''
         mkdir -p $out/include $out/lib/pkgconfig
-        cp ${nv-codec-headers-10}/include/ffnvcodec/nvEncodeAPI.h $out/include
+        cp ${nv-codec-headers-13}/include/ffnvcodec/nvEncodeAPI.h $out/include
         substituteAll ${./nvenc.pc} $out/lib/pkgconfig/nvenc.pc
       '';
 
@@ -103,16 +102,17 @@ let
     stdenv = if withNvenc then cudaPackages.backendStdenv else stdenv;
   };
 in
-effectiveBuildPythonApplication rec {
+effectiveBuildPythonApplication (finalAttrs: {
   pname = "xpra";
-  version = "6.5.3";
-  format = "setuptools";
+  version = "6.5.4";
+  pyproject = true;
+  __structuredAttrs = true;
 
   src = fetchFromGitHub {
     owner = "Xpra-org";
     repo = "xpra";
-    tag = "v${version}";
-    hash = "sha256-UDKnkynWoS1feUBRRHXl7emksUmufBL16gmVFslMHpM=";
+    tag = "v${finalAttrs.version}";
+    hash = "sha256-TXqnheJjq3WZZffbEPjS5/u/02OlJkDJ9IqyCabYr1E=";
   };
 
   patches = [
@@ -135,15 +135,15 @@ effectiveBuildPythonApplication rec {
   };
 
   nativeBuildInputs = [
-    clang
     cython
     gobject-introspection
     pkg-config
     wrapGAppsHook3
     pandoc
+    python3.pkgs.setuptools
     udevCheckHook
   ]
-  ++ lib.optional withNvenc cudatoolkit;
+  ++ lib.optionals withNvenc [ cudaPackages.cuda_nvcc ];
 
   buildInputs = [
     libx11
@@ -186,7 +186,7 @@ effectiveBuildPythonApplication rec {
     openh264
     libyuv
     xxhash
-    systemd
+    systemdLibs
   ]
   ++ lib.optionals withNvenc [
     nvencHeaders
@@ -285,9 +285,9 @@ effectiveBuildPythonApplication rec {
     ln -s ${xpra-html5}/share/xpra/www $out/share/xpra/www;
   '';
 
-  # doCheck = false;
-
   enableParallelBuilding = true;
+
+  nativeCheckInputs = [ versionCheckHook ];
 
   passthru = {
     inherit xf86videodummy;
@@ -295,10 +295,9 @@ effectiveBuildPythonApplication rec {
   };
 
   meta = {
-    homepage = "https://xpra.org/";
-    downloadPage = "https://xpra.org/src/";
+    homepage = "https://github.com/Xpra-org/xpra";
     description = "Persistent remote applications for X";
-    changelog = "https://github.com/Xpra-org/xpra/releases/tag/v${version}";
+    changelog = "https://github.com/Xpra-org/xpra/releases/tag/${finalAttrs.src.tag}";
     platforms = lib.platforms.linux;
     license = lib.licenses.gpl2Only;
     maintainers = with lib.maintainers; [
@@ -306,4 +305,4 @@ effectiveBuildPythonApplication rec {
       mvnetbiz
     ];
   };
-}
+})

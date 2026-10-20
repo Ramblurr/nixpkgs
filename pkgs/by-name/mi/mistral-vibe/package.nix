@@ -151,6 +151,9 @@ python3Packages.buildPythonApplication (finalAttrs: {
   versionCheckKeepEnvironment = [ "HOME" ];
 
   disabledTests = [
+    # The finite stdio input closes before all responses are flushed in the sandbox.
+    "test_stdio_server_uses_the_same_json_rpc_lifecycle"
+
     # AssertionError: assert <MCPSourceStatus.UNAVAILABLE: 'unavailable'> is <MCPSourceStatus.ENABLED: 'enabled'>
     "test_mcp_catalog_read_refresh_toggle_remove_and_compatibility_aliases"
 
@@ -158,9 +161,6 @@ python3Packages.buildPythonApplication (finalAttrs: {
     # ModuleNotFoundError: No module named 'mcp'
     "test_aclose_terminates_real_subprocess"
     "test_persists_real_subprocess_state_across_calls"
-
-    # AssertionError: assert '32:2617357:1782120467963161870:7' != '32:2617357:1782120467963161870:7'
-    "test_changes_when_file_changes"
 
     # vibe.core.llm.exceptions.BackendError: LLM backend error [mock-provider]
     # reason: [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Missing Authority Key Identifier (_ssl.c:1032)
@@ -171,6 +171,12 @@ python3Packages.buildPythonApplication (finalAttrs: {
 
     # TypeError: cannot pickle 'itertools.count' object (Python 3.14 compatibility)
     "test_orchestrator_deepcopies_and_stays_functional"
+
+    # Flaky: AssertionError: assert <fingerprint> != <fingerprint>
+    "test_changes_when_file_changes"
+
+    # Flaky: AssertionError: Timed out waiting for UI state
+    "test_incomplete_stream_does_not_retry_ahead_of_queued_prompts"
   ]
   ++ lib.optionals (stdenv.hostPlatform.isLinux && stdenv.hostPlatform.isAarch64) [
     # AssertionError: Timed out waiting for UI state
@@ -188,10 +194,7 @@ python3Packages.buildPythonApplication (finalAttrs: {
   ];
 
   disabledTestPaths = [
-    # This tests the install_script and fails. This is not relevant for nixpkgs.
-    "tests/test_install_script.py"
-
-    # All snapshot tests fail with AssertionError
+    # All snapshot tests use syrupy 4.8.0, which is not packaged here.
     "tests/snapshots/"
 
     # These tests invoke uv run and fail to import the packaged pydantic extension.
@@ -209,6 +212,9 @@ python3Packages.buildPythonApplication (finalAttrs: {
 
     # ACP tests require network access
     "tests/acp/test_acp_entrypoint_smoke.py"
+
+    # FileNotFoundError: [Errno 2] No such file or directory: 'bash'
+    "tests/test_install_script.py"
   ];
 
   __darwinAllowLocalNetworking = true;

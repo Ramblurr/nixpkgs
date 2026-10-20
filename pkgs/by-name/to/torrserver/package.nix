@@ -1,21 +1,21 @@
 {
   lib,
   fetchFromGitHub,
-  buildGo126Module,
+  buildGoModule,
   makeWrapper,
   ffmpeg,
 }:
-buildGo126Module rec {
+buildGoModule rec {
   pname = "torrserver";
-  version = "144.1";
+  version = "147";
 
   src = fetchFromGitHub {
     owner = "YouROK";
     repo = "TorrServer";
     tag = "MatriX.${version}";
-    sha256 = "sha256-55UMbOOvSI2o4jiEijx9Bs+pCjRnHSNobbFAAdEwcuo=";
+    sha256 = "sha256-SqSbiMQ0DlrdWMFe3em3FnypWEiatd9VK0pZdNYieXE=";
   };
-  vendorHash = "sha256-aO4/p+k1Pur73k4iwb8ULVrHy8mkPZbWYTuJf1Z7xTc=";
+  vendorHash = "sha256-TfsPJwjTbkicYrP3ovw1ISLlQBLCM4rjsQGHKuLEQPA=";
 
   modRoot = "server";
   subPackages = [ "cmd" ];

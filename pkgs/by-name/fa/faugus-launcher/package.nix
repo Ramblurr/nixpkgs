@@ -12,6 +12,7 @@
   libgudev,
   libmanette,
   lsfg-vk,
+  lsfgSupport ? false,
   meson,
   ninja,
   nix-update-script,
@@ -23,14 +24,14 @@
 
 python3Packages.buildPythonApplication (finalAttrs: {
   pname = "faugus-launcher";
-  version = "2.3.0";
+  version = "2.4.4";
   pyproject = false;
 
   src = fetchFromGitHub {
     owner = "Faugus";
     repo = "faugus-launcher";
     tag = finalAttrs.version;
-    hash = "sha256-fD4mvz4zSYzyp9MCTKjYvaYMa/Hc7IRrirnF/GNF6p8=";
+    hash = "sha256-zyYNBMxm1VC46OWHHgu7ef+uJsZSjNZ42zFnfeLrFvA=";
   };
 
   nativeBuildInputs = [
@@ -65,9 +66,12 @@ python3Packages.buildPythonApplication (finalAttrs: {
       --replace-fail "/usr/bin/python3" "${python3Packages.python.interpreter}"
 
     substituteInPlace faugus/path_manager.py \
-      --replace-fail "PathManager.user_data('faugus-launcher/umu-run')" "'${lib.getExe umu-launcher}'" \
+      --replace-fail "PathManager.user_data('faugus-launcher/umu-run')" "'${lib.getExe umu-launcher}'"
+  ''
+  + lib.optionalString lsfgSupport ''
+    substituteInPlace faugus/path_manager.py \
       --replace-fail "/usr/lib/extensions/vulkan/lsfgvk/lib/liblsfg-vk.so" "${lsfg-vk}/lib/liblsfg-vk.so" \
-      --replace-fail "/usr/lib/liblsfg-vk.so" "${lsfg-vk}/lib/liblsfg-vk.so"
+      --replace-fail "/usr/lib/liblsfg-vk-layer.so" "${lsfg-vk}/lib/liblsfg-vk-layer.so"
   '';
 
   preFixup = ''

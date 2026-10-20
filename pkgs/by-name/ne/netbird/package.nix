@@ -78,7 +78,7 @@ let
 in
 buildGoModule (finalAttrs: {
   pname = "netbird-${componentName}";
-  version = "0.78.2";
+  version = "0.81.2";
 
   __structuredAttrs = true;
 
@@ -86,7 +86,7 @@ buildGoModule (finalAttrs: {
     owner = "netbirdio";
     repo = "netbird";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-VDYwuo7qMq01QrbV422yd/KAZhnqP9ymrqrgJbDqMGg=";
+    hash = "sha256-khQ3BXvHkPfHfy9+bk/dKFPvUAT3l4pj8SoQIDS+yLA=";
   };
 
   overrideModAttrs = final: prev: {
@@ -100,7 +100,7 @@ buildGoModule (finalAttrs: {
   };
 
   proxyVendor = true;
-  vendorHash = "sha256-qbcc/j8tCTnUrX9jhxKFMudnNVKa4Xah+76aBOFS0AQ=";
+  vendorHash = "sha256-YI49z1Yiji8I0zzlMIuXHLOGlqak546ONbqN+Ux2f7c=";
 
   nativeBuildInputs = [
     installShellFiles
@@ -196,18 +196,22 @@ buildGoModule (finalAttrs: {
   versionCheckProgramArg = component.versionCheckProgramArg or "version";
 
   passthru = {
-    tests = lib.attrsets.optionalAttrs (componentName == "client") {
-      nixos = nixosTests.netbird;
-      inherit
-        # make sure child packages are built by `ofborg`
-        netbird-management
-        netbird-relay
-        netbird-signal
-        netbird-ui
-        netbird-upload
-        netbird-proxy
-        ;
-    };
+    tests =
+      lib.attrsets.optionalAttrs (componentName == "client") {
+        nixos = nixosTests.netbird;
+        inherit
+          # make sure child packages are built by `ofborg`
+          netbird-management
+          netbird-relay
+          netbird-signal
+          netbird-ui
+          netbird-upload
+          netbird-proxy
+          ;
+      }
+      // lib.attrsets.optionalAttrs (componentName == "relay") {
+        nixos = nixosTests.netbird-relay;
+      };
     updateScript = nix-update-script { };
   };
 
@@ -217,7 +221,6 @@ buildGoModule (finalAttrs: {
     description = "Connect your devices into a single secure private WireGuard®-based mesh network with SSO/MFA and simple access controls";
     license = component.license;
     maintainers = with lib.maintainers; [
-      nazarewk
       saturn745
       loc
     ];

@@ -1233,6 +1233,27 @@
       };
     }
   ) { };
+  ebuild-mode = callPackage (
+    {
+      elpaBuild,
+      fetchurl,
+      lib,
+    }:
+    elpaBuild {
+      pname = "ebuild-mode";
+      ename = "ebuild-mode";
+      version = "1.88";
+      src = fetchurl {
+        url = "https://elpa.nongnu.org/nongnu/ebuild-mode-1.88.tar";
+        sha256 = "1qjixn4l1rkar7lzm7irv2ygwfjxzlp7h7sbdfsjgvwvxspa3072";
+      };
+      packageRequires = [ ];
+      meta = {
+        homepage = "https://elpa.nongnu.org/nongnu/ebuild-mode.html";
+        license = lib.licenses.free;
+      };
+    }
+  ) { };
   edit-indirect = callPackage (
     {
       elpaBuild,
@@ -4838,10 +4859,10 @@
     elpaBuild {
       pname = "project-nix-store";
       ename = "project-nix-store";
-      version = "0.11.0";
+      version = "0.12.0";
       src = fetchurl {
-        url = "https://elpa.nongnu.org/nongnu/project-nix-store-0.11.0.tar";
-        sha256 = "1f3xsmxfppg5z23pkl1wids359ivhsqlzs6p4s3vaaclxrwrq6kf";
+        url = "https://elpa.nongnu.org/nongnu/project-nix-store-0.12.0.tar";
+        sha256 = "0648bq6i1lysk4y3ddq4yh2qy9113cyx6jvg2a0mypw4mb96y22j";
       };
       packageRequires = [ ];
       meta = {

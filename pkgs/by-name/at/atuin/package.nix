@@ -1,27 +1,34 @@
 {
   lib,
+  bashInteractive,
   fetchFromGitHub,
+  gitMinimal,
   installShellFiles,
+  ncurses,
   nix-update-script,
   nixosTests,
   openssl,
+  zstd,
+  sqlite,
   pkg-config,
   rustPlatform,
   stdenv,
+  writableTmpDirAsHomeHook,
+  writeShellScriptBin,
 }:
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "atuin";
-  version = "18.21.0";
+  version = "18.23.0";
 
   src = fetchFromGitHub {
     owner = "atuinsh";
     repo = "atuin";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-kz8qdgxg79jX3hfPi7EY9c9SmFqUK6lWnMTLb3TKDQQ=";
+    hash = "sha256-NBn7C9ssLSXYrHWv5qWM5dZ2E8URbRJZOOCvHaNgxW4=";
   };
 
-  cargoHash = "sha256-chuGpLq8XAZrCCtx2L/tVQSXNLrTgG2rnBGcCEvDjFg=";
+  cargoHash = "sha256-rkDDs8gviBpoLR4mrrKRu2eTlmlpvjICVRFu22AeOaU=";
 
   # atuin's default features include 'check-updates', which do not make sense
   # for distribution builds. List all other default features.
@@ -43,6 +50,17 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   buildInputs = [
     openssl
+    zstd
+    sqlite
+  ];
+
+  # e2e_pty tests drive an interactive bash (needs readline), run `clear`,
+  # and create git repositories for workspace filtering
+  nativeCheckInputs = [
+    bashInteractive
+    gitMinimal
+    ncurses
+    writableTmpDirAsHomeHook
   ];
 
   postInstall = lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
@@ -63,9 +81,19 @@ rustPlatform.buildRustPackage (finalAttrs: {
     "--skip=multi_user_test"
   ];
 
-  preCheck = ''
-    export HOME=$(mktemp -d)
-  '';
+  # The e2e tests start an interactive bash, which sources the host's
+  # /etc/bashrc when the build is not sandboxed (the darwin default).
+  # The nix-darwin config resets PATH, so if the user has atuin installed,
+  # the shell integration runs the system atuin instead of the one currently building
+  # and no output is captured.
+  # The test harness clears the environment before it starts the shell, so
+  # NOSYSBASHRC has to be set by the shell it is given. It must be named bash:
+  # the pty proxy picks the shell integration from the file name.
+  env.ATUIN_E2E_BASH = lib.getExe (
+    writeShellScriptBin "bash" ''
+      NOSYSBASHRC=1 exec ${lib.getExe bashInteractive} "$@"
+    ''
+  );
 
   __darwinAllowLocalNetworking = true;
 

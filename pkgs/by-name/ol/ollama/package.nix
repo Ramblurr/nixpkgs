@@ -111,12 +111,12 @@ let
   # vendored in-tree. Pre-stage the pin (tracks upstream's
   # `LLAMA_CPP_VERSION` file) so the FetchContent step uses our copy
   # instead of trying to clone over the network in the sandbox.
-  llamaCppVersion = "b10760";
+  llamaCppVersion = "b11521";
   llamaCppSrc = fetchFromGitHub {
     owner = "ggml-org";
     repo = "llama.cpp";
     tag = llamaCppVersion;
-    hash = "sha256-+WI/1TAJWG1m9ttS2RO43C+1oL/5xpZTaHn7vQh4+kc=";
+    hash = "sha256-zkHQPGopaW4JXEebCGZjwl3Jqx4yb24Msq+ZvJsyNP8=";
   };
 
   wrapperOptions = [
@@ -152,16 +152,16 @@ let
 in
 goBuild (finalAttrs: {
   pname = "ollama";
-  version = "0.34.0";
+  version = "0.40.4";
 
   src = fetchFromGitHub {
     owner = "ollama";
     repo = "ollama";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-s8jFSGo8BJDxe4gSaruJ66JeDnyTBJ0x3dQ5KxWbuTU=";
+    hash = "sha256-pNLexucSeop03cIkhdbkSvwNB3i0XEAlKrO4DaS59Xc=";
   };
 
-  vendorHash = "sha256-RxmV/VgCydZRGfhWoxDUo3lw8ujCnfQiB1o7PcIikLw=";
+  vendorHash = "sha256-QBwZKRnmLUHQNSx5oqE9AbMINE8PP5TVJncG9nzQryI=";
   proxyVendor = true;
 
   env =
@@ -383,9 +383,10 @@ goBuild (finalAttrs: {
       service-rocm = nixosTests.ollama-rocm;
       service-vulkan = nixosTests.ollama-vulkan;
     };
-    updateScript = ./update.sh;
   }
-  // lib.optionalAttrs (!enableRocm && !enableCuda && !enableVulkan) { updateScript = ./update.sh; };
+  // lib.optionalAttrs (!rocmRequested && !cudaRequested && !vulkanRequested) {
+    updateScript = ./update.sh;
+  };
 
   meta = {
     description =

@@ -128,12 +128,12 @@
       "dependency": "direct main",
       "description": {
         "path": ".",
-        "ref": "c52103f4a2d683c22ce3b8b8661da610644bfef1",
-        "resolved-ref": "c52103f4a2d683c22ce3b8b8661da610644bfef1",
+        "ref": "ebdf69a7bdd03d410bfdfc700add08eed0de161d",
+        "resolved-ref": "ebdf69a7bdd03d410bfdfc700add08eed0de161d",
         "url": "https://github.com/edde746/background_downloader"
       },
       "source": "git",
-      "version": "9.5.6"
+      "version": "9.6.2"
     },
     "boolean_selector": {
       "dependency": "transitive",
@@ -390,11 +390,11 @@
       "dependency": "direct main",
       "description": {
         "name": "dart_discord_presence",
-        "sha256": "6860826f809517d354e2af14e504e46809afde11c43ff3685c7438073d226211",
+        "sha256": "8b1c4b4a75e14e090292a2cb53bc5c205d5f03d6cf43d8386a49ed704f7a99bb",
         "url": "https://pub.dev"
       },
       "source": "hosted",
-      "version": "1.2.0"
+      "version": "1.2.1"
     },
     "dart_style": {
       "dependency": "transitive",
@@ -1264,21 +1264,21 @@
       "dependency": "transitive",
       "description": {
         "name": "sentry",
-        "sha256": "a84bf3a83b3ce1c89fce28b9f97659e3826df14a73a256952465aac2c5efdf5a",
+        "sha256": "bf80a571e370aad3f68b5c26d43f31cc230a084c250fb3138a83da6032ba0c01",
         "url": "https://pub.dev"
       },
       "source": "hosted",
-      "version": "9.25.0"
+      "version": "9.30.0"
     },
     "sentry_flutter": {
       "dependency": "direct main",
       "description": {
         "name": "sentry_flutter",
-        "sha256": "c85575266d91f57364e9b4cb522835156ec3c5581c78339dc7fae491cd0c6f76",
+        "sha256": "da36fbb1581c0f66a0c8fc76f8aadb62d9ea567ba950c97eb326e959482c342a",
         "url": "https://pub.dev"
       },
       "source": "hosted",
-      "version": "9.25.0"
+      "version": "9.30.0"
     },
     "serial_csv": {
       "dependency": "transitive",
@@ -1787,11 +1787,11 @@
       "dependency": "direct main",
       "description": {
         "name": "win_http",
-        "sha256": "ebc4d37e2c0e6800cc200e40d289d3bac22fc17d40fce3ae7909d49a20da77bc",
+        "sha256": "82a9270dccdffcda42e162e036079f522fec319227d18c9049cfa7a4f958408f",
         "url": "https://pub.dev"
       },
       "source": "hosted",
-      "version": "0.2.2"
+      "version": "0.2.3"
     },
     "window_manager": {
       "dependency": "direct main",
@@ -1845,7 +1845,7 @@
     }
   },
   "sdks": {
-    "dart": ">=3.12.0 <4.0.0",
+    "dart": ">=3.13.0 <4.0.0",
     "flutter": ">=3.47.0"
   }
 }

@@ -236,6 +236,7 @@ let
       DAMON_RECLAIM = whenAtLeast "5.16" yes;
       DAMON_LRU_SORT = whenAtLeast "6.0" yes;
       DAMON_STAT = whenAtLeast "6.17" yes;
+      DAMON_STAT_ENABLED_DEFAULT = whenAtLeast "6.17" no;
       # Support recovering from memory failures on systems with ECC and MCA recovery.
       MEMORY_FAILURE = yes;
 
@@ -855,12 +856,36 @@ let
       # only when compiled as yes, TPM 2.0 will automatically seed the kernel RNG
       HW_RANDOM = yes;
 
-      MODULE_SIG = no; # r13y, generates a random key during build and bakes it in
-      # Depends on MODULE_SIG and only really helps when you sign your modules
-      # and enforce signatures which we don't do by default.
-      SECURITY_LOCKDOWN_LSM = no;
+      MODULE_SIG = yes;
+      # We use kmodigest to produce a deterministic single‐module
+      # certificate for each module. This prevents the kernel from
+      # generating its own ephemeral module signing key at build time.
+      MODULE_SIG_KEY = freeform "";
+
+      # Support ECDSA and ML‐DSA module signatures.
+      CRYPTO_ECDSA = yes;
+      CRYPTO_MLDSA = whenAtLeast "7.0" yes;
+
+      # Reserve enough space for 12000 single‐module certificates.
+      # Current `allmodconfig` builds produce in the region of ~7500 to
+      # ~9000 in‐tree modules, so this should be sufficient margin.
+      SYSTEM_EXTRA_CERTIFICATE = yes;
+      SYSTEM_EXTRA_CERTIFICATE_SIZE = freeform (toString (12000 * 260));
+
+      SECONDARY_TRUSTED_KEYRING = yes;
+      SYSTEM_BLACKLIST_KEYRING = yes;
+
+      SECURITY_LOCKDOWN_LSM = yes;
+      SECURITY_LOCKDOWN_LSM_EARLY = yes;
 
       IMA = yes;
+
+      INTEGRITY_SIGNATURE = yes;
+      INTEGRITY_ASYMMETRIC_KEYS = yes;
+      INTEGRITY_PLATFORM_KEYRING = yes;
+      INTEGRITY_MACHINE_KEYRING = whenAtLeast "6.4" yes;
+      INTEGRITY_CA_MACHINE_KEYRING = whenAtLeast "6.4" yes;
+      INTEGRITY_CA_MACHINE_KEYRING_MAX = whenAtLeast "6.4" yes;
 
       # provides a register of persistent per-UID keyrings, useful for encrypting storage pools in stratis
       PERSISTENT_KEYRINGS = yes;
@@ -1142,6 +1167,11 @@ let
         useZstd = stdenv.buildPlatform.is64bit;
       in
       {
+        # Increase the default kernel log buffer size to 1 MiB. This
+        # prevents it from filling up with lines about loading X.509
+        # certificates when using single‐module certificates.
+        LOG_BUF_SHIFT = freeform "20";
+
         # The default target assumes uncompressed on RISC-V.
         KERNEL_UNCOMPRESSED = lib.mkIf stdenv.hostPlatform.isRiscV yes;
 
@@ -1538,8 +1568,8 @@ let
             SPARSEMEM = yes;
 
             # Bump the maximum number of CPUs to support systems like EC2 x1.*
-            # instances and Xeon Phi.
-            NR_CPUS = freeform "384";
+            # instances and Xeon Phi or AMD EPYC.
+            NR_CPUS = freeform "512";
 
             # Enable LEDS to display link-state status of PHY devices (i.e. eth lan/wan interfaces)
             LED_TRIGGER_PHY = yes;

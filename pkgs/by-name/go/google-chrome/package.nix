@@ -55,7 +55,7 @@
   commandLineArgs ? "",
 
   # Will crash without.
-  systemd,
+  systemdLibs,
 
   # Loaded at runtime.
   libexif,
@@ -159,7 +159,7 @@ let
     pipewire
     snappy
     speechd-minimal
-    systemd
+    systemdLibs
     util-linux
     vulkan-loader
     wayland
@@ -180,7 +180,7 @@ let
 
   linux = stdenvNoCC.mkDerivation (finalAttrs: {
     inherit pname meta;
-    version = "153.0.8010.47";
+    version = "155.0.8059.84";
 
     src =
       let
@@ -195,8 +195,8 @@ let
         url = "https://dl.google.com/linux/chrome/deb/pool/main/g/google-chrome-stable/google-chrome-stable_${finalAttrs.version}-1_${debArch}.deb";
         hash =
           {
-            amd64 = "sha256-oybe/eVN4vHA1G2L9La18/dvDIl70wsgsCUJcTmgW94=";
-            arm64 = "sha256-DEyVf0gz2ab4HkwzXEEpwowPmHfh5SA2/XYuygrfTbI=";
+            amd64 = "sha256-j70q5pzffumLdRPDOWp7Xgb5dPhiX91ZDfMJHdDD6d4=";
+            arm64 = "sha256-+Y/MgNpXaBHjISyH9T4Bo2eh0F1/fDOgEzmKgqBLsA8=";
           }
           .${debArch};
       };
@@ -306,11 +306,11 @@ let
 
   darwin = stdenvNoCC.mkDerivation (finalAttrs: {
     inherit pname meta;
-    version = "153.0.8010.48";
+    version = "155.0.8059.85";
 
     src = fetchurl {
-      url = "https://dl.google.com/release2/chrome/ad6l2piroiqtckdm7rwkc6givuyq_153.0.8010.48/GoogleChrome-153.0.8010.48.dmg";
-      hash = "sha256-FgoOxuBiUAFk3X9iBHxlWFsNcO/PU95ObKTTuWLPnpo=";
+      url = "https://dl.google.com/release2/chrome/o2mzgo6gshgwjzckj3bvrpe4nm_155.0.8059.85/GoogleChrome-155.0.8059.85.dmg";
+      hash = "sha256-Kt+xNr6hnqn2OGo7QIquS4G1o8CVX8OjCTtq4YTFJ+c=";
     };
 
     dontPatch = true;

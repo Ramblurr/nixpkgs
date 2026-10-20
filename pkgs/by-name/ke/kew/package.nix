@@ -1,5 +1,4 @@
 {
-  config,
   lib,
   stdenv,
   alsa-lib,
@@ -24,7 +23,7 @@
 
   withALSA ? stdenv.hostPlatform.isLinux,
   withJACK ? false,
-  withPulseaudio ? config.pulseaudio or stdenv.hostPlatform.isLinux,
+  withPulseaudio ? stdenv.hostPlatform.isLinux,
 }:
 
 let
@@ -34,13 +33,13 @@ in
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "kew";
-  version = "4.3.2";
+  version = "4.4.0";
 
   src = fetchFromGitHub {
     owner = "ravachol";
     repo = "kew";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-5VSt4gwkbfl8t+4SqlpvkeJc0pKyffl5ij7Qu4xm3MI=";
+    hash = "sha256-klU1SBYj3T33sZie4/IliLSeJXO5treGQprBOe3gJ0E=";
   };
 
   postPatch = ''

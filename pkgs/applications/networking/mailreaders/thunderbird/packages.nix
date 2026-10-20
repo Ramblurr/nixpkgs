@@ -15,6 +15,7 @@ let
       sha512,
       updateScript,
       applicationName ? "Thunderbird",
+      broken ? stdenv.buildPlatform.is32bit,
     }:
     (buildMozillaMach rec {
       pname = "thunderbird";
@@ -49,6 +50,7 @@ let
         '';
 
       meta = {
+        inherit broken;
         changelog = "https://www.thunderbird.net/en-US/thunderbird/${version}/releasenotes/";
         description = "Full-featured e-mail client";
         homepage = "https://www.thunderbird.net/";
@@ -61,7 +63,6 @@ let
           vcunat
         ];
         platforms = lib.platforms.unix;
-        broken = stdenv.buildPlatform.is32bit;
         # since Firefox 60, build on 32-bit platforms fails with "out of memory".
         # not in `badPlatforms` because cross-compilation on 64-bit machine might work.
         license = lib.licenses.mpl20;
@@ -85,8 +86,8 @@ rec {
   thunderbird = thunderbird-latest;
 
   thunderbird-latest = common {
-    version = "155.0";
-    sha512 = "fe0247ac50d2741a49517fabe729dc990a66e7044f450e4fe6871b663096bcd15f22ed83eea0557106d38eee34e464fead5a7567d0906995ff2a945fae64b60c";
+    version = "158.0";
+    sha512 = "fe19e0e7540ef27af0bdb730963a9b4ad91472a9ab8b0c5eddd291c2d234ab7ac68ddf71c8595090b87cfd0deeaebc66dbce15c65c90fd09183b05db4bdce263";
 
     updateScript = callPackage ./update.nix {
       attrPath = "thunderbirdPackages.thunderbird-latest";
@@ -99,25 +100,12 @@ rec {
   thunderbird-153 = common {
     applicationName = "Thunderbird ESR";
 
-    version = "153.2.0esr";
-    sha512 = "a00f94a63cffcea4268838acd85ed325653fdcbc575fc020471240423fc78c560f1377d3898216e39cece32eb9a24d32dfbf1bfc9522876092621c861c629b7b";
+    version = "153.4.0esr";
+    sha512 = "93c43a75010b2edd36c58d054cd2e15a879b9e62e21f419bd8c7f97b8f7f6f29e8aed9d445ab9ccebdc1825dbf0f5e82e6e316c5f817f877d64266a2f2dbf9ec";
 
     updateScript = callPackage ./update.nix {
       attrPath = "thunderbirdPackages.thunderbird-153";
       versionPrefix = "153";
-      versionSuffix = "esr";
-    };
-  };
-
-  thunderbird-140 = common {
-    applicationName = "Thunderbird ESR";
-
-    version = "140.15.0esr";
-    sha512 = "52f014fb75ac131780aba924dd973a1fb5d6a60be4f800c258dca931e2c6ad75baaad37a5ad52228e91d3d174823b6b4d38ddc2dbbf9c04b8700cc33079448bb";
-
-    updateScript = callPackage ./update.nix {
-      attrPath = "thunderbirdPackages.thunderbird-140";
-      versionPrefix = "140";
       versionSuffix = "esr";
     };
   };
@@ -126,4 +114,5 @@ rec {
   thunderbird-102 = throw "Thunderbird 102 support ended in September 2023";
   thunderbird-115 = throw "Thunderbird 115 support ended in October 2024";
   thunderbird-128 = throw "Thunderbird 128 support ended in August 2025";
+  thunderbird-140 = throw "Thunderbird 140 has been removed. Use thunderbird-esr instead.";
 }

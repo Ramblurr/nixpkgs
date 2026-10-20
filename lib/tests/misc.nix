@@ -61,6 +61,8 @@ let
     genList
     getExe
     getExe'
+    getDarwinApp
+    getDarwinApp'
     getLicenseFromSpdxIdOr
     groupBy
     groupBy'
@@ -1849,6 +1851,42 @@ runTests {
     {
       expr = lists.commonPrefix longList longList;
       expected = longList;
+    };
+
+  testListCommonPrefixLengthExample1 = {
+    expr = lists.commonPrefixLength [ 1 2 3 4 5 6 ] [ 1 2 4 8 ];
+    expected = 2;
+  };
+  testListCommonPrefixLengthExample2 = {
+    expr = lists.commonPrefixLength [ 1 2 3 ] [ 1 2 3 4 5 ];
+    expected = 3;
+  };
+  testListCommonPrefixLengthExample3 = {
+    expr = lists.commonPrefixLength [ 1 2 3 ] [ 4 5 6 ];
+    expected = 0;
+  };
+  testListCommonPrefixLengthEmpty = {
+    expr = lists.commonPrefixLength [ ] [ 1 2 3 ];
+    expected = 0;
+  };
+  testListCommonPrefixLengthSame = {
+    expr = lists.commonPrefixLength [ 1 2 3 ] [ 1 2 3 ];
+    expected = 3;
+  };
+  testListCommonPrefixLengthLazy = {
+    expr =
+      lists.commonPrefixLength
+        [ 1 ]
+        [ 1 (abort "lib.lists.commonPrefixLength shouldn't evaluate this") ];
+    expected = 1;
+  };
+  testListCommonPrefixLengthLong =
+    let
+      longList = genList (n: n) 100000;
+    in
+    {
+      expr = lists.commonPrefixLength longList longList;
+      expected = 100000;
     };
 
   testSort = {
@@ -4715,6 +4753,31 @@ runTests {
   testGetExe'FailureFirstArg = testingThrow (getExe' "not a derivation" "executable");
 
   testGetExe'FailureSecondArg = testingThrow (getExe' { type = "derivation"; } "dir/executable");
+
+  testGetDarwinAppOutput = {
+    expr = getDarwinApp {
+      type = "derivation";
+      out = "somelonghash";
+      bin = "somelonghash";
+      meta.mainDarwinApp = "mainDarwinApp.app";
+    };
+    expected = "somelonghash/Applications/mainDarwinApp.app";
+  };
+
+  testGetDarwinApp'Output = {
+    expr = getDarwinApp' {
+      type = "derivation";
+      out = "somelonghash";
+      bin = "somelonghash";
+    } "app.app";
+    expected = "somelonghash/Applications/app.app";
+  };
+
+  testGetDarwinApp'FailureFirstArg = testingThrow (getDarwinApp' "not a derivation" "executable");
+
+  testGetDarwinApp'FailureSecondArg = testingThrow (
+    getDarwinApp' { type = "derivation"; } "dir/executable"
+  );
 
   testGetLicenseFromSpdxIdOrExamples = {
     expr = [

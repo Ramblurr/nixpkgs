@@ -1,4 +1,13 @@
 {
+  "module-services-netbird-relay": [
+    "index.html#module-services-netbird-relay"
+  ],
+  "module-services-netbird-relay-quickstart": [
+    "index.html#module-services-netbird-relay-quickstart"
+  ],
+  "module-services-netbird-relay-tls": [
+    "index.html#module-services-netbird-relay-tls"
+  ],
   "module-services-portmaster": [
     "index.html#module-services-portmaster"
   ],
@@ -137,23 +146,23 @@
   "module-services-mautrix-discord-troubleshooting": [
     "index.html#module-services-mautrix-discord-troubleshooting"
   ],
+  "module-services-navidrome": [
+    "index.html#module-services-navidrome"
+  ],
+  "module-services-navidrome-basic-usage": [
+    "index.html#module-services-navidrome-basic-usage"
+  ],
+  "module-services-navidrome-configuration-options": [
+    "index.html#module-services-navidrome-configuration-options"
+  ],
+  "module-services-navidrome-plugins": [
+    "index.html#module-services-navidrome-plugins"
+  ],
+  "module-services-navidrome-secrets": [
+    "index.html#module-services-navidrome-secrets"
+  ],
   "module-services-onedrive": [
     "index.html#module-services-onedrive"
-  ],
-  "module-services-ocis": [
-    "index.html#module-services-ocis"
-  ],
-  "module-services-ocis-basic-usage": [
-    "index.html#module-services-ocis-basic-usage"
-  ],
-  "module-services-ocis-configuration-via-environment-variables": [
-    "index.html#module-services-ocis-configuration-via-environment-variables"
-  ],
-  "module-services-ocis-maintainer-info": [
-    "index.html#module-services-ocis-maintainer-info"
-  ],
-  "module-services-ocis-upgrading": [
-    "index.html#module-services-ocis-upgrading"
   ],
   "module-services-rnsd": [
     "index.html#module-services-rnsd"
@@ -273,6 +282,9 @@
   ],
   "sec-boot-problems-scripted-stage-1": [
     "index.html#sec-boot-problems-scripted-stage-1"
+  ],
+  "sec-crowdsec-reset": [
+    "index.html#sec-crowdsec-reset"
   ],
   "sec-nixos-test-vms-vs-containers": [
     "index.html#sec-nixos-test-vms-vs-containers"
@@ -1093,12 +1105,6 @@
   "module-services-jitsi-configuration": [
     "index.html#module-services-jitsi-configuration"
   ],
-  "module-services-honk": [
-    "index.html#module-services-honk"
-  ],
-  "module-services-honk-basic-usage": [
-    "index.html#module-services-honk-basic-usage"
-  ],
   "module-services-hatsu": [
     "index.html#module-services-hatsu"
   ],
@@ -1513,9 +1519,6 @@
   ],
   "module-services-gitlab-runner": [
     "index.html#module-services-gitlab-runner"
-  ],
-  "ex-gitlab-runner-podman": [
-    "index.html#ex-gitlab-runner-podman"
   ],
   "module-forgejo": [
     "index.html#module-forgejo"
@@ -2952,5 +2955,31 @@
   ],
   "sec-release-13.10": [
     "release-notes.html#sec-release-13.10"
+  ],
+  "ch-services": [
+    "index.html#ch-services"
+  ],
+  "ch-reference": [
+    "index.html#ch-reference"
+  ],
+  "sec-release-26.05-incompatibilities-services-honk-removed": [
+    "release-notes.html#sec-release-26.05-incompatibilities-services-honk-removed",
+    "index.html#module-services-honk",
+    "index.html#module-services-honk-basic-usage"
+  ],
+  "module-garm": [
+    "index.html#module-garm"
+  ],
+  "module-garm-secrets": [
+    "index.html#module-garm-secrets"
+  ],
+  "module-garm-providers": [
+    "index.html#module-garm-providers"
+  ],
+  "module-garm-reachability": [
+    "index.html#module-garm-reachability"
+  ],
+  "module-garm-setup": [
+    "index.html#module-garm-setup"
   ]
 }

@@ -6,6 +6,7 @@
   setuptools,
   aiohttp,
   bcrypt,
+  execnet,
   freezegun,
   homeassistant,
   paho-mqtt,
@@ -19,7 +20,7 @@
 
 buildPythonPackage rec {
   pname = "pytest-homeassistant-custom-component";
-  version = "0.13.365";
+  version = "0.13.373";
   pyproject = true;
 
   disabled = pythonOlder "3.13";
@@ -28,7 +29,7 @@ buildPythonPackage rec {
     owner = "MatthewFlamm";
     repo = "pytest-homeassistant-custom-component";
     tag = version;
-    hash = "sha256-ETvPBSmFySu10Q2MLeKAZNEdb2XnYxTzThSSg6bkG8Y=";
+    hash = "sha256-VPbkr4nH7oxSqP90jeQIAeWyMnhvyN67vq489DJh7xU=";
   };
 
   patches = [
@@ -43,6 +44,7 @@ buildPythonPackage rec {
   dependencies = [
     aiohttp
     bcrypt
+    execnet
     freezegun
     homeassistant
     paho-mqtt

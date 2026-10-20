@@ -3,31 +3,36 @@
   rustPlatform,
   fetchFromGitHub,
   pkg-config,
-  openssl,
+  aws-lc,
+  sqlite,
   cacert,
   nixosTests,
 }:
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "rustical";
-  version = "0.16.2";
+  version = "0.16.6";
   __darwinAllowLocalNetworking = true;
 
   src = fetchFromGitHub {
     owner = "lennart-k";
     repo = "rustical";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-fuHTgU6S+goaih0rwY1JkDTR95fcRws3o9wHJWyy8vM=";
+    hash = "sha256-dSnjxZE74uJBLlCBj3yq8phKAgoKDhiL84xvX91Vvd0=";
   };
 
-  cargoHash = "sha256-kaVmmroa3IADmnzdc4w/kxxloXgMsX6Xy1iAWOJoAR0=";
+  cargoHash = "sha256-8/PJG5F1yNyme/24rG/N3d3OSldAMOOFTaipTQyfpPo=";
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [ openssl ];
+  buildInputs = [
+    aws-lc
+    sqlite
+  ];
 
   env = {
-    OPENSSL_NO_VENDOR = true;
+    AWS_LC_SYS_USE_SYSTEM = true;
+    LIBSQLITE3_SYS_USE_PKG_CONFIG = true;
     SSL_CERT_FILE = "${cacert}/etc/ssl/certs/ca-bundle.crt";
   };
 
