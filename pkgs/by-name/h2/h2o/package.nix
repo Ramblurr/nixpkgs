@@ -2,6 +2,7 @@
   lib,
   stdenv,
   fetchFromGitHub,
+  cacert,
   pkg-config,
   cmake,
   makeBinaryWrapper,
@@ -22,18 +23,19 @@
   liburing,
   withZstandard ? true,
   zstd,
+  withVendoredCACert ? false,
   nixosTests,
 }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "h2o";
-  version = "2.3.0-rolling-2026-09-10";
+  version = "2.3.0-rolling-2026-10-23";
 
   src = fetchFromGitHub {
     owner = "h2o";
     repo = "h2o";
-    rev = "cac7e6568ad98a848f099ecd0a18b881f632479a";
-    hash = "sha256-ohdJtdxqSeCp4oMbx9LUfEP0sZ2hX+DsNgGz5ZUgq0U=";
+    rev = "6263f6048e7144c96f7b1177d5562627739976bd";
+    hash = "sha256-eNqNQZtWhvDjma+HPuppmL3Jq+pCsVlggQEXyRPT0v8=";
   };
 
   outputs = [
@@ -86,6 +88,10 @@ stdenv.mkDerivation (finalAttrs: {
 
     wrapProgram "$out/bin/h2olog" \
         --set "PERL5LIB" "$PERL5LIB"
+  ''
+  + lib.optionalString (!withVendoredCACert) ''
+    rm $out/share/h2o/ca-bundle.crt
+    ln -s ${cacert}/etc/ssl/certs/ca-bundle.crt $out/share/h2o/ca-bundle.crt
   '';
 
   passthru = {
