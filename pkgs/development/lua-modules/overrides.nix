@@ -116,6 +116,9 @@ in
   });
 
   cqueues = prev.cqueues.overrideAttrs (old: {
+    # The rockspec below is rewritten to build for every supported Lua version.
+    disabled = luaOlder "5.1" || luaAtLeast "5.6";
+
     # Parse out a version number without the Lua version inserted
     version =
       let
@@ -162,6 +165,8 @@ in
         sed -Ei ''${rockspecFilename} \
           -e 's|lua == 5.[[:digit:]]|lua >= 5.1, <= 5.5|' \
           -e 's|build_target = "[^"]+"|build_target = "all"|' \
+          -e 's|install_target = "[^"]+"|install_target = "install${lua.luaversion}"|' \
+          -e 's|lua5[0-9](c?path)|lua${lib.replaceStrings [ "." ] [ "" ] lua.luaversion}\1|g' \
           -e 's|version = "[^"]+"|version = "${version}"|'
         specDir=$(dirname ''${rockspecFilename})
         cp ''${rockspecFilename} "$specDir/${pname}-${version}.rockspec"
@@ -537,15 +542,12 @@ in
     '';
   };
 
-  lua-resty-jwt = prev.lua-resty-jwt.overrideAttrs {
-    src = fetchFromGitHub {
-      owner = "cdbattags";
-      repo = "lua-resty-jwt";
-      rev = "v0.3.2";
-      hash = "sha256-VCi5ge2jAldJQgecFeMZJkq5PqRQdUs+K8NsXWmK7IQ=";
+  lua-resty-jwt = prev.lua-resty-jwt.overrideAttrs (old: {
+    src = old.src.override {
       fetchSubmodules = true;
+      hash = "sha256-71Y88ZvmvysgTmY19eogLO1xNaY0WMjhZ//r18dFPdw=";
     };
-  };
+  });
 
   lua-rtoml = prev.lua-rtoml.overrideAttrs (old: {
     strictDeps = false;
@@ -1138,6 +1140,11 @@ in
   };
 
   rocks-nvim = prev.rocks-nvim.overrideAttrs (oa: {
+    # Inserting keys during pairs() traversal can omit the WARN log level.
+    postPatch = (oa.postPatch or "") + ''
+      substituteInPlace lua/rocks/log.lua \
+        --replace-fail 'pairs(log_levels)' 'pairs(vim.log.levels)'
+    '';
 
     nativeCheckInputs = [
       final.nlua

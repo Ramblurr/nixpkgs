@@ -13,6 +13,7 @@
   rcodesign,
   alsa-lib,
   libpulseaudio,
+  pipewire,
   libGL,
   libx11,
   libxkbcommon,
@@ -37,7 +38,7 @@ let
 in
 rustPlatform.buildRustPackage rec {
   pname = "spotifast";
-  version = "0.13.2";
+  version = "0.14.1";
 
   __structuredAttrs = true;
 
@@ -45,10 +46,10 @@ rustPlatform.buildRustPackage rec {
     owner = "crmne";
     repo = "spotifast";
     tag = "v${version}";
-    hash = "sha256-hLfEzRKtEiLQH8AQ/ZFCUYhin7tkrKbUfNVQ+WtP+FU=";
+    hash = "sha256-RYeHaD3c5UfkF3f7dsfMlyKNL4u2CPBO2Zxq0bUg5x0=";
   };
 
-  cargoHash = "sha256-IUUYCJNOPMGSvwCybroPMlEGvTiXM7eJ4Rkga4zFpjs=";
+  cargoHash = "sha256-olyivbujtAcdAoJwBPIeW7OxpRABH11Fc0aqHtezz4I=";
 
   # projectm-sys only searches lib, while CMake may otherwise install to lib64.
   postPatch = ''
@@ -80,6 +81,7 @@ rustPlatform.buildRustPackage rec {
     lib.optionals stdenv.hostPlatform.isLinux [
       alsa-lib
       libpulseaudio
+      pipewire
       libGL
       libx11
     ]
