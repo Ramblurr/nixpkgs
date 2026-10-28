@@ -368,16 +368,6 @@ with pkgs;
 
   deviceTree = callPackage ../os-specific/linux/device-tree { };
 
-  inherit (callPackage ../servers/ocis-bin { })
-    ocis_5-bin
-    ocis_70-bin
-    ocis_71-bin
-    ocis_72-bin
-    ocis_73-bin
-    ocis_80-bin
-    ocis_81-bin
-    ;
-
   octodns-providers = octodns.providers;
 
   oletools = with python3.pkgs; toPythonApplication oletools;
@@ -5211,8 +5201,6 @@ with pkgs;
     aspell = aspell.override { searchNixProfiles = false; };
   };
 
-  astal = recurseIntoAttrs (lib.makeScope newScope (callPackage ../development/libraries/astal { }));
-
   attr = callPackage ../development/libraries/attr { };
 
   # Not moved to aliases while we decide if we should split the package again.
@@ -6377,8 +6365,6 @@ with pkgs;
     avrlibc = pkgsCross.avr.libc;
   };
 
-  simpleitk = callPackage ../development/libraries/simpleitk { lua = lua5_4; };
-
   skawarePackages = recurseIntoAttrs (callPackage ../development/skaware-packages { });
 
   inherit (skawarePackages)
@@ -7134,15 +7120,6 @@ with pkgs;
       packages // (lib.optionalAttrs config.allowAliases aliases)
     )
   );
-
-  # We should move to dynamic modules and create a nginxFull package with all modules
-  nginxShibboleth = nginxStable.override {
-    modules = [
-      nginxModules.rtmp
-      nginxModules.moreheaders
-      nginxModules.shibboleth
-    ];
-  };
 
   nsdiff = perlPackages.nsdiff;
 
@@ -8703,12 +8680,6 @@ with pkgs;
   };
 
   pianoteq = callPackage ../applications/audio/pianoteq { };
-
-  pidginPackages = recurseIntoAttrs (
-    callPackage ../applications/networking/instant-messengers/pidgin/pidgin-plugins { }
-  );
-
-  inherit (pidginPackages) pidgin;
 
   puredata-with-plugins =
     plugins: callPackage ../by-name/pu/puredata/wrapper.nix { inherit plugins; };
