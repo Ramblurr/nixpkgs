@@ -637,6 +637,7 @@ in
   facter = runTest ./facter;
   fail2ban = runTest ./fail2ban.nix;
   fakeroute = runTest ./fakeroute.nix;
+  falco = runTest ./falco.nix;
   fancontrol = runTest ./fancontrol.nix;
   fanout = runTest ./fanout.nix;
   fastnetmon-advanced = runTest ./fastnetmon-advanced.nix;
@@ -725,7 +726,7 @@ in
   fsck = runTest ./fsck.nix;
   fscrypt = runTest ./fscrypt.nix;
   ft2-clone = runTest ./ft2-clone.nix;
-  galene = discoverTests (import ./galene.nix { inherit runTest; });
+  galene = import ./galene.nix { inherit runTest; };
   gancio = runTest ./gancio.nix;
   garage_1 = import ./garage {
     inherit runTest;
@@ -1322,7 +1323,7 @@ in
   nzbhydra2 = runTest ./nzbhydra2.nix;
   obs-studio = runTest ./obs-studio.nix;
   oci-containers = handleTestOn [ "aarch64-linux" "x86_64-linux" ] ./oci-containers.nix { };
-  ocis = recurseIntoAttrs (import ./ocis { inherit evalSystem pkgs runTest; });
+  ocis = runTest ./ocis.nix;
   ocsinventory-agent = handleTestOn [ "x86_64-linux" "aarch64-linux" ] ./ocsinventory-agent.nix { };
   octoprint = runTest ./octoprint.nix;
   oddjobd = handleTestOn [ "x86_64-linux" "aarch64-linux" ] ./oddjobd.nix { };

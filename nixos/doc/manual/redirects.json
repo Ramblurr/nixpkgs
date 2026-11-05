@@ -164,21 +164,6 @@
   "module-services-onedrive": [
     "index.html#module-services-onedrive"
   ],
-  "module-services-ocis": [
-    "index.html#module-services-ocis"
-  ],
-  "module-services-ocis-basic-usage": [
-    "index.html#module-services-ocis-basic-usage"
-  ],
-  "module-services-ocis-configuration-via-environment-variables": [
-    "index.html#module-services-ocis-configuration-via-environment-variables"
-  ],
-  "module-services-ocis-maintainer-info": [
-    "index.html#module-services-ocis-maintainer-info"
-  ],
-  "module-services-ocis-upgrading": [
-    "index.html#module-services-ocis-upgrading"
-  ],
   "module-services-rnsd": [
     "index.html#module-services-rnsd"
   ],
@@ -1184,9 +1169,6 @@
   ],
   "module-services-davis-basic-usage": [
     "index.html#module-services-davis-basic-usage"
-  ],
-  "module-services-davis-webdav": [
-    "index.html#module-services-davis-webdav"
   ],
   "module-services-draupnir": [
     "index.html#module-services-draupnir"
@@ -3014,5 +2996,26 @@
   ],
   "module-garm-setup": [
     "index.html#module-garm-setup"
+  ],
+  "module-services-falco": [
+    "index.html#module-services-falco"
+  ],
+  "module-services-falco-basic-usage": [
+    "index.html#module-services-falco-basic-usage"
+  ],
+  "module-services-falco-configuration": [
+    "index.html#module-services-falco-configuration"
+  ],
+  "module-services-falco-rules": [
+    "index.html#module-services-falco-rules"
+  ],
+  "module-services-falco-outputs": [
+    "index.html#module-services-falco-outputs"
+  ],
+  "module-services-falco-webserver": [
+    "index.html#module-services-falco-webserver"
+  ],
+  "module-services-falco-best-practices": [
+    "index.html#module-services-falco-best-practices"
   ]
 }
