@@ -1749,6 +1749,20 @@ final: prev: {
     meta.hydraPlatforms = [ ];
   };
 
+  bg-nvim = buildVimPlugin {
+    pname = "bg.nvim";
+    version = "0-unstable-2026-02-18";
+    src = fetchFromGitHub {
+      owner = "typicode";
+      repo = "bg.nvim";
+      rev = "85da2c68409820466753b50c2e6f699517778a17";
+      hash = "sha256-s9m5OgQpehrkIU6bWj70RDEqvSzlxzpih8sRuQrtdC0=";
+    };
+    meta.homepage = "https://github.com/typicode/bg.nvim/";
+    meta.license = getLicenseFromSpdxId "MIT";
+    meta.hydraPlatforms = [ ];
+  };
+
   bigfile-nvim = buildVimPlugin {
     pname = "bigfile.nvim";
     version = "0-unstable-2023-11-06";
@@ -15106,6 +15120,20 @@ final: prev: {
     meta.hydraPlatforms = [ ];
   };
 
+  pentatonic-nvim = buildVimPlugin {
+    pname = "pentatonic.nvim";
+    version = "0-unstable-2026-10-31";
+    src = fetchFromGitHub {
+      owner = "farbzen";
+      repo = "pentatonic.nvim";
+      rev = "fe3c350795baa9a7cabd1a9fa37198c6a4c30f05";
+      hash = "sha256-aahik42orj0OfyaSY43Ln14MaDosT92j8cWjUv6gyfI=";
+    };
+    meta.homepage = "https://github.com/farbzen/pentatonic.nvim/";
+    meta.license = getLicenseFromSpdxId "MIT";
+    meta.hydraPlatforms = [ ];
+  };
+
   perfanno-nvim = buildVimPlugin {
     pname = "perfanno.nvim";
     version = "0-unstable-2026-01-20";
@@ -17416,6 +17444,20 @@ final: prev: {
     };
     meta.homepage = "https://github.com/godlygeek/tabular/";
     meta.license = unfree;
+    meta.hydraPlatforms = [ ];
+  };
+
+  tacho-nvim = buildVimPlugin {
+    pname = "tacho.nvim";
+    version = "0.1.0";
+    src = fetchFromGitHub {
+      owner = "farbzen";
+      repo = "tacho.nvim";
+      tag = "v0.1.0";
+      hash = "sha256-lJbf9T6EsVYSadYn1aRprFgVWtwe7CEqdnCmUUE9K1M=";
+    };
+    meta.homepage = "https://github.com/farbzen/tacho.nvim/";
+    meta.license = getLicenseFromSpdxId "MIT";
     meta.hydraPlatforms = [ ];
   };
 

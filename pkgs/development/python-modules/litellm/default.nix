@@ -78,14 +78,14 @@
 
 buildPythonPackage (finalAttrs: {
   pname = "litellm";
-  version = "1.106.4";
+  version = "1.108.0";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "BerriAI";
     repo = "litellm";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-i/f/GLAfKjpsmKdzghA5DGpGd87BJkbKqCS4CZuCtx0=";
+    hash = "sha256-n30jJ/pDhCAhLTJuDOS+z8cXnvvVYkn4ETxVVR5uZuI=";
   };
 
   nativeBuildInputs = with rustPlatform; [
@@ -102,7 +102,7 @@ buildPythonPackage (finalAttrs: {
       src
       cargoRoot
       ;
-    hash = "sha256-Qf6LV9p6Acy1wewcqrSvJf7CMyus94CNqWtq2CMALso=";
+    hash = "sha256-2Hok5ZKrpeyW/KuXdOuVB/vAdxdk4R6bamcqVQoCRmA=";
   };
 
   patches = [
@@ -214,6 +214,7 @@ buildPythonPackage (finalAttrs: {
     "boto3"
     "certifi"
     "click"
+    "huggingface-hub"
     "importlib-metadata"
     "jsonschema"
     "openai"
