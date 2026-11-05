@@ -47,6 +47,9 @@
   "cuda-extending-cuda-package-sets": [
     "index.html#cuda-extending-cuda-package-sets"
   ],
+  "cuda-gpu-unlock": [
+    "index.html#cuda-gpu-unlock"
+  ],
   "cuda-modifying-cuda-package-sets": [
     "index.html#cuda-modifying-cuda-package-sets",
     "index.html#cuda-configuring-cuda-package-sets"
@@ -385,6 +388,9 @@
   ],
   "npm-install-hook-variables": [
     "index.html#npm-install-hook-variables"
+  ],
+  "pkgConfigCheckHook": [
+    "index.html#pkgConfigCheckHook"
   ],
   "pkgs-replacevars": [
     "index.html#pkgs-replacevars",

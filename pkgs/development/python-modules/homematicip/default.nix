@@ -15,7 +15,7 @@
 
 buildPythonPackage (finalAttrs: {
   pname = "homematicip";
-  version = "2.19.1";
+  version = "2.21.0";
   pyproject = true;
 
   __darwinAllowLocalNetworking = true;
@@ -24,7 +24,7 @@ buildPythonPackage (finalAttrs: {
     owner = "hahn-th";
     repo = "homematicip-rest-api";
     tag = finalAttrs.version;
-    hash = "sha256-7QpGiJ9OHlgKJY8WRTC7FlJoGz+LllP6YIqAWtBdHSE=";
+    hash = "sha256-txqT2ACnDbp6plqkApcSrvRKGxcD5Soi+yf/dhSiThM=";
   };
 
   build-system = [

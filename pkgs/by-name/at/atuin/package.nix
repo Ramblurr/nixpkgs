@@ -19,16 +19,16 @@
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "atuin";
-  version = "18.24.2";
+  version = "18.24.4";
 
   src = fetchFromGitHub {
     owner = "atuinsh";
     repo = "atuin";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-b6Uj3cPAu731lhrN8fOv4d0CpehT3bv7IOBmkbYrqfI=";
+    hash = "sha256-IyAR7TZqMrCuflkfs9Rgnfm5PrUDYVi0O8//WU8/KAI=";
   };
 
-  cargoHash = "sha256-HkYI2+Yvjnw9pKeRsteyZeLhHHErTa1mvJL16NQVF3g=";
+  cargoHash = "sha256-rwB3hdVygTRAxaSCIioFAjMWw9V5bkRUBXHyFrQ4MtI=";
 
   # atuin's default features include 'check-updates', which do not make sense
   # for distribution builds. List all other default features.
@@ -81,6 +81,8 @@ rustPlatform.buildRustPackage (finalAttrs: {
     "--skip=multi_user_test"
     # needs a running Postgres server
     "--skip=postgres_authenticates_with_the_password_file"
+    "--skip=deleting_an_account_needs_its_password"
+    "--skip=operator_creates_resets_and_deletes_a_user"
     # timing-dependent: fails when the index reload is too fast to measure
     "--skip=end_history_is_not_starved_by_an_index_reload"
     # timing sensitive
@@ -89,6 +91,16 @@ rustPlatform.buildRustPackage (finalAttrs: {
     "--skip=continuing_a_diverged_session_carries_one_branch"
     "--skip=continuing_in_another_agent_carries_the_conversation"
     "--skip=disjoint_concurrent_deletes_leave_the_index_empty"
+    "--skip=a_session_gone_on_with_elsewhere_catches_up_where_it_came_from::agent_1_Agent__Claude"
+    "--skip=capture_keeps_the_conversation_and_tool_calls::agent_1_Agent__Claude::capture_tools_1_true"
+    "--skip=capture_follows_a_transcript_exactly_once_across_restarts::agent_1_Agent__Claude"
+    "--skip=capture_follows_a_transcript_exactly_once_across_restarts::agent_3_Agent__Copilot"
+    "--skip=capture_follows_a_transcript_exactly_once_across_restarts::agent_4_Agent__Opencode"
+  ]
+  ++ lib.optionals stdenv.hostPlatform.isDarwin [
+    # Pi's liveness checks can treat unrelated host processes as an active session
+    "--skip=a_diverged_copy_resumes_only_as_chosen::agent_4_Agent__Pi"
+    "--skip=a_session_gone_on_with_elsewhere_catches_up_where_it_came_from::agent_3_Agent__Pi"
   ];
 
   # The e2e tests start an interactive bash, which sources the host's

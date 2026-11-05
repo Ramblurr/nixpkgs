@@ -34,7 +34,7 @@ stdenv.mkDerivation (finalAttrs: {
   version = "1.10.0";
 
   src = fetchFromGitHub {
-    owner = "streetpea";
+    owner = "chiaki-ng";
     repo = "chiaki-ng";
     tag = "v${finalAttrs.version}";
     hash = "sha256-se60wu1rwk/w5QG+pFvdtKD+zsJQdOmBole2WY2KCxw=";
@@ -89,7 +89,10 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   qtWrapperArgs = [
-    "--prefix LD_LIBRARY_PATH : ${vulkan-loader}/lib"
+    "--prefix"
+    "LD_LIBRARY_PATH"
+    ":"
+    "${vulkan-loader}/lib"
   ];
 
   pythonPath = [
