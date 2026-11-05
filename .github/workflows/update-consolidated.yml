@@ -17,6 +17,7 @@ env:
     init/ocis_7-bin
     fix/babashka-deps-tools
     fix/jet-native-image
+    fix/davis-module
 
 jobs:
   update-personal-master:
