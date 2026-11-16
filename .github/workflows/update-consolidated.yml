@@ -15,7 +15,6 @@ env:
   PERSONAL_MASTER_BRANCH: channel/personal-master
   FEATURE_BRANCHES: |
     init/ocis_7-bin
-    fix/babashka-deps-tools
     fix/jet-native-image
     fix/davis-module
 
