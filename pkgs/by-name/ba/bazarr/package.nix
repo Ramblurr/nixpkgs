@@ -31,7 +31,6 @@ python3Packages.buildPythonApplication (finalAttrs: {
     webrtcvad
   ];
 
-  __structuredAttrs = true;
   dontBuild = true;
   dontWrapPythonPrograms = true;
   pyproject = false;
@@ -105,7 +104,10 @@ python3Packages.buildPythonApplication (finalAttrs: {
     tests.smoke-test = nixosTests.bazarr;
 
     updateScript = nix-update-script {
-      extraArgs = lib.cli.toCommandLineGNU { } { subpackage = "frontend"; };
+      extraArgs = lib.cli.toCommandLineGNU { } {
+        subpackage = "frontend";
+        use-github-releases = true;
+      };
     };
   };
 

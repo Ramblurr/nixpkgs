@@ -9,13 +9,13 @@
 
 buildNpmPackage (finalAttrs: {
   pname = "mcp-server-memory";
-  version = "2.1.0";
+  version = "2.4.0";
 
   src = fetchFromGitHub {
     owner = "modelcontextprotocol";
     repo = "servers";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-gzT45m4S/S7sighNwYw4I01jiLsUrGh+9H9p0neaQDE=";
+    hash = "sha256-edwibnJdNuOAF31FbZQ/CVDxM5WyIxl0ycmebTkWroE=";
   };
 
   postPatch = ''
@@ -33,7 +33,7 @@ buildNpmPackage (finalAttrs: {
   npmWorkspace = "src/memory";
   npmDeps = fetchNpmDeps {
     inherit (finalAttrs) src;
-    hash = "sha256-2V/DxjLtxMm+X7BPApi4JXa6R91O6TaD6J0cH37Cyoo=";
+    hash = "sha256-t/Ugjb1nySxNNKcw9IGFAvuUwTBebmWPr1EgANY/DOk=";
   };
 
   # TODO: revisit this when https://github.com/NixOS/nixpkgs/pull/333759 has landed

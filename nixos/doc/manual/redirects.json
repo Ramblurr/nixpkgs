@@ -1,4 +1,25 @@
 {
+  "module-services-jellystat": [
+    "index.html#module-services-jellystat"
+  ],
+  "module-services-jellystat-configuration": [
+    "index.html#module-services-jellystat-configuration"
+  ],
+  "module-services-jellystat-external-database": [
+    "index.html#module-services-jellystat-external-database"
+  ],
+  "module-services-jellystat-paths": [
+    "index.html#module-services-jellystat-paths"
+  ],
+  "module-services-jellystat-quickstart": [
+    "index.html#module-services-jellystat-quickstart"
+  ],
+  "module-services-jellystat-secrets": [
+    "index.html#module-services-jellystat-secrets"
+  ],
+  "module-services-jellystat-troubleshooting": [
+    "index.html#module-services-jellystat-troubleshooting"
+  ],
   "module-services-netbird-relay": [
     "index.html#module-services-netbird-relay"
   ],
@@ -163,21 +184,6 @@
   ],
   "module-services-onedrive": [
     "index.html#module-services-onedrive"
-  ],
-  "module-services-ocis": [
-    "index.html#module-services-ocis"
-  ],
-  "module-services-ocis-basic-usage": [
-    "index.html#module-services-ocis-basic-usage"
-  ],
-  "module-services-ocis-configuration-via-environment-variables": [
-    "index.html#module-services-ocis-configuration-via-environment-variables"
-  ],
-  "module-services-ocis-maintainer-info": [
-    "index.html#module-services-ocis-maintainer-info"
-  ],
-  "module-services-ocis-upgrading": [
-    "index.html#module-services-ocis-upgrading"
   ],
   "module-services-rnsd": [
     "index.html#module-services-rnsd"
@@ -952,12 +958,8 @@
     "index.html#module-services-garage"
   ],
   "module-services-garage-upgrade-scenarios": [
-    "index.html#module-services-garage-upgrade-scenarios"
-  ],
-  "module-services-garage-advanced-upgrades": [
-    "index.html#module-services-garage-advanced-upgrades"
-  ],
-  "module-services-garage-maintainer-info": [
+    "index.html#module-services-garage-upgrade-scenarios",
+    "index.html#module-services-garage-advanced-upgrades",
     "index.html#module-services-garage-maintainer-info"
   ],
   "module-services-youtrack": [
@@ -1004,6 +1006,39 @@
   ],
   "module-services-plausible-basic-usage": [
     "index.html#module-services-plausible-basic-usage"
+  ],
+  "module-pelican-wings": [
+    "index.html#module-pelican-wings"
+  ],
+  "module-pelican-wings-setup": [
+    "index.html#module-pelican-wings-setup"
+  ],
+  "module-pelican-wings-podman": [
+    "index.html#module-pelican-wings-podman"
+  ],
+  "module-pelican-wings-traefik": [
+    "index.html#module-pelican-wings-traefik"
+  ],
+  "module-pelican-panel": [
+    "index.html#module-pelican-panel"
+  ],
+  "module-pelican-panel-basic-usage": [
+    "index.html#module-pelican-panel-basic-usage"
+  ],
+  "module-pelican-panel-environment": [
+    "index.html#module-pelican-panel-environment"
+  ],
+  "module-pelican-panel-reverse-proxy": [
+    "index.html#module-pelican-panel-reverse-proxy"
+  ],
+  "module-pelican-panel-database": [
+    "index.html#module-pelican-panel-database"
+  ],
+  "module-pelican-panel-database-type": [
+    "index.html#module-pelican-panel-database-type"
+  ],
+  "module-pelican-panel-database-remote-database": [
+    "index.html#module-pelican-panel-database-remote-database"
   ],
   "module-services-pict-rs": [
     "index.html#module-services-pict-rs"
@@ -1184,9 +1219,6 @@
   ],
   "module-services-davis-basic-usage": [
     "index.html#module-services-davis-basic-usage"
-  ],
-  "module-services-davis-webdav": [
-    "index.html#module-services-davis-webdav"
   ],
   "module-services-draupnir": [
     "index.html#module-services-draupnir"

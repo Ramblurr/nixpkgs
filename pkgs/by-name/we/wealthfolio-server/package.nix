@@ -11,6 +11,9 @@
   pkg-config,
   openssl,
   cacert,
+  aws-lc,
+  sqlcipher,
+  zstd,
 }:
 
 rustPlatform.buildRustPackage (
@@ -31,7 +34,7 @@ rustPlatform.buildRustPackage (
 
         pnpm = pnpm_10;
         fetcherVersion = 3;
-        hash = "sha256-R439wJLsUyynpRItoa+x4AbTD3KG4qEaDIWnmVHvsMk=";
+        hash = "sha256-+b+1Lc4/HXNeUg1otPqF2IE/AzmbaEtCHwhWDSRne34=";
       };
 
       nativeBuildInputs = [
@@ -57,18 +60,18 @@ rustPlatform.buildRustPackage (
     __structuredAttrs = true;
 
     pname = "wealthfolio-server";
-    version = "3.11.0";
+    version = "3.13.0";
 
     src = fetchFromGitHub {
       owner = "wealthfolio";
       repo = "wealthfolio";
       tag = "v${finalAttrs.version}";
-      hash = "sha256-1caBvxUE4JRcRyHwyxfxVITF7QMWjWnnoIkkBXfUh0g=";
+      hash = "sha256-m8ndnxlZ2R2oR1Arxj8uF3VYKQDYx2bmAfTaIVyRiJE=";
     };
 
     cargoRoot = ".";
     buildAndTestSubdir = "apps/server";
-    cargoHash = "sha256-zim5nmTBsxvZqU7iobPf5orM0MAJLoXq5rvNgeM8+LE=";
+    cargoHash = "sha256-m94yMmYtBwrR3LMfSNf3IVmEKcvg+I00Hbe1ip28TE0=";
 
     env = {
       OPENSSL_NO_VENDOR = 1;
@@ -80,7 +83,12 @@ rustPlatform.buildRustPackage (
       pkg-config
     ];
 
-    buildInputs = [ openssl ];
+    buildInputs = [
+      openssl
+      aws-lc
+      sqlcipher
+      zstd
+    ];
 
     postPatch = ''
       # The configuration tests intentionally wipe the environment to simulate a blank slate.

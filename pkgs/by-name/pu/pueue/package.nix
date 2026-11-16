@@ -11,6 +11,8 @@ rustPlatform.buildRustPackage (finalAttrs: {
   pname = "pueue";
   version = "4.0.4";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "Nukesor";
     repo = "pueue";
@@ -32,7 +34,8 @@ rustPlatform.buildRustPackage (finalAttrs: {
   ];
 
   checkFlags = [
-    "--test client_tests"
+    "--test"
+    "client_tests"
     "--skip=test_single_huge_payload"
     "--skip=test_create_unix_socket"
   ];
@@ -59,7 +62,12 @@ rustPlatform.buildRustPackage (finalAttrs: {
       processed, even if you no longer have any active ssh sessions.
     '';
     changelog = "https://github.com/Nukesor/pueue/blob/v${finalAttrs.version}/CHANGELOG.md";
-    license = lib.licenses.mit;
+    license =
+      with lib.licenses;
+      OR [
+        mit
+        asl20
+      ];
     maintainers = with lib.maintainers; [ sarcasticadmin ];
   };
 })
