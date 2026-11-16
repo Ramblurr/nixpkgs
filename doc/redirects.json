@@ -1738,6 +1738,24 @@
   "sec-meta-license": [
     "index.html#sec-meta-license"
   ],
+  "sec-meta-license-multiple": [
+    "index.html#sec-meta-license-multiple"
+  ],
+  "lib.licenses.OR": [
+    "index.html#lib.licenses.OR"
+  ],
+  "lib.licenses.AND": [
+    "index.html#lib.licenses.AND"
+  ],
+  "lib.licenses.WITH": [
+    "index.html#lib.licenses.WITH"
+  ],
+  "lib.licenses.PLUS": [
+    "index.html#lib.licenses.PLUS"
+  ],
+  "sec-meta-license-generic": [
+    "index.html#sec-meta-license-generic"
+  ],
   "lib.licenses.free-free": [
     "index.html#lib.licenses.free-free"
   ],
@@ -2546,6 +2564,9 @@
   "ssec-pkgs-dockerTools-buildImage-examples": [
     "index.html#ssec-pkgs-dockerTools-buildImage-examples"
   ],
+  "ex-desktop-to-darwin-bundle": [
+    "index.html#ex-desktop-to-darwin-bundle"
+  ],
   "ex-dockerTools-buildImage": [
     "index.html#ex-dockerTools-buildImage"
   ],
@@ -2833,6 +2854,12 @@
   ],
   "desktop-file-utils": [
     "index.html#desktop-file-utils"
+  ],
+  "desktop-to-darwin-bundle": [
+    "index.html#desktop-to-darwin-bundle"
+  ],
+  "desktop-to-darwin-bundle-examples": [
+    "index.html#desktop-to-darwin-bundle-examples"
   ],
   "setup-hook-gdk-pixbuf": [
     "index.html#setup-hook-gdk-pixbuf"
@@ -4641,6 +4668,15 @@
   ],
   "ssec-swiftpm-install-phase": [
     "index.html#ssec-swiftpm-install-phase"
+  ],
+  "ssec-swift-macros": [
+    "index.html#ssec-swift-macros"
+  ],
+  "ssec-swift-macros-open-apple-macros": [
+    "index.html#ssec-swift-macros-open-apple-macros"
+  ],
+  "ssec-swift-macros-xcode-macros": [
+    "index.html#ssec-swift-macros-xcode-macros"
   ],
   "ssec-swift-hooks": [
     "index.html#ssec-swift-hooks"

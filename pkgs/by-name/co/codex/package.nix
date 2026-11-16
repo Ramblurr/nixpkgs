@@ -6,6 +6,7 @@
   fetchFromGitHub,
   installShellFiles,
   alsa-lib,
+  aws-lc,
   bubblewrap,
   clang,
   cmake,
@@ -23,13 +24,16 @@
   linkFarm,
   lld,
   nix-update-script,
+  oniguruma,
   pkg-config,
   openssl,
   ps,
   replaceVars,
   ripgrep,
+  sqlite,
   versionCheckHook,
   writeText,
+  zstd,
   installShellCompletions ? stdenv.buildPlatform.canExecute stdenv.hostPlatform,
   _experimental-update-script-combinators,
 }:
@@ -68,21 +72,21 @@ let
 in
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "codex";
-  version = "0.166.0";
+  version = "0.167.1";
 
   src = fetchFromGitHub {
     owner = "openai";
     repo = "codex";
     rev = finalAttrs.buildCommit;
-    hash = "sha256-4zxnVT9PxIj0+ULQ4LSA46GmvfyNTueZ+BsQ2SZwk1I=";
+    hash = "sha256-S63Qd9OGCACz1EK/IzH6LGsZxMovk0UBkOKtv/jnQ+I=";
   };
 
   # Matching client/helper stamps; build_id() requires a full commit SHA.
-  buildCommit = "6ff1e1ca3b30fc8b914720681fcf5fe62e95f856";
+  buildCommit = "0a94398fa60c4fac0e7659e4213a0a36e613dd46";
 
   sourceRoot = "${finalAttrs.src.name}/codex-rs";
 
-  cargoHash = "sha256-3CHn33C1SSX+W0juZik3r8CVoYGoyNlk5mDICwVEcbY=";
+  cargoHash = "sha256-Dqo9nMfbkTcyT+S79U2JdXpnxwrN0fQjjMlG055jvJE=";
   # Disable bundled Opus so OPUS_LIB_DIR selects nixpkgs' libopus.
   cargoDeps =
     (rustPlatform.fetchCargoVendor {
@@ -166,8 +170,12 @@ rustPlatform.buildRustPackage (finalAttrs: {
   ];
 
   buildInputs = [
+    aws-lc
     libclang
+    oniguruma
     openssl
+    sqlite
+    zstd
   ]
   ++ lib.optionals supportsVoice [
     gst_all_1.gstreamer

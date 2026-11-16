@@ -75,6 +75,7 @@ let
       atbr = callPackage ../development/rocq-modules/atbr { };
       autosubst = callPackage ../development/rocq-modules/autosubst { };
       autosubst-ocaml = callPackage ../development/rocq-modules/autosubst-ocaml { };
+      base64 = callPackage ../development/rocq-modules/base64 { };
       bbv = callPackage ../development/rocq-modules/bbv { };
       bignums = callPackage ../development/rocq-modules/bignums { };
       CakeMLExtraction = callPackage ../development/rocq-modules/CakeMLExtraction { };
@@ -284,6 +285,7 @@ let
           };
         })
       );
+      vst-ora = callPackage ../development/rocq-modules/vst-ora { };
       wasmcert = callPackage ../development/rocq-modules/wasmcert { };
       waterproof = callPackage ../development/rocq-modules/waterproof { };
       zorns-lemma = callPackage ../development/rocq-modules/zorns-lemma { };

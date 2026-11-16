@@ -40,6 +40,7 @@
   ./config/users-groups.nix
   ./config/vte.nix
   ./config/xdg/autostart.nix
+  ./config/xdg/directories.nix
   ./config/xdg/icons.nix
   ./config/xdg/menus.nix
   ./config/xdg/mime.nix
@@ -306,6 +307,7 @@
   ./programs/oddjobd.nix
   ./programs/onlyoffice.nix
   ./programs/opengamepadui.nix
+  ./programs/openlogi.nix
   ./programs/openvpn3.nix
   ./programs/partition-manager.nix
   ./programs/passless.nix
@@ -662,6 +664,7 @@
   ./services/display-managers/lemurs.nix
   ./services/display-managers/ly.nix
   ./services/display-managers/noctalia-greeter.nix
+  ./services/display-managers/phrog.nix
   ./services/display-managers/plasma-login-manager.nix
   ./services/display-managers/regreet.nix
   ./services/display-managers/sddm.nix
@@ -942,6 +945,7 @@
   ./services/misc/irkerd.nix
   ./services/misc/jackett.nix
   ./services/misc/jellyfin.nix
+  ./services/misc/jellystat.nix
   ./services/misc/kiwix-serve.nix
   ./services/misc/klipper.nix
   ./services/misc/languagetool.nix
@@ -982,6 +986,8 @@
   ./services/misc/packagekit.nix
   ./services/misc/paisa.nix
   ./services/misc/paperless.nix
+  ./services/misc/pelican-panel.nix
+  ./services/misc/pelican-wings.nix
   ./services/misc/persistent-evdev.nix
   ./services/misc/pinchflat.nix
   ./services/misc/pinnwand.nix
@@ -1382,7 +1388,6 @@
   ./services/networking/ngircd.nix
   ./services/networking/nix-serve.nix
   ./services/networking/nix-store-gcs-proxy.nix
-  ./services/networking/nixops-dns.nix
   ./services/networking/nm-file-secret-agent.nix
   ./services/networking/nmtrust.nix
   ./services/networking/nncp.nix
@@ -1553,7 +1558,6 @@
   ./services/scheduling/gocron.nix
   ./services/scheduling/prefect.nix
   ./services/scheduling/scx-loader.nix
-  ./services/scheduling/scx.nix
   ./services/search/elasticsearch-curator.nix
   ./services/search/elasticsearch.nix
   ./services/search/hound.nix
@@ -1581,6 +1585,7 @@
   ./services/security/endlessh.nix
   ./services/security/esdm.nix
   ./services/security/fail2ban.nix
+  ./services/security/falco.nix
   ./services/security/fprintd.nix
   ./services/security/haveged.nix
   ./services/security/hockeypuck.nix
@@ -1626,6 +1631,7 @@
   ./services/security/warpgate.nix
   ./services/security/yubikey-agent.nix
   ./services/system/automatic-timezoned.nix
+  ./services/system/bootvine.nix
   ./services/system/bpftune.nix
   ./services/system/cachix-agent/default.nix
   ./services/system/cachix-watch-store.nix
@@ -1749,6 +1755,7 @@
   ./services/web-apps/goupile.nix
   ./services/web-apps/grav.nix
   ./services/web-apps/greenlight.nix
+  ./services/web-apps/grimmory.nix
   ./services/web-apps/grist.nix
   ./services/web-apps/grocy.nix
   ./services/web-apps/guacamole-client.nix
