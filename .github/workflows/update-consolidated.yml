@@ -15,7 +15,6 @@ env:
   PERSONAL_MASTER_BRANCH: channel/personal-master
   FEATURE_BRANCHES: |
     init/ocis_7-bin
-    fix/jet-native-image
     fix/davis-module
 
 jobs:
