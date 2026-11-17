@@ -653,6 +653,7 @@ in
   ferretdb = import ./ferretdb.nix { inherit pkgs runTest; };
   fider = runTest ./fider.nix;
   filebrowser = runTest ./filebrowser.nix;
+  filesender = import ./filesender { inherit runTest; };
   filesystems-overlayfs = runTest ./filesystems-overlayfs.nix;
   firefly-iii = runTest ./firefly-iii.nix;
   firefly-iii-data-importer = runTest ./firefly-iii-data-importer.nix;
@@ -1032,7 +1033,7 @@ in
   libinput = runTest ./libinput.nix;
   librechat = runTest ./librechat.nix;
   librenms = runTest ./librenms.nix;
-  libreqos = runTestOn [ "x86_64-linux" ] ./libreqos.nix;
+  libreqos = runTest ./libreqos.nix;
   libresprite = runTest ./libresprite.nix;
   libreswan = runTest ./libreswan.nix;
   libreswan-nat = runTest ./libreswan-nat.nix;
@@ -1330,7 +1331,7 @@ in
   nzbhydra2 = runTest ./nzbhydra2.nix;
   obs-studio = runTest ./obs-studio.nix;
   oci-containers = handleTestOn [ "aarch64-linux" "x86_64-linux" ] ./oci-containers.nix { };
-  ocis = recurseIntoAttrs (import ./ocis { inherit evalSystem pkgs runTest; });
+  ocis = runTest ./ocis.nix;
   ocsinventory-agent = handleTestOn [ "x86_64-linux" "aarch64-linux" ] ./ocsinventory-agent.nix { };
   octoprint = runTest ./octoprint.nix;
   oddjobd = handleTestOn [ "x86_64-linux" "aarch64-linux" ] ./oddjobd.nix { };

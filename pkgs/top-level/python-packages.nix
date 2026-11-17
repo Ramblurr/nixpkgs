@@ -300,6 +300,8 @@ self: super: with self; {
 
   aioeagle = callPackage ../development/python-modules/aioeagle { };
 
+  aioecosmart = callPackage ../development/python-modules/aioecosmart { };
+
   aioecowitt = callPackage ../development/python-modules/aioecowitt { };
 
   aioelectricitymaps = callPackage ../development/python-modules/aioelectricitymaps { };
@@ -743,6 +745,8 @@ self: super: with self; {
   alibabacloud-gateway-oss-util =
     callPackage ../development/python-modules/alibabacloud-gateway-oss-util
       { };
+
+  alibabacloud-gateway-pop = callPackage ../development/python-modules/alibabacloud-gateway-pop { };
 
   alibabacloud-gateway-sls = callPackage ../development/python-modules/alibabacloud-gateway-sls { };
 
@@ -2659,6 +2663,8 @@ self: super: with self; {
   bork = callPackage ../development/python-modules/bork { };
 
   bosch-alarm-mode2 = callPackage ../development/python-modules/bosch-alarm-mode2 { };
+
+  bosch-shc-camera-client = callPackage ../development/python-modules/bosch-shc-camera-client { };
 
   boschshcpy = callPackage ../development/python-modules/boschshcpy { };
 
@@ -6181,6 +6187,8 @@ self: super: with self; {
 
   files-to-prompt = callPackage ../development/python-modules/files-to-prompt { };
 
+  fileseq = callPackage ../development/python-modules/fileseq { };
+
   filetype = callPackage ../development/python-modules/filetype { };
 
   filterpy = callPackage ../development/python-modules/filterpy { };
@@ -6641,6 +6649,8 @@ self: super: with self; {
   fritzconnection = callPackage ../development/python-modules/fritzconnection { };
 
   fronius-modbus = callPackage ../development/python-modules/fronius-modbus { };
+
+  fronius-solarapi = callPackage ../development/python-modules/fronius-solarapi { };
 
   frozendict = callPackage ../development/python-modules/frozendict { };
 
@@ -7277,6 +7287,8 @@ self: super: with self; {
   googlemaps = callPackage ../development/python-modules/googlemaps { };
 
   googletrans = callPackage ../development/python-modules/googletrans { };
+
+  googlewifiapi = callPackage ../development/python-modules/googlewifiapi { };
 
   gophish = callPackage ../development/python-modules/gophish { };
 
@@ -15252,6 +15264,8 @@ self: super: with self; {
 
   pyfnip = callPackage ../development/python-modules/pyfnip { };
 
+  pyforeca = callPackage ../development/python-modules/pyforeca { };
+
   pyforked-daapd = callPackage ../development/python-modules/pyforked-daapd { };
 
   pyformlang = callPackage ../development/python-modules/pyformlang { };
@@ -15393,6 +15407,8 @@ self: super: with self; {
   pyhanko = callPackage ../development/python-modules/pyhanko { };
 
   pyhanko-certvalidator = callPackage ../development/python-modules/pyhanko-certvalidator { };
+
+  pyhaseiq = callPackage ../development/python-modules/pyhaseiq { };
 
   pyhaversion = callPackage ../development/python-modules/pyhaversion { };
 
@@ -17199,6 +17215,10 @@ self: super: with self; {
   python-gnupg = callPackage ../development/python-modules/python-gnupg { };
 
   python-google-drive-api = callPackage ../development/python-modules/python-google-drive-api { };
+
+  python-google-maps-routing-api =
+    callPackage ../development/python-modules/python-google-maps-routing-api
+      { };
 
   python-google-nest = callPackage ../development/python-modules/python-google-nest { };
 
@@ -20059,6 +20079,8 @@ self: super: with self; {
   sphinxfeed-lsaffre = callPackage ../development/python-modules/sphinxfeed-lsaffre { };
 
   spidev = callPackage ../development/python-modules/spidev { };
+
+  spinev-ble = callPackage ../development/python-modules/spinev-ble { };
 
   spinners = callPackage ../development/python-modules/spinners { };
 

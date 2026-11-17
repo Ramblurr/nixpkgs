@@ -366,16 +366,6 @@ with pkgs;
 
   deviceTree = callPackage ../os-specific/linux/device-tree { };
 
-  inherit (callPackage ../servers/ocis-bin { })
-    ocis_5-bin
-    ocis_70-bin
-    ocis_71-bin
-    ocis_72-bin
-    ocis_73-bin
-    ocis_80-bin
-    ocis_81-bin
-    ;
-
   octodns-providers = octodns.providers;
 
   oletools = with python3.pkgs; toPythonApplication oletools;
@@ -1060,6 +1050,8 @@ with pkgs;
 
   gerrit_3_14 = callPackage ../by-name/ge/gerrit/3_14.nix { };
 
+  gerrit_3_15 = callPackage ../by-name/ge/gerrit/3_15.nix { };
+
   github-cli = gh;
 
   git-credential-aol = callPackage ../by-name/gi/git-credential-email/git-credential-aol { };
@@ -1425,8 +1417,6 @@ with pkgs;
           --prefix PATH ":" "${git}/bin:${cabal-install}/bin"
       '';
     });
-
-  clevercsv = with python3Packages; toPythonApplication clevercsv;
 
   cleanit = with python3Packages; toPythonApplication cleanit;
 
