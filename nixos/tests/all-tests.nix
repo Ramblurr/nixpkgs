@@ -416,6 +416,7 @@ in
   certmgr = import ./certmgr.nix { inherit pkgs runTest; };
   cfssl = runTestOn [ "aarch64-linux" "x86_64-linux" ] ./cfssl.nix;
   cgit = runTest ./cgit.nix;
+  changedetection-io = runTest ./changedetection-io.nix;
   charliecloud = runTest ./charliecloud.nix;
   chhoto-url = runTest ./chhoto-url.nix;
   chipass = runTest ./chipass.nix;
@@ -835,7 +836,6 @@ in
   haproxy = runTest ./haproxy.nix;
   harmonia = runTest ./harmonia.nix;
   harmonia-gc = runTest ./harmonia-gc.nix;
-  haste-server = runTest ./haste-server.nix;
   hbase2 = runTest {
     imports = [ ./hbase.nix ];
     _module.args.getPackage = pkgs: pkgs.hbase2;
@@ -1032,7 +1032,7 @@ in
   libinput = runTest ./libinput.nix;
   librechat = runTest ./librechat.nix;
   librenms = runTest ./librenms.nix;
-  libreqos = runTest ./libreqos.nix;
+  libreqos = runTestOn [ "x86_64-linux" ] ./libreqos.nix;
   libresprite = runTest ./libresprite.nix;
   libreswan = runTest ./libreswan.nix;
   libreswan-nat = runTest ./libreswan-nat.nix;
@@ -1675,7 +1675,7 @@ in
   scx-loader = runTest ./scx-loader.nix;
   sddm = import ./sddm.nix { inherit runTest; };
   sdl3 = runTest ./sdl3.nix;
-  searx = runTest ./searx.nix;
+  searx = import ./searx.nix { inherit pkgs runTest; };
   seatd = runTest ./seatd.nix;
   seerr = runTest ./seerr.nix;
   selfoss = runTest ./selfoss.nix;
@@ -1688,7 +1688,6 @@ in
   shadow = import ./shadow { inherit runTest; };
   shadowsocks = handleTest ./shadowsocks { };
   shadps4 = runTest ./shadps4.nix;
-  sharkey = runTest ./web-apps/sharkey.nix;
   shattered-pixel-dungeon = runTest ./shattered-pixel-dungeon.nix;
   shelfmark = runTest ./shelfmark.nix;
   shiori = runTest ./shiori.nix;
@@ -2021,7 +2020,6 @@ in
   watt = runTest ./watt.nix;
   webhook = runTest ./webhook.nix;
   weblate = runTest ./web-apps/weblate.nix;
-  wg-access-server = runTest ./wg-access-server.nix;
   whisparr_2 = runTest {
     imports = [ ./whisparr.nix ];
     _module.args.getPackage = pkgs: pkgs.whisparr_2;

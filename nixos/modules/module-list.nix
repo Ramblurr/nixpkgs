@@ -185,6 +185,7 @@
   ./programs/bazecor.nix
   ./programs/bcc.nix
   ./programs/benchexec.nix
+  ./programs/brave.nix
   ./programs/browserpass.nix
   ./programs/btrfs-heatmap.nix
   ./programs/calls.nix
@@ -669,7 +670,6 @@
   ./services/display-managers/regreet.nix
   ./services/display-managers/sddm.nix
   ./services/editors/emacs.nix
-  ./services/editors/haste.nix
   ./services/editors/infinoted.nix
   ./services/finance/libeufin/bank.nix
   ./services/finance/libeufin/module.nix
@@ -811,7 +811,6 @@
   ./services/mail/davmail.nix
   ./services/mail/dkimproxy-out.nix
   ./services/mail/dovecot.nix
-  ./services/mail/dspam.nix
   ./services/mail/exim.nix
   ./services/mail/goeland.nix
   ./services/mail/listmonk.nix
@@ -1523,7 +1522,6 @@
   ./services/networking/vwifi.nix
   ./services/networking/webhook.nix
   ./services/networking/websockify.nix
-  ./services/networking/wg-access-server.nix
   ./services/networking/wg-netmanager.nix
   ./services/networking/wg-quick.nix
   ./services/networking/wgautomesh.nix
@@ -1829,6 +1827,7 @@
   ./services/web-apps/nostr-rs-relay.nix
   ./services/web-apps/ocis.nix
   ./services/web-apps/olivetin.nix
+  ./services/web-apps/omniroute.nix
   ./services/web-apps/oncall.nix
   ./services/web-apps/onlyoffice.nix
   ./services/web-apps/open-web-calendar.nix
@@ -1870,7 +1869,6 @@
   ./services/web-apps/screego.nix
   ./services/web-apps/selfoss.nix
   ./services/web-apps/sftpgo.nix
-  ./services/web-apps/sharkey.nix
   ./services/web-apps/shiori.nix
   ./services/web-apps/sillytavern.nix
   ./services/web-apps/silverbullet.nix

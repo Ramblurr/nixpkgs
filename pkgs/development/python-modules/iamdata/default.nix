@@ -8,14 +8,14 @@
 
 buildPythonPackage (finalAttrs: {
   pname = "iamdata";
-  version = "0.1.202611111";
+  version = "0.1.202611151";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "act-security-labs";
     repo = "iam-data-python";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-gLCZXJBOvH6eb2BS07Z3r9s5q1u23nRTpSwmx49C7lQ=";
+    hash = "sha256-Bd6M8Z0MDhhGVqnFjtO7UBf4mRENp/lT9pVIpB+VBMA=";
   };
 
   __darwinAllowLocalNetworking = true;

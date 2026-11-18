@@ -748,6 +748,9 @@ with pkgs;
 
   mkBinaryCache = callPackage ../build-support/binary-cache { };
 
+  mkProtonBinDerivation = callPackage ../build-support/proton/mk-proton-bin-derivation.nix { };
+  proton-bin-update-script = callPackage ../build-support/proton/update-script.nix { };
+
   mkShell = callPackage ../build-support/mkshell { };
   mkShellNoCC = mkShell.override { stdenv = stdenvNoCC; };
 
@@ -1043,8 +1046,6 @@ with pkgs;
 
   forgejo-lts = callPackage ../by-name/fo/forgejo/lts.nix { };
 
-  gerrit_3_12 = callPackage ../by-name/ge/gerrit/3_12.nix { };
-
   gerrit_3_13 = callPackage ../by-name/ge/gerrit/3_13.nix { };
 
   gerrit_3_14 = callPackage ../by-name/ge/gerrit/3_14.nix { };
@@ -1107,10 +1108,6 @@ with pkgs;
 
   fceux-qt5 = fceux.override { ___qtVersion = "5"; };
   fceux-qt6 = fceux.override { ___qtVersion = "6"; };
-
-  mame-tools = lib.addMetaAttrs {
-    description = mame.meta.description + " (tools only)";
-  } (lib.getOutput "tools" mame);
 
   ppsspp-sdl =
     let
@@ -2603,10 +2600,6 @@ with pkgs;
 
   specup = haskellPackages.specup.bin;
 
-  spglib = callPackage ../development/libraries/spglib {
-    inherit (llvmPackages) openmp;
-  };
-
   spice-gtk = callPackage ../by-name/sp/spice-glib/package.nix { withGtk = true; };
 
   # to match naming of other package repositories
@@ -2649,10 +2642,6 @@ with pkgs;
   su = shadow.su;
 
   subzerod = with python3Packages; toPythonApplication subzerod;
-
-  tartube-yt-dlp = tartube.override {
-    youtube-dl = yt-dlp;
-  };
 
   buildTeleport = callPackage ../build-support/teleport { };
 
@@ -5531,13 +5520,6 @@ with pkgs;
 
   ios-cross-compile = callPackage ../development/compilers/ios-cross-compile/9.2.nix { };
 
-  irrlicht =
-    if !stdenv.hostPlatform.isDarwin then
-      callPackage ../development/libraries/irrlicht { }
-    else
-      callPackage ../development/libraries/irrlicht/mac.nix {
-      };
-
   iso-flags-png-320x240 = iso-flags.overrideAttrs (oldAttrs: {
     buildFlags = [ "png-country-320x240-fancy" ];
     installPhase = ''
@@ -5782,8 +5764,6 @@ with pkgs;
     ;
 
   simple-dftd3 = callPackage ../development/libraries/science/chemistry/simple-dftd3 { };
-
-  tblite = callPackage ../development/libraries/science/chemistry/tblite { };
 
   ## libGL/libGLU/Mesa stuff
 
@@ -7008,7 +6988,6 @@ with pkgs;
   mariadb-connector-c_3_3 = callPackage ../servers/sql/mariadb/connector-c/3_3.nix { };
 
   inherit (import ../servers/sql/mariadb pkgs)
-    mariadb_106
     mariadb_1011
     mariadb_114
     mariadb_118
@@ -7185,10 +7164,6 @@ with pkgs;
     enableUnstable = true;
   };
 
-  b43Firmware_6_30_163_46 =
-    callPackage ../os-specific/linux/firmware/b43-firmware/6.30.163.46.nix
-      { };
-
   batctl = callPackage ../os-specific/linux/batman-adv/batctl.nix { };
 
   bluez5 = bluez;
@@ -7198,14 +7173,6 @@ with pkgs;
     enableExperimental = true;
   };
 
-  busybox = callPackage ../os-specific/linux/busybox {
-    # Fixes libunwind from being dynamically linked to a static binary.
-    stdenv =
-      if (stdenv.targetPlatform.useLLVM or false) then
-        overrideCC stdenv buildPackages.llvmPackages.clangNoLibcxx
-      else
-        stdenv;
-  };
   conky = callPackage ../os-specific/linux/conky (
     {
       lua = lua5_5;
@@ -7226,10 +7193,6 @@ with pkgs;
   error-inject = recurseIntoAttrs (callPackages ../os-specific/linux/error-inject { });
 
   libffado = ffado;
-
-  freefall = callPackage ../os-specific/linux/freefall {
-    inherit (linuxPackages) kernel;
-  };
 
   fusePackages = dontRecurseIntoAttrs (
     callPackage ../os-specific/linux/fuse {
@@ -9045,10 +9008,6 @@ with pkgs;
 
   ydiff = with python3.pkgs; toPythonApplication ydiff;
 
-  youtube-dl = with python3Packages; toPythonApplication youtube-dl;
-
-  youtube-dl-light = with python3Packages; toPythonApplication youtube-dl-light;
-
   yt-dlp-light = yt-dlp.override {
     atomicparsleySupport = false;
     ffmpegSupport = false;
@@ -9124,11 +9083,9 @@ with pkgs;
 
   ### GAMES
 
-  inherit (callPackages ../games/fteqw { })
-    fteqw
-    fteqw-dedicated
-    fteqcc
-    ;
+  fteqw-dedicated = callPackage ../by-name/ft/fteqw/fteqw-dedicated.nix { };
+
+  fteqcc = callPackage ../by-name/ft/fteqw/fteqcc.nix { };
 
   pmars-x11 = pmars.override { enableXwinGraphics = true; };
 
@@ -9425,8 +9382,6 @@ with pkgs;
     ;
 
   ### SCIENCE/CHEMISTY
-
-  libxc_7 = pkgs.libxc.override { version = "7.0.0"; };
 
   molbar = with python3Packages; toPythonApplication molbar;
 
