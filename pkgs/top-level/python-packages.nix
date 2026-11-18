@@ -7370,6 +7370,8 @@ self: super: with self; {
 
   grandalf = callPackage ../development/python-modules/grandalf { };
 
+  grandstream-home-api = callPackage ../development/python-modules/grandstream-home-api { };
+
   granian = callPackage ../development/python-modules/granian { };
 
   graph-tool = callPackage ../development/python-modules/graph-tool { inherit (pkgs) cgal; };
@@ -7688,6 +7690,8 @@ self: super: with self; {
   hatch-vcs = callPackage ../development/python-modules/hatch-vcs { };
 
   hatchling = callPackage ../development/python-modules/hatchling { };
+
+  haveniaq = callPackage ../development/python-modules/haveniaq { };
 
   haversine = callPackage ../development/python-modules/haversine { };
 
@@ -10475,6 +10479,8 @@ self: super: with self; {
   looseversion = callPackage ../development/python-modules/looseversion { };
 
   loqedapi = callPackage ../development/python-modules/loqedapi { };
+
+  lorawan-connection = callPackage ../development/python-modules/lorawan-connection { };
 
   loro = callPackage ../development/python-modules/loro { };
 
@@ -15419,6 +15425,8 @@ self: super: with self; {
   pyheck = callPackage ../development/python-modules/pyheck { };
 
   pyhelty = callPackage ../development/python-modules/pyhelty { };
+
+  pyheltycloud = callPackage ../development/python-modules/pyheltycloud { };
 
   pyheos = callPackage ../development/python-modules/pyheos { };
 
