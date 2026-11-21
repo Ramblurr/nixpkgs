@@ -401,6 +401,7 @@
   ./programs/xscreensaver/sonar.nix
   ./programs/xscreensaver/xscreensaver.nix
   ./programs/xss-lock.nix
+  ./programs/xtool.nix
   ./programs/xwayland.nix
   ./programs/yazi.nix
   ./programs/ydotool.nix
@@ -574,6 +575,7 @@
   ./services/databases/kvrocks.nix
   ./services/databases/lldap.nix
   ./services/databases/memcached.nix
+  ./services/databases/memgraph.nix
   ./services/databases/monetdb.nix
   ./services/databases/mongodb.nix
   ./services/databases/mysql.nix
@@ -880,6 +882,7 @@
   ./services/misc/beanstalkd.nix
   ./services/misc/bees.nix
   ./services/misc/bepasty.nix
+  ./services/misc/bifrost.nix
   ./services/misc/blenderfarm.nix
   ./services/misc/calibre-server.nix
   ./services/misc/canto-daemon.nix
@@ -959,6 +962,7 @@
   ./services/misc/mbpfan.nix
   ./services/misc/mediatomb.nix
   ./services/misc/memos.nix
+  ./services/misc/mesh-llm.nix
   ./services/misc/metabase.nix
   ./services/misc/minuspod.nix
   ./services/misc/mollysocket.nix
@@ -1741,6 +1745,7 @@
   ./services/web-apps/freescout.nix
   ./services/web-apps/freshrss.nix
   ./services/web-apps/froide-govplan.nix
+  ./services/web-apps/galene-stt.nix
   ./services/web-apps/galene.nix
   ./services/web-apps/gancio.nix
   ./services/web-apps/geoserver.nix

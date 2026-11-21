@@ -368,7 +368,7 @@ rec {
   };
 
   # mingw-64 back compat
-  # TODO: remove in 27.05
+  # TODO(27.05): remove
   mingw32 = lib.warnOnInstantiate "mingw32 has been replaced by mingw-msvcrt-i686" mingw-msvcrt-i686;
   mingwW64 = lib.warnOnInstantiate "mingwW64 has been replaced by mingw-msvcrt-x86_64" mingw-msvcrt-x86_64;
   ucrt64 = lib.warnOnInstantiate "ucrt64 has been replaced by mingw-ucrt-x86_64" mingw-ucrt-x86_64;

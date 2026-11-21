@@ -6,13 +6,24 @@
 
 let
 
-  testedSystems = lib.filterAttrs (
-    name: value:
-    let
-      platform = lib.systems.elaborate value;
-    in
-    platform.isLinux || platform.isWindows
-  ) lib.systems.examples;
+  # TODO(27.05): remove the remove attrs once aliases are deprecated
+  testedSystems =
+    lib.filterAttrs
+      (
+        name: value:
+        let
+          platform = lib.systems.elaborate value;
+        in
+        platform.isLinux || platform.isWindows
+      )
+      (
+        lib.removeAttrs (lib.systems.examples) [
+          "mingw32"
+          "mingwW64"
+          "ucrt64"
+          "ucrtAarch64"
+        ]
+      );
 
   getExecutable =
     pkgs: pkgFun: exec:

@@ -20,6 +20,24 @@
   "module-services-jellystat-troubleshooting": [
     "index.html#module-services-jellystat-troubleshooting"
   ],
+  "module-services-mesh-llm": [
+    "index.html#module-services-mesh-llm"
+  ],
+  "module-services-mesh-llm-basic-usage": [
+    "index.html#module-services-mesh-llm-basic-usage"
+  ],
+  "module-services-mesh-llm-gpus": [
+    "index.html#module-services-mesh-llm-gpus"
+  ],
+  "module-services-mesh-llm-joining": [
+    "index.html#module-services-mesh-llm-joining"
+  ],
+  "module-services-mesh-llm-owner": [
+    "index.html#module-services-mesh-llm-owner"
+  ],
+  "module-services-mesh-llm-plugins": [
+    "index.html#module-services-mesh-llm-plugins"
+  ],
   "module-services-netbird-relay": [
     "index.html#module-services-netbird-relay"
   ],
@@ -184,21 +202,6 @@
   ],
   "module-services-onedrive": [
     "index.html#module-services-onedrive"
-  ],
-  "module-services-ocis": [
-    "index.html#module-services-ocis"
-  ],
-  "module-services-ocis-basic-usage": [
-    "index.html#module-services-ocis-basic-usage"
-  ],
-  "module-services-ocis-configuration-via-environment-variables": [
-    "index.html#module-services-ocis-configuration-via-environment-variables"
-  ],
-  "module-services-ocis-maintainer-info": [
-    "index.html#module-services-ocis-maintainer-info"
-  ],
-  "module-services-ocis-upgrading": [
-    "index.html#module-services-ocis-upgrading"
   ],
   "module-services-rnsd": [
     "index.html#module-services-rnsd"
@@ -1240,9 +1243,6 @@
   ],
   "module-services-davis-basic-usage": [
     "index.html#module-services-davis-basic-usage"
-  ],
-  "module-services-davis-webdav": [
-    "index.html#module-services-davis-webdav"
   ],
   "module-services-draupnir": [
     "index.html#module-services-draupnir"

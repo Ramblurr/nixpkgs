@@ -335,6 +335,7 @@ in
   benchexec = runTest ./benchexec.nix;
   bentopdf = handleTest ./bentopdf { };
   beszel = runTest ./beszel.nix;
+  bifrost = runTest ./bifrost.nix;
   binary-cache = runTest {
     imports = [ ./binary-cache.nix ];
     _module.args.compression = "zstd";
@@ -1132,7 +1133,9 @@ in
   };
   meilisearch = runTest ./meilisearch.nix;
   memcached = runTest ./memcached.nix;
+  memgraph = runTest ./memgraph.nix;
   merecat = runTest ./merecat.nix;
+  mesh-llm = runTest ./mesh-llm.nix;
   meshtasticd = runTest ./networking/meshtasticd.nix;
   metabase = runTest ./metabase.nix;
   mihomo = runTest ./mihomo.nix;
@@ -1254,7 +1257,7 @@ in
   networking.scripted = handleTest ./networking/networkd-and-scripted.nix { networkd = false; };
   # TODO: put in networking.nix after the test becomes more complete
   networkingProxy = runTest ./networking-proxy.nix;
-  nextcloud = handleTest ./nextcloud { };
+  nextcloud = import ./nextcloud { inherit runTest lib; };
   nextflow = runTestOn [ "x86_64-linux" ] ./nextflow.nix;
   nextjs-ollama-llm-ui = runTest ./web-apps/nextjs-ollama-llm-ui.nix;
   nexus = runTest ./nexus.nix;
@@ -1335,7 +1338,7 @@ in
   nzbhydra2 = runTest ./nzbhydra2.nix;
   obs-studio = runTest ./obs-studio.nix;
   oci-containers = handleTestOn [ "aarch64-linux" "x86_64-linux" ] ./oci-containers.nix { };
-  ocis = recurseIntoAttrs (import ./ocis { inherit evalSystem pkgs runTest; });
+  ocis = runTest ./ocis.nix;
   ocsinventory-agent = handleTestOn [ "x86_64-linux" "aarch64-linux" ] ./ocsinventory-agent.nix { };
   octoprint = runTest ./octoprint.nix;
   oddjobd = handleTestOn [ "x86_64-linux" "aarch64-linux" ] ./oddjobd.nix { };
@@ -1496,6 +1499,7 @@ in
   pihole-ftl = import ./pihole-ftl { inherit runTest; };
   pinnwand = runTest ./pinnwand.nix;
   pixelfed = import ./web-apps/pixelfed { inherit runTestOn; };
+  plann = import ./plann.nix { inherit pkgs lib; };
   plantuml-server = runTest ./plantuml-server.nix;
   plasma6 = runTest ./plasma6.nix;
   plausible = import ./plausible.nix { inherit runTest; };
