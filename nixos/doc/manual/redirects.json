@@ -1013,6 +1013,9 @@
   "module-pelican-wings-setup": [
     "index.html#module-pelican-wings-setup"
   ],
+  "module-pelican-wings-podman": [
+    "index.html#module-pelican-wings-podman"
+  ],
   "module-pelican-wings-traefik": [
     "index.html#module-pelican-wings-traefik"
   ],
@@ -1180,6 +1183,12 @@
   ],
   "module-services-glance-quickstart": [
     "index.html#module-services-glance-quickstart"
+  ],
+  "module-services-filesender": [
+    "index.html#module-services-filesender"
+  ],
+  "module-services-filesender-quickstart": [
+    "index.html#module-services-filesender-quickstart"
   ],
   "module-services-discourse": [
     "index.html#module-services-discourse"

@@ -401,6 +401,7 @@
   ./programs/xscreensaver/sonar.nix
   ./programs/xscreensaver/xscreensaver.nix
   ./programs/xss-lock.nix
+  ./programs/xtool.nix
   ./programs/xwayland.nix
   ./programs/yazi.nix
   ./programs/ydotool.nix
@@ -696,7 +697,6 @@
   ./services/hardware/actkbd.nix
   ./services/hardware/amdgpu.nix
   ./services/hardware/argonone.nix
-  ./services/hardware/arsenik.nix
   ./services/hardware/asusd.nix
   ./services/hardware/auto-cpufreq.nix
   ./services/hardware/auto-epp.nix
@@ -724,6 +724,7 @@
   ./services/hardware/iptsd.nix
   ./services/hardware/irqbalance.nix
   ./services/hardware/joycond.nix
+  ./services/hardware/kanata-config-aekeynox.nix
   ./services/hardware/kanata.nix
   ./services/hardware/keyd.nix
   ./services/hardware/kmonad.nix
@@ -1732,6 +1733,7 @@
   ./services/web-apps/feishin.nix
   ./services/web-apps/fider.nix
   ./services/web-apps/filebrowser.nix
+  ./services/web-apps/filesender.nix
   ./services/web-apps/firefly-iii-data-importer.nix
   ./services/web-apps/firefly-iii.nix
   ./services/web-apps/flame.nix

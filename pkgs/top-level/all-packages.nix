@@ -1050,6 +1050,8 @@ with pkgs;
 
   gerrit_3_14 = callPackage ../by-name/ge/gerrit/3_14.nix { };
 
+  gerrit_3_15 = callPackage ../by-name/ge/gerrit/3_15.nix { };
+
   github-cli = gh;
 
   git-credential-aol = callPackage ../by-name/gi/git-credential-email/git-credential-aol { };
@@ -1148,6 +1150,10 @@ with pkgs;
   winetricks = callPackage ../applications/emulators/wine/winetricks.nix { };
 
   ### APPLICATIONS/EMULATORS/RETROARCH
+
+  dolphin-emu-primehack = callPackage ../by-name/do/dolphin-emu/package.nix {
+    dolphinVariant = "primehack";
+  };
 
   libretro = recurseIntoAttrs (callPackage ../by-name/li/libretroPackages/packages.nix { });
 
@@ -1411,8 +1417,6 @@ with pkgs;
           --prefix PATH ":" "${git}/bin:${cabal-install}/bin"
       '';
     });
-
-  clevercsv = with python3Packages; toPythonApplication clevercsv;
 
   cleanit = with python3Packages; toPythonApplication cleanit;
 
@@ -1736,6 +1740,8 @@ with pkgs;
   };
 
   blacken-docs = with python3Packages; toPythonApplication blacken-docs;
+
+  cfait-gui = lib.addMetaAttrs { mainProgram = "cfait-gui"; } cfait.gui;
 
   cffconvert = python3Packages.toPythonApplication python3Packages.cffconvert;
 
@@ -2207,53 +2213,6 @@ with pkgs;
     ;
   lerna = lerna_8;
 
-  libintPsi4 = libint.override {
-    enableFortran = false;
-    enableSSE = false;
-    maxAm = 6;
-    eriDeriv = 2;
-    eri3Deriv = 2;
-    eri2Deriv = 2;
-    eriAm = [
-      6
-      5
-      4
-    ];
-    eri3Am = [
-      6
-      5
-      4
-    ];
-    eri2Am = [
-      6
-      5
-      4
-    ];
-    eriOptAm = [
-      3
-      2
-      2
-    ];
-    eri3OptAm = [
-      3
-      2
-      2
-    ];
-    eri2OptAm = [
-      3
-      2
-      2
-    ];
-    enableOneBody = true;
-    oneBodyDerivOrd = 2;
-    enableGeneric = false;
-    enableContracted = false;
-    cartGaussOrd = "standard";
-    shGaussOrd = "gaussian";
-    eri2PureSh = false;
-    eri3PureSh = false;
-  };
-
   libportal-gtk3 = libportal.override { variant = "gtk3"; };
   libportal-gtk4 = libportal.override { variant = "gtk4"; };
   libportal-qt5 = libportal.override { variant = "qt5"; };
@@ -2274,8 +2233,6 @@ with pkgs;
   mcstatus = with python3Packages; toPythonApplication mcstatus;
 
   miniupnpd-nftables = miniupnpd.override { firewall = "nftables"; };
-
-  mitmproxy = with python3Packages; toPythonApplication mitmproxy;
 
   mjpegtoolsFull = mjpegtools.override {
     withMinimal = false;
@@ -2585,7 +2542,6 @@ with pkgs;
 
   segger-jlink-headless = callPackage ../by-name/se/segger-jlink/package.nix { headless = true; };
 
-  semgrep = python3.pkgs.toPythonApplication python3.pkgs.semgrep;
   inherit (semgrep.passthru) semgrep-core;
 
   seqdiag = with python3Packages; toPythonApplication seqdiag;
@@ -6115,61 +6071,6 @@ with pkgs;
 
   reposilitePlugins = recurseIntoAttrs (callPackage ../by-name/re/reposilite/plugins.nix { });
 
-  rocksdb_9_10 = rocksdb.overrideAttrs rec {
-    pname = "rocksdb";
-    version = "9.10.0";
-    src = fetchFromGitHub {
-      owner = "meta";
-      repo = pname;
-      rev = "v${version}";
-      hash = "sha256-G+DlQwEUyd7JOCjS1Hg1cKWmA/qAiK8UpUIKcP+riGQ=";
-    };
-  };
-
-  rocksdb_8_11 = rocksdb.overrideAttrs rec {
-    pname = "rocksdb";
-    version = "8.11.4";
-    src = fetchFromGitHub {
-      owner = "meta";
-      repo = pname;
-      rev = "v${version}";
-      hash = "sha256-ZrU7G3xeimF3H2LRGBDHOq936u5pH/3nGecM4XEoWc8=";
-    };
-  };
-
-  rocksdb_8_3 = rocksdb.overrideAttrs rec {
-    pname = "rocksdb";
-    version = "8.3.2";
-    src = fetchFromGitHub {
-      owner = "meta";
-      repo = pname;
-      rev = "v${version}";
-      hash = "sha256-mfIRQ8nkUbZ3Bugy3NAvOhcfzFY84J2kBUIUBcQ2/Qg=";
-    };
-  };
-
-  rocksdb_7_10 = rocksdb.overrideAttrs rec {
-    pname = "rocksdb";
-    version = "7.10.2";
-    src = fetchFromGitHub {
-      owner = "meta";
-      repo = pname;
-      rev = "v${version}";
-      hash = "sha256-U2ReSrJwjAXUdRmwixC0DQXht/h/6rV8SOf5e2NozIs=";
-    };
-  };
-
-  rocksdb_6_23 = rocksdb.overrideAttrs rec {
-    pname = "rocksdb";
-    version = "6.23.3";
-    src = fetchFromGitHub {
-      owner = "meta";
-      repo = pname;
-      rev = "v${version}";
-      hash = "sha256-SsDqhjdCdtIGNlsMj5kfiuS3zSGwcxi4KV71d95h7yk=";
-    };
-  };
-
   SDL = sdl12-compat;
   SDL2 = sdl2-compat;
 
@@ -6338,14 +6239,12 @@ with pkgs;
     (rec {
       zigPackages = recurseIntoAttrs (callPackage ../development/compilers/zig { });
 
-      zig_0_13 = zigPackages."0.13";
       zig_0_14 = zigPackages."0.14";
       zig_0_15 = zigPackages."0.15";
       zig_0_16 = zigPackages."0.16";
       zig_0_17 = zigPackages."0.17";
     })
     zigPackages
-    zig_0_13
     zig_0_14
     zig_0_15
     zig_0_16
@@ -8572,13 +8471,6 @@ with pkgs;
     cinny-unwrapped = sable-unwrapped;
   };
 
-  sweethome3d = recurseIntoAttrs (
-    (callPackage ../applications/misc/sweethome3d { })
-    // (callPackage ../applications/misc/sweethome3d/editors.nix {
-      sweethome3dApp = sweethome3d.application;
-    })
-  );
-
   maestral = with python3Packages; toPythonApplication maestral;
 
   myfitnesspal = with python3Packages; toPythonApplication myfitnesspal;
@@ -9386,10 +9278,6 @@ with pkgs;
   molbar = with python3Packages; toPythonApplication molbar;
 
   pdb2pqr = with python3Packages; toPythonApplication pdb2pqr;
-
-  quantum-espresso = callPackage ../applications/science/chemistry/quantum-espresso {
-    hdf5 = hdf5-fortran;
-  };
 
   siesta-mpi = callPackage ../by-name/si/siesta/package.nix { useMpi = true; };
 
